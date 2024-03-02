@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.160"/>
+	<info name="1941 Global Command Decision" version="1.165"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.6.14517"/>
 	<diceSides value="6"/>
@@ -3377,24 +3377,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
     <sequence>
 		<step name="gameInitDelegate" delegate="initDelegate" maxRunCount="1"/>
 
-		<step name="GermanyBid" 		delegate="bid" 		player="Germany" 	maxRunCount="1"/>
-		<step name="GermanyBidPlace" 	delegate="placeBid" player="Germany" 	maxRunCount="1"/>
-		<step name="USSRBid" 			delegate="bid" 		player="USSR" 		maxRunCount="1"/>
-		<step name="USSRBidPlace" 		delegate="placeBid" player="USSR" 		maxRunCount="1"/>
-		<step name="ItalyABid" 			delegate="bid" 		player="Italy" 		maxRunCount="1"/>
-		<step name="ItalyBidPlace" 		delegate="placeBid" player="Italy" 		maxRunCount="1"/>
-		<step name="BritainBid" 		delegate="bid" 		player="Britain" 	maxRunCount="1"/>
-		<step name="BritainBidPlace" 	delegate="placeBid" player="Britain" 	maxRunCount="1"/>
-		<step name="JapanBid" 			delegate="bid" 		player="Japan" 		maxRunCount="1"/>
-		<step name="JapanBidPlace" 		delegate="placeBid" player="Japan" 		maxRunCount="1"/>
-		<step name="USABid" 			delegate="bid" 		player="USA" 		maxRunCount="1"/>
-		<step name="USABidPlace" 		delegate="placeBid" player="USA" 		maxRunCount="1"/>
-		<step name="Pacific-AlliesBid" 	delegate="bid" 		player="Pacific-Allies" maxRunCount="1"/>
-		<step name="Pacific-AlliesBidPlace" delegate="placeBid" player="Pacific-Allies" maxRunCount="1"/>
-		<step name="ChinaBid" 			delegate="bid" 		player="China" 		maxRunCount="1"/>
-		<step name="ChinaBidPlace" 		delegate="placeBid" player="China" 		maxRunCount="1"/>
-
 <!-- tech_activation only needs to be done once with maxRunCount -->
+<!-- TODO placed before Bid to attach Prologue and Nation_Start panels usually this is not possible, but GCD style Tech allows this to be -->
 		<step name="GermanyTech" 			delegate="tech" 				player="Germany"	maxRunCount="1"/>
 		<step name="GermanyTechActivation"	delegate="tech_activation" 		player="Germany"	maxRunCount="1"/>
 		<step name="USSRTech" 				delegate="tech" 				player="USSR"		maxRunCount="1"/>>
@@ -3411,6 +3395,24 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="Pacific-AlliesTechActivation"	delegate="tech_activation" 	player="Pacific-Allies"	maxRunCount="1"/>>
 		<step name="ChinaTech" 				delegate="tech" 				player="China"		maxRunCount="1"/>>
 		<step name="ChinaTechActivation" 	delegate="tech_activation" 		player="China"		maxRunCount="1"/>>
+
+<!-- TODO Bid High to Low, lowest wins or use Bids to give a bonus to a weak/new player or use Bids to fix an unbalanced. A map Bid is special purchase/place phase -->
+		<step name="GermanyBid" 		delegate="bid" 		player="Germany" 	maxRunCount="1"/>
+		<step name="GermanyBidPlace" 	delegate="placeBid" player="Germany" 	maxRunCount="1"/>
+		<step name="USSRBid" 			delegate="bid" 		player="USSR" 		maxRunCount="1"/>
+		<step name="USSRBidPlace" 		delegate="placeBid" player="USSR" 		maxRunCount="1"/>
+		<step name="ItalyABid" 			delegate="bid" 		player="Italy" 		maxRunCount="1"/>
+		<step name="ItalyBidPlace" 		delegate="placeBid" player="Italy" 		maxRunCount="1"/>
+		<step name="BritainBid" 		delegate="bid" 		player="Britain" 	maxRunCount="1"/>
+		<step name="BritainBidPlace" 	delegate="placeBid" player="Britain" 	maxRunCount="1"/>
+		<step name="JapanBid" 			delegate="bid" 		player="Japan" 		maxRunCount="1"/>
+		<step name="JapanBidPlace" 		delegate="placeBid" player="Japan" 		maxRunCount="1"/>
+		<step name="USABid" 			delegate="bid" 		player="USA" 		maxRunCount="1"/>
+		<step name="USABidPlace" 		delegate="placeBid" player="USA" 		maxRunCount="1"/>
+		<step name="Pacific-AlliesBid" 	delegate="bid" 		player="Pacific-Allies" maxRunCount="1"/>
+		<step name="Pacific-AlliesBidPlace" delegate="placeBid" player="Pacific-Allies" maxRunCount="1"/>
+		<step name="ChinaBid" 			delegate="bid" 		player="China" 		maxRunCount="1"/>
+		<step name="ChinaBidPlace" 		delegate="placeBid" player="China" 		maxRunCount="1"/>
 
 
 <!-- Politics phase is used only for givesBackOriginalTerritories, the players do NOT interact with it  -->
@@ -6343,7 +6345,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     <attachment foreach="$All-Players$"  name="triggerAttachment_Prologue_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player"> 
 		<option name="conditions" value="conditionAttachment_Turn1_@All-Players@"/>
 		<option name="notification" value="Prologue"/>
-		<option name="when" value="before:@All-Players@0EndTurn"/>
+		<option name="when" value="before:@All-Players@Tech"/>
 		<option name="players" value="@All-Players@"/>
 	</attachment> 
 
@@ -6351,7 +6353,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     <attachment foreach="$All-Players$"  name="triggerAttachment_Start_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player"> 
 		<option name="conditions" value="conditionAttachment_Turn1_@All-Players@"/>
 		<option name="notification" value="Start_@All-Players@"/>
-		<option name="when" value="after:@All-Players@0EndTurn"/>
+		<option name="when" value="after:@All-Players@Tech"/>
 		<option name="players" value="@All-Players@"/>
 	</attachment> 
 
@@ -6404,7 +6406,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Moldavia:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Odesa-Mykoliav:USSR:Italy:true"/>
 
-        <option name="when" value="before:GermanyCombatMove"/>
+        <option name="when" value="before:GermanyTechActivation"/>
     </attachment>
 
 
@@ -6417,7 +6419,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-Brazil" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-Brazil"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+2+5+2+2+3+3=20  -->
 		<option name="changeOwnership" value="Amapa-Brazilian Guiana:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Amazonas:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Bahia-Norde Este:Neutrals:USA:true"/>
@@ -6445,7 +6447,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-Mexico" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-Mexico"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+3+3+3+3+3+3+3=24 -->
 		<option name="changeOwnership" value="Acapulco-Chiapas:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Baja-Sonora:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Chihuahua-Durango:Neutrals:USA:true"/>
@@ -6474,7 +6476,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-GulfofMexico" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-GulfofMexico"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+3+3+3+3=15 -->
 		<option name="changeOwnership" value="Costa:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="El Salvador:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Guatemala:Neutrals:USA:true"/>
