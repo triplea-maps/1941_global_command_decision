@@ -1,28 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.165"/>
+	<info name="1941 Global Command Decision" version="1.170"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.6.14517"/>
 	<diceSides value="6"/>
 <!--
+v170
+Italy homelands get more defence and on the Italian Eastern Front get more units at the expense of Germany
+Marsh unitsNotAllowed Armor-Inf
+Note:      081 Sea Zone (Red Sea) connects to Palestine
+
 v160
 * Blitzkrieg Armor Support for Bomber-Tac or Inf-Motorized for Britain:Germany:Italy:USA
 
-v155
-* NAP improved logic for displaying notifications
-* Germany AI will build on Round 1, Algiers:Industry-Lgt & 2 Bunkers
-* Italy AI will build on Round 1, Kherson:Industry-Med & Mariupol:Industry-Lgt
-* Japan AI will build on Round 1, Okinawa-Ryukyu Is.:Industry-Lgt
-* Updated player help & 14 page manual (Help> Game Notes)
-
-? Conscription add Junk if # of TTs is low eg USSR ***	https://forums.triplea-game.org/topic/3326/1941-global-command-decision-official-thread/442?page=23
-? Bomber-Tac code support Tech 							https://forums.triplea-game.org/topic/3326/1941-global-command-decision-official-thread/451?page=23
-? Upgrade industries									https://forums.triplea-game.org/topic/3326/1941-global-command-decision-official-thread/446?page=23
-
-? maybe change "maxDamage" to 15/10/5 to help increase their survivability. 
-? Marsh cannot stop Air from landing 
-? canRetreatOnStalemate Sumpton tested, its a no
 
 =============================
 
@@ -4968,7 +4959,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- TODO All Marshes could be 1pu then Bunkers & Base-Camp can be 2pu+ to place, but New Orleans & Florida are 7pu -->
     <attachment name="territoryEffectAttachment" attachTo="marsh" javaClass="TerritoryEffectAttachment" type="territoryEffect">
 		<option name="combatDefenseEffect" value="1:$All-Infantry--Motorized$"/>
-		<option name="unitsNotAllowed" value="$All-Move2Land$:Artillery:Anti-Tank"/>
+		<option name="unitsNotAllowed" value="$All-Move2Land$:Armor-Inf:Artillery:Anti-Tank"/>
     </attachment>
 
 <!-- Mountains Offense & Defense same as Urban  -->
@@ -6382,7 +6373,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Bialystok:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Brest:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Bryansk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Chernihiv:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Grodno:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Kyiv-Cen.Ukraine:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latgale:USSR:Germany:true"/>
@@ -6400,6 +6390,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="117 Sea Zone:Britain:Germany:true"/>
 
 		<option name="changeOwnership" value="Bessarabia:USSR:Italy:true"/>
+		<option name="changeOwnership" value="Chernihiv:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Crimea:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Kherson:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Mariupol:USSR:Italy:true"/>
@@ -6910,10 +6901,9 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="triggerAttachment_NationalTheme_Italy-AI_Place-Industries" attachTo="Italy" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Turn1_Italy"/>
         <option name="conditions" value="conditionAttachment_isAI_Italy"/>
-		<option name="placement" value="Kherson:Industry-Med" 	count="1"/>
 		<option name="placement" value="Mariupol:Industry-Lgt" 	count="1"/>
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-37"/>	<!-- 21+16=37  -->
+			<option name="resourceCount" value="-16"/>	<!-- 16  -->
 		<option name="when" value="before:ItalyPurchase"/>
 	</attachment>
 
@@ -6938,7 +6928,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="placement" value="Okinawa-Ryukyu Is.:Industry-Lgt" 	count="1"/>
 			<option name="resource" value="PUs"/>
 			<option name="resourceCount" value="-16"/>	<!-- 16  -->
-		<option name="when" value="before:ItalyPurchase"/>
+		<option name="when" value="before:JapanPurchase"/>
 	</attachment>
 
 
@@ -6992,7 +6982,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- USA GO AI isAI Destroyer -->
     <attachment name="conditionAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="2-20"/>
+        <option name="rounds" value="2-32"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Dest"/>
@@ -7005,7 +6995,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- USA GO AI isAI Fleet -->
     <attachment name="conditionAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="4:8:12:16:20:24:28:32"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Fleet"/>
@@ -9311,13 +9301,15 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France"					unitType="Bomber" 			quantity="2" owner="Germany"/>
 
-
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="HQ-Air" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Fighter" 			quantity="2" owner="Germany"/>
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
 
 	<unitPlacement territory="Calais-Picardy" 					unitType="Fighter" 			quantity="2" owner="Germany"/>
 	<unitPlacement territory="Calais-Picardy" 					unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
+
+	<unitPlacement territory="Corsica"							unitType="Bunker" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Corsica"							unitType="Inf-Trained" 		quantity="1" owner="Germany"/>
 
 	<unitPlacement territory="113 B Sea Zone" 					unitType="HQ-Submarine" 	quantity="2" owner="Germany"/>
 	<unitPlacement territory="113 B Sea Zone" 					unitType="Battleship" 		quantity="2" owner="Germany"/>
@@ -9409,15 +9401,10 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bialystok"	 	  				unitType="Artillery" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Bialystok"	 	  				unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
 
-	<unitPlacement territory="Lviv" 	 			 			unitType="Armor-Med" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Lviv" 	 						unitType="Inf-Motorized" 	quantity="1" owner="Germany"/>
 	<unitPlacement territory="Lviv" 	 						unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Lviv" 				  			unitType="Artillery" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Lviv" 	 			  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
-
-	<unitPlacement territory="Chernihiv"						unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Chernihiv"						unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Chernihiv"	 					unitType="Inf-Trained" 		quantity="7" owner="Germany"/>
 
 	<unitPlacement territory="Warsaw-Cen.Poland"				unitType="Air-Transport" 	quantity="1" owner="Germany"/>
 	<unitPlacement territory="Warsaw-Cen.Poland"	 			unitType="Inf-Elite" 		quantity="2" owner="Germany"/>
@@ -9459,6 +9446,7 @@ Less shuffling than above, but still not Player friendly
 <!--	<unitPlacement territory="Italian Somaliland" 				unitType="Industry-Lgt" 	quantity="1" owner="Italy"/>  -->
 	<unitPlacement territory="Bucharest-Cen.Romania" 			unitType="Industry-Med" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Odesa-Mykoliav" 					unitType="Industry-Hvy" 	quantity="1" owner="Italy"/>
+	<unitPlacement territory="Kherson" 							unitType="Industry-Med" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Crimea" 							unitType="Industry-Med" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Bunker" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Venice-Trieste" 					unitType="Bunker" 			quantity="1" owner="Italy"/>
@@ -9470,9 +9458,25 @@ Less shuffling than above, but still not Player friendly
 <!--	<unitPlacement territory="Italian Somaliland" 				unitType="Bunker" 			quantity="2" owner="Italy"/>  -->
 	<unitPlacement territory="Bucharest-Cen.Romania" 			unitType="Bunker" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Crimea" 							unitType="Bunker" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Sardinia" 						unitType="Bunker" 			quantity="1" owner="Italy"/>
 
+	<unitPlacement territory="Milan-N.Italy" 					unitType="Inf-Trained"		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Milan-N.Italy" 					unitType="Artillery"		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Milan-N.Italy" 					unitType="Fighter" 			quantity="2" owner="Italy"/>
+	<unitPlacement territory="Milan-N.Italy" 					unitType="Bomber-Tac" 		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="HQ-Army"			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Armor-Med"		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Inf-Trained"		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Artillery"		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Fighter" 			quantity="3" owner="Italy"/>
+	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Bomber-Tac" 		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Naples-S.Italy" 					unitType="Inf-Trained"		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Naples-S.Italy" 					unitType="Artillery"		quantity="1" owner="Italy"/>
 	<unitPlacement territory="Naples-S.Italy" 					unitType="Fighter" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Naples-S.Italy" 					unitType="Bomber-Tac" 		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Sicily" 							unitType="Inf-Trained"		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Sicily" 							unitType="Artillery"		quantity="1" owner="Italy"/>
+	<unitPlacement territory="Sardinia" 						unitType="Inf-Trained" 		quantity="1" owner="Italy"/>
 
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="HQ-Army" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Armor-Lgt" 		quantity="2" owner="Italy"/>
@@ -9484,27 +9488,32 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Inf-Elite" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Fighter" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Bomber-Tac" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Tripoli-W.Tripolitania" 			unitType="Fighter" 			quantity="1" owner="Italy"/>
 
+	<unitPlacement territory="Chernihiv"						unitType="HQ-Army" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Chernihiv"						unitType="Anti-Tank" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Chernihiv"						unitType="Artillery" 		quantity="3" owner="Italy"/>
+	<unitPlacement territory="Chernihiv"	 					unitType="Inf-Trained" 		quantity="7" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 						unitType="HQ-Army" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 	 					unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 		 				unitType="Anti-Tank" 		quantity="5" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 	 	 				unitType="Artillery" 		quantity="3" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 	 					unitType="Inf-Trained" 		quantity="12" owner="Italy"/>
 	<unitPlacement territory="Mariupol" 	 	 				unitType="Inf-Elite" 		quantity="7" owner="Italy"/>
-	<unitPlacement territory="Kherson" 	 	 					unitType="Armor-Lgt" 		quantity="1" owner="Italy"/>
-	<unitPlacement territory="Kherson" 	 	 					unitType="Armor-Med" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav" 	 	 			unitType="Armor-Lgt" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav" 	 				unitType="Armor-Med" 		quantity="4" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav" 	 				unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
 	<unitPlacement territory="Kherson" 	 	 					unitType="HQ-Air" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Kherson" 	 	 					unitType="Fighter" 			quantity="2" owner="Italy"/>
+	<unitPlacement territory="Kherson" 	 	 					unitType="Fighter" 			quantity="3" owner="Italy"/>
 	<unitPlacement territory="Kherson" 		 					unitType="Bomber-Tac" 		quantity="6" owner="Italy"/>
 	<unitPlacement territory="Kherson" 		 					unitType="Bomber" 			quantity="2" owner="Italy"/>
-
-	<unitPlacement territory="Crimea" 							unitType="Inf-Motorized" 	quantity="1" owner="Italy"/>
 
 	<unitPlacement territory="097 A Sea Zone" 					unitType="HQ-Fleet" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="097 A Sea Zone" 					unitType="Battleship" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="097 A Sea Zone" 					unitType="Cruiser" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="097 A Sea Zone" 					unitType="Destroyer" 		quantity="4" owner="Italy"/>
 	<unitPlacement territory="097 A Sea Zone" 					unitType="Submarine" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="097 A Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Italy"/>
 
 
 <!-- ======================================== Japan ======================================== -->
@@ -10622,7 +10631,7 @@ Fighters adjacent to the production SZ CANNOT be moved to new carriers  == Land 
 
     <property name="Neutrals Are Blitzable"		value="false" editable="false">		<boolean/>	</property>
 
-    <property name="Neutrals Flyover Allowed"	value="false" editable="false">		<boolean/>	</property>
+    <property name="Neutral Flyover Allowed"	value="false" editable="false">		<boolean/>	</property>
 
 
     <property name="mapName" value="1941_global_command_decision" editable="false">	<boolean/>	</property>
@@ -10634,39 +10643,41 @@ Fighters adjacent to the production SZ CANNOT be moved to new carriers  == Land 
         <html>
 		<body bgcolor="AAAAAA" align="left">
 		<div style="padding:10px;"text-align:justify;">
-			<br> For the latest download and discussion, copy and paste the link below<br>
-			<a href="https://forums.triplea-game.org/topic/3326/1941-global-command-decision">https://forums.triplea-game.org/topic/3326/1941-global-command-decision</a><br>
+			<br>Version 1.170
 			<br>
-			<br>For tips to improve game speed of bigger maps like 1941 Global Command Descision,  270bc Wars,  Gundam,  Shogun,  Shogun Advanced,  Warcraft War Heroes<br>
-			<a href="https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon">https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon</a><br>
+			<br> For the latest download and discussion, copy and paste the link below
+			<br><a href="https://forums.triplea-game.org/topic/3326/1941-global-command-decision">https://forums.triplea-game.org/topic/3326/1941-global-command-decision</a>
 			<br>
-			<br><center><img src="preview.png"/></center>
-			<br><center><img src="Game_Notes.png"/></center>
-			<br><center><img src="Prologue.png"/></center>
-			<br><center><img src="Start_Germany.png"/></center>
-			<br><center><img src="Start_Italy.png"/></center>
-			<br><center><img src="Start_Japan.png"/></center>
+			<br>For tips to improve game speed of bigger maps like 1941 Global Command Descision,  270bc Wars,  Gundam,  Shogun,  Shogun Advanced,  Warcraft War Heroes
+			<br><a href="https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon">https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon</a>
+			<br>
+			<br><img src="Preview.png"/>
+			<br><img src="Game_Notes.png"/>
+			<br><img src="Prologue.png"/>
+			<br><img src="Start_Germany.png"/>
+			<br><img src="Start_Italy.png"/>
+			<br><img src="Start_Japan.png"/>
 
-			<br><center><img src="Start_Britain.png"/></center>
-			<br><center><img src="Start_China.png"/></center>
-			<br><center><img src="Start_Pacific-Allies.png"/></center>
-			<br><center><img src="Start_USA.png"/></center>
-			<br><center><img src="Start_USSR.png"/></center>
+			<br><img src="Start_Britain.png"/>
+			<br><img src="Start_China.png"/>
+			<br><img src="Start_Pacific-Allies.png"/>
+			<br><img src="Start_USA.png"/>
+			<br><img src="Start_USSR.png"/>
 
-			<br><center><img src="1941_Global_Command_Decision_Manual_01.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_02.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_03.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_04.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_05.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_06.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_07.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_08.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_09.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_10.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_11.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_12.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_13.png"/></center>
-			<br><center><img src="1941_Global_Command_Decision_Manual_14.png"/></center>
+			<br><img src="1941_Global_Command_Decision_Manual_01.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_02.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_03.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_04.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_05.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_06.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_07.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_08.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_09.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_10.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_11.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_12.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_13.png"/>
+			<br><img src="1941_Global_Command_Decision_Manual_14.png"/>
 		</div>
 		</body>
 		</html>
