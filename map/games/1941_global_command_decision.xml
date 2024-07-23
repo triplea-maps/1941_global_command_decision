@@ -1,24 +1,38 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.170"/>
+	<info name="1941 Global Command Decision" version="1.175"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
-	<triplea minimumVersion="2.6.14517"/>
+	<triplea minimumVersion="2.6.14790"/>
 	<diceSides value="6"/>
 <!--
-v170
-Italy homelands get more defence and on the Italian Eastern Front get more units at the expense of Germany
-Marsh unitsNotAllowed Armor-Inf
-Note:      081 Sea Zone (Red Sea) connects to Palestine
+v175
+WEST
+* German Eastern front realigned and forces moved ((thanks Cernel) (Due to TripleA map distortion it is approximate, but more accurate for the time period, late 41)
+* Germany gained 4 territories in the north of Russia and lost 2 in the south
+* Italy gained 1 territory of Germanys in the Russian South, lost 3 to Russia
+* Germany gained a few bombers and more uBoats in the North Atlantic
 
-v160
-* Blitzkrieg Armor Support for Bomber-Tac or Inf-Motorized for Britain:Germany:Italy:USA
+EAST
+* Japan homeland lost 12pu from Territories as Industry is linked to Territories so lost another 12pu
+* Japan owned 2x SZ and 2x TT gain +1 PU, overall Japan has lost 20pu per turn
+* Gain extra units mainly in Shanghai-Kiangsu & Convoy in 6C Sea Zone
+* Main reason for the change was that compared to Britain, Japan homeland industrially looked too good, had 6x Industry-Hvy, now has 3, Britain has 4 Industry-Hvy
+* As the game progressess Japan gets weaker compared to the previous release (but still has a chance to win in its area of influence
+* Lend-Lease-Depot units placed in Fars:Lorestan:Tehran:Gilan & N.Burma so Players know which TT need to be held/taken
 
+MAP
+* HQ-Army now has isMarine -1, was missing
+* map.properties unit width & height increased (overall units display better)
+* Tool Tip Industries have “rail links” and can move land units upto 3 territories, depending on terrain effects.  
+Sometimes this produces inconsistancies in move 2 units like armor over mountains, where they cannot move 3, so work around it. (thanks johnnycat)
+* Transport cost of Armor-Lgt now 4, was 3 (thanks johnnycat)
+* Tool Tip Inf-Conscript expanded, have no AA attack/defence (thanks johnnycat)
+* Tool Tip Nuclear-Bomber expanded, including Can only be targeted by air units in a Dog-Fight & AA from a Strategic Bombing Run on Industry/Base-Camp (thanks johnnycat)
 
 =============================
 
 GDP USA > Germany > UK~USSR > Japan > Italy
-
 TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 					1942-2Q = Turn 3    1943-2Q = Turn 7    1944-2Q = Turn 11   1945-2Q = Turn 15
 					1942-3Q = Turn 4    1943-3Q = Turn 8    1944-3Q = Turn 12   1945-3Q = Turn 16
@@ -46,6 +60,13 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="$All-Axis$"/>
 		<element name="$All-Allies$"/>
     </variable>
+
+	<variable name="All-OpenBorderInvaders">	<!-- 4 -->
+		<element name="$All-Axis$"/>
+		<element name="USSR"/>
+    </variable>
+
+
 
 <!-- isLand -->
 	<variable name="All-Infantry--Motorized">	<!-- 3 -->
@@ -150,8 +171,9 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="Kamikaze-Plane"/>
 		<element name="Air-Transport"/>
 		<element name="Bomber-Tac"/>
-		<element name="Bomber"/>
+		<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
 <!--		<element name="Bomber-LongR"/>  -->
+
 		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
 		<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
     </variable>
@@ -1106,7 +1128,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="005 B Sea Zone" t2="Gizhiga"/>
 	<connection t1="005 B Sea Zone" t2="Khabarovsk"/>
 	<connection t1="005 B Sea Zone" t2="Magadan"/>
-<!--	<connection t1="005 B Sea Zone" t2="N.Korea-Chosen"/>  -->
 	<connection t1="005 B Sea Zone" t2="N.Sakhalin"/>
 	<connection t1="005 B Sea Zone" t2="Primorsky"/>
 	<connection t1="005 B Sea Zone" t2="Vladivostok"/>
@@ -1132,7 +1153,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="006 C Sea Zone" t2="N.Korea-Chosen"/>
 	<connection t1="006 C Sea Zone" t2="S.Korea-Chosen"/>
 	<connection t1="006 C Sea Zone" t2="Shikoku"/>
-<!--	<connection t1="006 C Sea Zone" t2="Tokyo"/>  -->
 	<connection t1="007 A Sea Zone" t2="007 B Sea Zone"/>
 	<connection t1="007 A Sea Zone" t2="007 C Sea Zone"/>
 	<connection t1="007 A Sea Zone" t2="008 Sea Zone"/>
@@ -1172,7 +1192,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="013 Sea Zone" t2="025 A Sea Zone"/>
 	<connection t1="013 Sea Zone" t2="026 A Sea Zone"/>
 	<connection t1="013 Sea Zone" t2="026 B Sea Zone"/>
-<!--	<connection t1="013 Sea Zone" t2="Honolulu-Pearl Harbor"/>  -->
 	<connection t1="014 Sea Zone" t2="015 Sea Zone"/>
 	<connection t1="015 Sea Zone" t2="007 B Sea Zone"/>
 	<connection t1="015 Sea Zone" t2="016 A Sea Zone"/>
@@ -1244,7 +1263,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="024 Sea Zone" t2="031 A Sea Zone"/>
 	<connection t1="025 A Sea Zone" t2="025 B Sea Zone"/>
 	<connection t1="025 A Sea Zone" t2="026 B Sea Zone"/>
-<!--	<connection t1="025 A Sea Zone" t2="Honolulu-Pearl Harbor"/>  -->
 	<connection t1="025 A Sea Zone" t2="Midway Is."/>
 	<connection t1="025 B Sea Zone" t2="031 A Sea Zone"/>
 	<connection t1="025 B Sea Zone" t2="Midway Is."/>
@@ -1252,7 +1270,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="026 A Sea Zone" t2="027 Sea Zone"/>
 	<connection t1="026 A Sea Zone" t2="030 A Sea Zone"/>
 	<connection t1="026 A Sea Zone" t2="Hawaiian Is."/>
-<!--	<connection t1="026 A Sea Zone" t2="Honolulu-Pearl Harbor"/>  -->
 	<connection t1="026 B Sea Zone" t2="025 B Sea Zone"/>
 	<connection t1="026 B Sea Zone" t2="030 A Sea Zone"/>
 	<connection t1="026 B Sea Zone" t2="031 A Sea Zone"/>
@@ -1273,7 +1290,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="030 A Sea Zone" t2="032 A Sea Zone"/>
 	<connection t1="030 A Sea Zone" t2="049 Sea Zone"/>
 	<connection t1="030 A Sea Zone" t2="050 Sea Zone"/>
-<!--	<connection t1="030 A Sea Zone" t2="Honolulu-Pearl Harbor"/>  -->
 	<connection t1="030 A Sea Zone" t2="Johnston Is."/>
 	<connection t1="030 B Sea Zone" t2="030 A Sea Zone"/>
 	<connection t1="030 B Sea Zone" t2="032 A Sea Zone"/>
@@ -1283,7 +1299,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="031 A Sea Zone" t2="031 B Sea Zone"/>
 	<connection t1="031 A Sea Zone" t2="Wake Is."/>
 	<connection t1="031 B Sea Zone" t2="032 A Sea Zone"/>
-<!--	<connection t1="031 B Sea Zone" t2="Honolulu-Pearl Harbor"/>  -->
 	<connection t1="031 B Sea Zone" t2="Wake Is."/>
 	<connection t1="032 A Sea Zone" t2="032 B Sea Zone"/>
 	<connection t1="032 A Sea Zone" t2="047 Sea Zone"/>
@@ -1418,15 +1433,12 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="045 B Sea Zone" t2="045 C Sea Zone"/>
 	<connection t1="045 B Sea Zone" t2="055 Sea Zone"/>
 	<connection t1="045 B Sea Zone" t2="Ambon"/>
-<!--	<connection t1="045 B Sea Zone" t2="Hollandia-Dutch New Guinea"/>  -->
 	<connection t1="045 B Sea Zone" t2="Sansapor-Vogelkop Pen."/>
 	<connection t1="045 C Sea Zone" t2="046 B Sea Zone"/>
 	<connection t1="045 C Sea Zone" t2="055 Sea Zone"/>
 	<connection t1="045 C Sea Zone" t2="Hollandia-Dutch New Guinea"/>
 	<connection t1="046 A Sea Zone" t2="046 B Sea Zone"/>
 	<connection t1="046 A Sea Zone" t2="047 Sea Zone"/>
-<!--	<connection t1="046 A Sea Zone" t2="054 Sea Zone"/>  -->
-<!--	<connection t1="046 A Sea Zone" t2="055 Sea Zone"/>  -->
 	<connection t1="046 A Sea Zone" t2="Salamaua Lae-New Guinea"/>
 	<connection t1="046 B Sea Zone" t2="047 Sea Zone"/>
 	<connection t1="046 B Sea Zone" t2="054 Sea Zone"/>
@@ -1665,7 +1677,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="089 A Sea Zone" t2="Honduras"/>
 	<connection t1="089 A Sea Zone" t2="Jamaica"/>
 	<connection t1="089 A Sea Zone" t2="Monterrey"/>
-<!--	<connection t1="089 A Sea Zone" t2="Santiago-Guantanamo"/>  -->
 	<connection t1="089 A Sea Zone" t2="Veracruz"/>
 	<connection t1="089 A Sea Zone" t2="Yucatan"/>
 	<connection t1="089 B Sea Zone" t2="089 C Sea Zone"/>
@@ -1724,7 +1735,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="093 Sea Zone" t2="095 B Sea Zone"/>
 	<connection t1="093 Sea Zone" t2="Aragon-Catalonia"/>
 	<connection t1="093 Sea Zone" t2="Majorca"/>
-<!--	<connection t1="093 Sea Zone" t2="Milan-N.Italy"/>  -->
 	<connection t1="093 Sea Zone" t2="Provence-Marseille"/>
 	<connection t1="093 Sea Zone" t2="Toulouse-Occitania"/>
 	<connection t1="093 Sea Zone" t2="Valencia"/>
@@ -1840,7 +1850,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="101 C Sea Zone" t2="102 Sea Zone"/>
 	<connection t1="101 C Sea Zone" t2="Bahamas"/>
 	<connection t1="101 C Sea Zone" t2="Bermuda"/>
-<!--	<connection t1="102 A Sea Zone" t2="102 B Sea Zone"/>  -->
 	<connection t1="102 Sea Zone" t2="106 Sea Zone"/>
 	<connection t1="102 Sea Zone" t2="103 Sea Zone"/>
 	<connection t1="102 Sea Zone" t2="106 Sea Zone"/>
@@ -1883,7 +1892,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="109 Sea Zone" t2="Eire"/>
 	<connection t1="109 Sea Zone" t2="London-S.England"/>
 	<connection t1="109 Sea Zone" t2="N.England"/>
-<!--	<connection t1="109 Sea Zone" t2="N.Ireland"/>  -->
 	<connection t1="109 Sea Zone" t2="Wales"/>
 	<connection t1="110 A Sea Zone" t2="110 B Sea Zone"/>
 	<connection t1="110 A Sea Zone" t2="Brittany"/>
@@ -1896,7 +1904,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="110 B Sea Zone" t2="London-S.England"/>
 	<connection t1="110 B Sea Zone" t2="N.England"/>
 	<connection t1="110 B Sea Zone" t2="Netherlands"/>
-<!--	<connection t1="110 B Sea Zone" t2="Scotland"/>  -->
 	<connection t1="111 A Sea Zone" t2="111 B Sea Zone"/>
 	<connection t1="111 A Sea Zone" t2="112 Sea Zone"/>
 	<connection t1="111 A Sea Zone" t2="119 Sea Zone"/>
@@ -3322,6 +3329,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
         <relationshipType name="Allied"/>
         <relationshipType name="Allied-USSR"/>
         <relationshipType name="Open-Border"/>
+        <relationshipType name="Open-BorderAI"/>
         <relationshipType name="Neutrals"/>
         <relationshipType name="Closed-Border"/>
         <relationshipType name="War"/>
@@ -4050,11 +4058,24 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<option name="archeType" value="war"/>
     </attachment>
 
-<!-- Used by Axis, can be invaded, changed 2023/03/07 -->
+<!-- Used by Player Axis, USSR, USA T1-3, can invade Neutrals & use Aircraft, changed 2023/07-20 -->
     <attachment name="relationshipTypeAttachment" attachTo="Open-Border" javaClass="RelationshipTypeAttachment" type="relationship">
         <option name="archeType" value="war"/>
-        <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>	<!-- was true -->
-        <option name="canMoveAirUnitsOverOwnedLand" value="false"/>	<!-- was true -->
+        <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
+        <option name="canMoveAirUnitsOverOwnedLand" value="true"/>	<!-- note -->
+        <option name="canMoveLandUnitsOverOwnedLand" value="true"/>
+        <option name="canTakeOverOwnedTerritory" 	value="true"/>	<!-- take over YES -->
+        <option name="givesBackOriginalTerritories" value="false"/>
+        <option name="canMoveIntoDuringCombatMove" 	value="true"/>
+        <option name="canMoveThroughCanals" 		value="false"/>	<!-- Turkish Straits cannot move through -->
+        <option name="rocketsCanFlyOver" 			value="false"/>	<!-- was true -->
+    </attachment>
+
+<!-- Used by AI Axis, USSR, can invade Neutrals, no aircraft 2/3 chance, 1/3 chance above -->
+    <attachment name="relationshipTypeAttachment" attachTo="Open-BorderAI" javaClass="RelationshipTypeAttachment" type="relationship">
+        <option name="archeType" value="war"/>
+        <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
+        <option name="canMoveAirUnitsOverOwnedLand" value="false"/>	<!-- note -->
         <option name="canMoveLandUnitsOverOwnedLand" value="true"/>
         <option name="canTakeOverOwnedTerritory" 	value="true"/>	<!-- take over YES -->
         <option name="givesBackOriginalTerritories" value="false"/>
@@ -4068,7 +4089,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<option name="archeType" value="neutral"/>
     </attachment>
 
-<!-- Used by Allies, will not enter -->
+<!-- Used by Allies Britain, China, Pacific-Allies, USA T4+ CANNOT invade Neutrals -->
     <attachment name="relationshipTypeAttachment" attachTo="Closed-Border" javaClass="RelationshipTypeAttachment" type="relationship">
         <option name="archeType" value="neutral"/>
         <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
@@ -4131,7 +4152,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="005 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="005 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="006 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Japan"/></attachment>
-<attachment name="territoryAttachment" attachTo="006 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="006 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="006 C Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="007 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
 <attachment name="territoryAttachment" attachTo="007 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
@@ -4150,8 +4171,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="017 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="017 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Japan"/></attachment>
 <attachment name="territoryAttachment" attachTo="018 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
-<attachment name="territoryAttachment" attachTo="019 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="019 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="019 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="019 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="020 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="021 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="021 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
@@ -4411,7 +4432,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Cairo-Egypt" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Britain"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Calais-Picardy" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Calcutta" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="marsh"/>	<option name="capital" value="Britain"/>	<option name="victoryCity" value="1"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Cambodia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Cambodia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Canary Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Cape Town" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Cape Verde Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4435,7 +4456,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Chile" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christchurch-S.New Zealand" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christmas Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Chubu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Chubu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Chukotka" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chungking" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>													<option name="capital" value="China"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Colorado" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4525,8 +4546,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Helsinki" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Germany"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Herat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Himalayas" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Hiroshima" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Hokkaido" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Hiroshima" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Hokkaido" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hollandia-Dutch New Guinea" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Honduras" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Hong Kong-Kwangtung" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Pacific-Allies"/>	</attachment>
@@ -4672,7 +4693,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Mukden-Port Arthur" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Murmansk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Muscat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="N.Burma" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Britain"/></attachment>
+<attachment name="territoryAttachment" attachTo="N.Burma" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="N.England" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="N.Ireland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="N.Korea-Chosen" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4777,7 +4798,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="S.Rhodesia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="S.Sakhalin" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sacramento-N.California"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Saigon-Cochinchina" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Saigon-Cochinchina" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Saipan-Mariana Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Japan"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sakha" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Salamaua Lae-New Guinea"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4799,7 +4820,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Shangtung" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Shensi" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="China"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Shetland Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Shikoku" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Shikoku" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Siberia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sicily" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sierra Leone" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4840,7 +4861,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Tasmania" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Taymyr" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Tbilisi-Georgia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Tehran" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="urban"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Tehran" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Tenere" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Texas" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>													<option name="capital" value="USA"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Thessaloniki" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4849,7 +4870,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="W.Algerian-Sahara" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Timor" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Tobruk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Tohoku" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Tohoku" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Tokyo" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Japan"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Tomsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Toronto-S.Ontario" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4918,7 +4939,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Yunnan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/> <option name="capital" value="China"/></attachment>
 <attachment name="territoryAttachment" attachTo="Yuzhny-Novaya Zemlya" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 
-  
+
 
 <!-- ============================================= GO EFFECTS TERRITORY EFFECTS =============================================  -->	
 
@@ -5089,6 +5110,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	<attachment name="unitAttachment" attachTo="HQ-Army" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="5"/>
 		<option name="attack" value="4"/>
+			<option name="isMarine" value="-1"/>
 		<option name="defense" value="4"/>
 			<option name="canNotTarget" value="$All-Air$"/>
 		<option name="isDestroyer" value="true"/>				<!-- nullify apposing artillery/anti-tank first strike capabilities -->
@@ -5296,7 +5318,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="defense" value="2"/>
 			<option name="canNotTarget" value="$All-Air$"/>
 		<option name="movement" value="2"/>
-			<option name="TransportCost" value="3"/>
+			<option name="TransportCost" value="4"/>
 			<option name="canBlitz" value="true"/>
 		<option name="isLandTransport" value="true"/>	<!-- carry 1:1 isLandTransportable -->
 <!-- AA  -->
@@ -6231,21 +6253,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- Blitzkrieg Armor Support for Bomber-Tac
-    <attachment foreach="$All-Armor$" name="supportAttachment@All-Armor@_Bomber-Tac" attachTo="@All-Armor@" javaClass="UnitSupportAttachment" type="unitType">
-        <option name="faction" value="allied"/>
-        <option name="unitType" value="Bomber-Tac"/>
-        <option name="side" value="offence"/>
-        <option name="dice" value="strength"/>
-        <option name="bonus" value="1"/>
-        <option name="number" value="1"/>
-        <option name="bonusType" value="OffensiveSupport"/>
-        <option name="players" value="Britain:Germany:Italy:USA"/>
-        <option name="impArtTech" value="false"/>
-    </attachment>
--->
-
-
 <!-- Blitzkrieg Bomber-Tac Support for Infantry, not Conscript -->
     <attachment name="supportAttachmentBomber-Tac_Infantry" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
@@ -6372,31 +6379,37 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- territoryName:  oldOwner:  newOwner:booleanCaptured false=do it now, true=captured ??? -->
 		<option name="changeOwnership" value="Bialystok:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Brest:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Bryansk:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Grodno:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Kyiv-Cen.Ukraine:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latgale:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latvia:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Lithuania:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Lviv:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Minsk:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Prinsk:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Prypriat:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Rzesow:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vilna:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vyborg:USSR:Germany:true"/>
+<!-- new -->
+		<option name="changeOwnership" value="Estonia:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Pskov:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Vitebsk:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Mogilev:USSR:Germany:true"/>
 
 		<option name="changeOwnership" value="108 Sea Zone:Britain:Germany:true"/>
 		<option name="changeOwnership" value="117 Sea Zone:Britain:Germany:true"/>
 
 		<option name="changeOwnership" value="Bessarabia:USSR:Italy:true"/>
-		<option name="changeOwnership" value="Chernihiv:USSR:Italy:true"/>
-		<option name="changeOwnership" value="Crimea:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Kherson:USSR:Italy:true"/>
-		<option name="changeOwnership" value="Mariupol:USSR:Italy:true"/>
+		<option name="changeOwnership" value="Lviv:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Moldavia:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Odesa-Mykoliav:USSR:Italy:true"/>
-
+<!--
+		<option name="changeOwnership" value="Bryansk:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Chernihiv:USSR:Italy:true"/>
+		<option name="changeOwnership" value="Crimea:USSR:Italy:true"/>
+		<option name="changeOwnership" value="Mariupol:USSR:Italy:true"/>
+-->
         <option name="when" value="before:GermanyTechActivation"/>
     </attachment>
 
@@ -6574,7 +6587,6 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Archangelsk_Britain_Lend-Lease-Depot"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="8"/>
-
 		<option name="when" value="after:Britain0EndTurn"/>
 	</attachment>
 
@@ -6679,7 +6691,6 @@ foreach does NOT appear to work with changeOwnership
 	<option name="rounds" value="7-+"/>
 </attachment>
 
-
 <!-- Hamburg Subs -->
 <attachment name="conditionAttachment_NationalTheme_Germany-2-Ham" attachTo="Germany" javaClass="RulesAttachment" type="player">
 	<option name="directPresenceTerritories" value="Hamburg-Lower Saxony" count="1"/>
@@ -6689,7 +6700,7 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2-Ham_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Ham"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Invert"/>
-	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
+	<option name="placement" value="@SubmarineSZ@:Submarine" count="2"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
 	<option name="when" value="after:Germany0EndTurn"/>
@@ -6697,7 +6708,7 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Ham_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Ham"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Success"/>
-	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
+	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="2"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>
 	<option name="when" value="after:Germany0EndTurn"/>
@@ -6826,6 +6837,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:BritainPurchase"/>
     </attachment>
 
@@ -6839,6 +6851,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="conditions" value="conditionAttachment_isAI_China"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="purchase" value="HQ-Army" count="1"/>			<!-- free as no Industry-Hvy -->
         <option name="purchase" value="Fighter-Early" count="1"/>	<!-- free Foreign Fighters -->
         <option name="when" value="before:ChinaPurchase"/>
@@ -6855,6 +6868,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:GermanyPurchase"/>
     </attachment>
 
@@ -6894,6 +6908,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:ItalyPurchase"/>
     </attachment>
 
@@ -6918,6 +6933,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:JapanPurchase"/>
     </attachment>
 
@@ -6942,6 +6958,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:Pacific-AlliesPurchase"/>
     </attachment>
 
@@ -6957,6 +6974,7 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:USAPurchase"/>
     </attachment>
 
@@ -7019,8 +7037,22 @@ foreach does NOT appear to work with changeOwnership
         <option name="purchase" value="Industry-Hvy" count="1"/>
         <option name="purchase" value="Industry-Med" count="1"/>
         <option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Bunker" count="2"/>
         <option name="when" value="before:USSRPurchase"/>
     </attachment>
+
+
+
+<!--  AI Axis & USSR use OpenBorderAI		G0 AI isAI -->
+	<attachment foreach="$All-OpenBorderInvaders$" name="triggerAttachment_OpenBorderAI_@All-OpenBorderInvaders@" attachTo="@All-OpenBorderInvaders@" javaClass="TriggerAttachment" type="player">
+        <option name="conditions" value="conditionAttachment_Turn1_@All-OpenBorderInvaders@"/>
+        <option name="conditions" value="conditionAttachment_isAI_@All-OpenBorderInvaders@"/>
+										<!-- format: "player1:player2:oldRelation:newRelation -->					
+		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Neutrals:Open-Border:Open-BorderAI"/>
+		<option name="chance" value="4:6"/>	<!-- 2in3 chance of OpenBorderAI 1in3 of OpenBorder -->
+		<option name="when" value="before:@All-OpenBorderInvaders@CombatMove"/>
+	</attachment>
+
 <!-- ======================================= END AI all nations  =======================================  -->
 
 
@@ -8001,8 +8033,8 @@ foreach does NOT appear to work with changeOwnership
 		<option name="retainCapitalNumber" value="0"/>
 		<option name="retainCapitalProduceNumber" value="0"/>
 
-		<option name="placementLimit" value="allied:Bunker" count="2"/>
-		<option name="placementLimit" value="allied:Industry-Hvy:Industry-Med:Industry-Lgt:Base-Camp" count="1"/>
+		<option name="placementLimit" value="owned:Bunker" count="2"/>
+		<option name="placementLimit" value="owned:Industry-Hvy:Industry-Med:Industry-Lgt:Base-Camp" count="1"/>
 
 <!-- ======================================= GO Stack Unit ======================================= -->
 <!-- Limit Air & Sea units to 10 OWNED units of each type per SZ/TT.  Limit Land units to 20 OWNED units of each type per TT 
@@ -8110,9 +8142,9 @@ foreach does NOT appear to work with changeOwnership
 		<option name="movementLimit"  value="owned:Battleship" count="5"/>    		<option name="movementLimit"  value="allied:Battleship" count="8"/>
 		<option name="placementLimit" value="owned:Battleship" count="5"/>    		<option name="placementLimit" value="allied:Battleship" count="8"/>
 <!-- Sea 2 hit -->
-		<option name="attackingLimit" value="owned:Carrier" count="5"/>    		<option name="attackingLimit" value="allied:Carrier" count="8"/>
-		<option name="movementLimit"  value="owned:Carrier" count="5"/>    		<option name="movementLimit"  value="allied:Carrier" count="8"/>
-		<option name="placementLimit" value="owned:Carrier" count="5"/>    		<option name="placementLimit" value="allied:Carrier" count="8"/>
+		<option name="attackingLimit" value="owned:Carrier" count="5"/>    			<option name="attackingLimit" value="allied:Carrier" count="8"/>
+		<option name="movementLimit"  value="owned:Carrier" count="5"/>    			<option name="movementLimit"  value="allied:Carrier" count="8"/>
+		<option name="placementLimit" value="owned:Carrier" count="5"/>    			<option name="placementLimit" value="allied:Carrier" count="8"/>
 <!-- Sea 2 hit -->
 		<option name="attackingLimit" value="owned:Carrier-Fleet" count="5"/>    	<option name="attackingLimit" value="allied:Carrier-Fleet" count="8"/>
 		<option name="movementLimit"  value="owned:Carrier-Fleet" count="5"/>    	<option name="movementLimit"  value="allied:Carrier-Fleet" count="8"/>
@@ -8131,7 +8163,7 @@ Below do not work as the human player has to do too much shuffling, it gets in t
 		<option name="attackingLimit" value="total:All" count="80"/>
 		<option name="movementLimit"  value="total:All" count="80"/>
 		<option name="placementLimit" value="total:All" count="80"/>
-	
+
 		<option name="attackingLimit" value="allied:All" count="100"/>
 		<option name="movementLimit"  value="allied:All" count="100"/>
 		<option name="placementLimit" value="allied:All" count="100"/>
@@ -8308,7 +8340,6 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="101 A Sea Zone" 	owner="USA"/>
 	<territoryOwner territory="101 B Sea Zone" 	owner="USA"/>
 	<territoryOwner territory="101 C Sea Zone" 	owner="Britain"/>
-<!--	<territoryOwner territory="102 A Sea Zone" 	owner="Britain"/>  -->
 	<territoryOwner territory="102 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="103 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="104 Sea Zone" 	owner="Britain"/>
@@ -9094,18 +9125,23 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="098 Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Britain"/>
 
 	<unitPlacement territory="094 Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
-<!--	<unitPlacement territory="099 A Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
-	<unitPlacement territory="099 B Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
--->
+
 	<unitPlacement territory="Baghdad" 							unitType="Artillery" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="Baghdad" 							unitType="Bunker" 			quantity="1" owner="Britain"/>
 	<unitPlacement territory="Baghdad" 							unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Baghdad"							unitType="HQ-Army" 			quantity="1" owner="Britain"/>
 
+	<unitPlacement territory="Fars" 							unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
 	<unitPlacement territory="Fars" 							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="Fars"								unitType="Bomber-Tac" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="Fars"								unitType="Fighter-Early" 	quantity="2" owner="Britain"/>
 
+	<unitPlacement territory="Lorestan" 	 	 	 	 		unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
+	<unitPlacement territory="Lorestan" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
+	<unitPlacement territory="Tehran" 	 	 	 	 	 		unitType="Lend-Lease-Depot"	quantity="1" owner="Britain"/>
+	<unitPlacement territory="Tehran" 	 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
+
+	<unitPlacement territory="Gilan" 							unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
 	<unitPlacement territory="Gilan" 							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
 
 
@@ -9119,9 +9155,8 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="076 Sea Zone" 					unitType="Convoy" 			quantity="3" owner="Britain"/>
 	<unitPlacement territory="076 Sea Zone"						unitType="Armor-Lgt" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="076 Sea Zone"						unitType="Armor-Med" 		quantity="1" owner="Britain"/>
-	<unitPlacement territory="076 Sea Zone"						unitType="Artillery" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="076 Sea Zone"						unitType="Anti-Tank" 		quantity="1" owner="Britain"/>
-	<unitPlacement territory="076 Sea Zone"						unitType="Inf-Trained" 		quantity="2" owner="Britain"/>
+	<unitPlacement territory="076 Sea Zone"						unitType="Inf-Trained" 		quantity="3" owner="Britain"/>
 
 	<unitPlacement territory="076 Sea Zone" 					unitType="Destroyer" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="076 Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
@@ -9133,6 +9168,8 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Calcutta"							unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Calcutta"							unitType="Bunker" 			quantity="1" owner="Britain"/>
+
+	<unitPlacement territory="N.Burma"							unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
 
 	<unitPlacement territory="N.Burma"							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="N.Burma"							unitType="Artillery" 		quantity="1" owner="Britain"/>
@@ -9188,7 +9225,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Wuhan" 							unitType="Artillery" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Anhwei" 							unitType="Bunker" 			quantity="2" owner="China"/>
 	<unitPlacement territory="Anhwei" 							unitType="Inf-Trained" 		quantity="3" owner="China"/>
-	<unitPlacement territory="Anhwei" 							unitType="Artillery" 		quantity="2" owner="China"/>
+	<unitPlacement territory="Anhwei" 							unitType="Artillery" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Kanchow" 							unitType="Bunker" 			quantity="2" owner="China"/>
 	<unitPlacement territory="Kanchow" 							unitType="Inf-Conscript" 	quantity="3" owner="China"/>
 	<unitPlacement territory="Kanchow" 							unitType="Artillery" 		quantity="1" owner="China"/>
@@ -9296,10 +9333,11 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Troms-Finnmark" 					unitType="Bunker" 			quantity="2" owner="Germany"/>
 
 	<unitPlacement territory="Paris-Cen.France"					unitType="HQ-Army" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Armor-Lgt" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France" 				unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Trained" 		quantity="6" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France"					unitType="Bomber" 			quantity="2" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Bomber" 			quantity="4" owner="Germany"/>
 
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="HQ-Air" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Fighter" 			quantity="2" owner="Germany"/>
@@ -9326,110 +9364,108 @@ Less shuffling than above, but still not Player friendly
 
 
 <!-- Eastern Front -->
-	<unitPlacement territory="Lapland" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Lapland" 							unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Lapland" 							unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Lapland" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Lapland" 							unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Brest"	 	 	 				unitType="Bomber" 			quantity="4" owner="Germany"/>
+	<unitPlacement territory="Brest"	 	 	  				unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
 
-	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Estonia"			 				unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Estonia"			 				unitType="Artillery" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Estonia"			 				unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Estonia"			 				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
-	<unitPlacement territory="Vyborg" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Inf-Trained" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Inf-Elite" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Vyborg" 							unitType="Bomber-Tac" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Grodno" 							unitType="Inf-Motorized" 	quantity="7" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 			unitType="Armor-Lgt" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 			unitType="Armor-Med" 		quantity="11" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 			unitType="Bomber-Tac" 		quantity="7" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 			unitType="Fighter" 			quantity="2" owner="Germany"/>
 
-	<unitPlacement territory="Latvia" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Latvia" 			 				unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Latvia" 			 				unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Latvia" 			 				unitType="Inf-Trained" 		quantity="6" owner="Germany"/>
-	<unitPlacement territory="Latvia" 			 				unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
-
-	<unitPlacement territory="Latgale" 				 			unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Latgale" 							unitType="Armor-Med" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Latgale" 							unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
-	<unitPlacement territory="Latgale" 							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Latgale" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Armor-Med" 		quantity="7" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Lithuania" 			 			unitType="Bomber" 			quantity="2" owner="Germany"/>
-
-	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Inf-Elite" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Air-Transport" 	quantity="1" owner="Germany"/>
 	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Bomber-Tac" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Inf-Elite" 		quantity="5" owner="Germany"/>
 
-	<unitPlacement territory="Minsk" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Minsk" 			 				unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Minsk" 			 				unitType="Artillery" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Minsk" 			 				unitType="Inf-Trained" 		quantity="6" owner="Germany"/>
-	<unitPlacement territory="Minsk" 							unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Vilna" 							unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Vilna" 			 				unitType="Armor-Med" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Vilna" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Vilna" 			 				unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
+	<unitPlacement territory="Kyiv-Cen.Ukraine" 	  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
 
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
+	<unitPlacement territory="Lapland" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Lapland" 							unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Lapland" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Lapland" 							unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Lapland" 							unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
+
+	<unitPlacement territory="Latgale" 							unitType="Artillery" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Latgale" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Latgale" 							unitType="Inf-Trained" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Latgale" 				 			unitType="Inf-Elite" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Latgale" 		 					unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
+
+	<unitPlacement territory="Latvia" 				 			unitType="Bomber" 			quantity="4" owner="Germany"/>
+	<unitPlacement territory="Latvia" 				 			unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Latvia" 				 			unitType="Fighter" 			quantity="1" owner="Germany"/>
+
+	<unitPlacement territory="Lithuania"	 	 	  			unitType="Inf-Trained" 		quantity="1" owner="Germany"/>
+
+	<unitPlacement territory="Mogilev" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 				 			unitType="Armor-Med" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			 				unitType="Anti-Tank" 		quantity="6" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			 				unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			 				unitType="Inf-Motorized" 	quantity="7" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			 				unitType="Inf-Trained" 		quantity="19" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			  				unitType="Artillery" 		quantity="7" owner="Germany"/>
+
 	<unitPlacement territory="Prinsk" 							unitType="Anti-Tank" 		quantity="4" owner="Germany"/>
 	<unitPlacement territory="Prinsk" 							unitType="Artillery" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Trained" 		quantity="7" owner="Germany"/>
 	<unitPlacement territory="Prinsk" 				 			unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 			unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 			unitType="Armor-Med" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Grodno" 							unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 			unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 			unitType="Bomber-Tac" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
+	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
 
-	<unitPlacement territory="Bryansk" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Bryansk" 			 				unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
-	<unitPlacement territory="Bryansk" 			 				unitType="Anti-Tank" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Bryansk" 			  				unitType="Artillery" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Bryansk" 			 				unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
-	<unitPlacement territory="Bryansk" 			  				unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Prypriat" 			  			unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Pskov"							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Pskov"							unitType="Armor-Med" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Pskov"							unitType="Artillery" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Pskov"							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Pskov"							unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
+	<unitPlacement territory="Pskov"			 				unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Pskov"			 				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
-	<unitPlacement territory="Bialystok"	 					unitType="Armor-Med" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Bialystok"	 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
-	<unitPlacement territory="Bialystok"	 	 				unitType="Anti-Tank" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Bialystok"	 	  				unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Bialystok"	 	  				unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Rzesow"	 	 	  				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
-	<unitPlacement territory="Lviv" 	 						unitType="Inf-Motorized" 	quantity="1" owner="Germany"/>
-	<unitPlacement territory="Lviv" 	 						unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Lviv" 				  			unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Lviv" 	 			  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Savo-Ostrobothnia" 				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
-	<unitPlacement territory="Warsaw-Cen.Poland"				unitType="Air-Transport" 	quantity="1" owner="Germany"/>
-	<unitPlacement territory="Warsaw-Cen.Poland"	 			unitType="Inf-Elite" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Warsaw-Cen.Poland"				unitType="Inf-Trained" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Warsaw-Cen.Poland"				unitType="Artillery" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vilna"	 	 	 				unitType="Bomber" 			quantity="4" owner="Germany"/>
+	<unitPlacement territory="Vilna"	 	 	  				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
-	<unitPlacement territory="Budapest-N.Hungary"				unitType="Inf-Trained" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Budapest-N.Hungary"				unitType="Artillery" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 							unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 							unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 			 				unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 			 				unitType="Artillery" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Vitebsk" 			 				unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
+
+	<unitPlacement territory="Vyborg" 							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="Bomber-Tac" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="Fighter" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="HQ-Army" 			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="Inf-Elite" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Vyborg" 							unitType="Inf-Trained" 		quantity="5" owner="Germany"/>
 
 
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine"				 	unitType="Armor-Med" 		quantity="5" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine"					unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 			 	unitType="Fighter" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 			  	unitType="Bomber-Tac" 		quantity="4" owner="Germany"/>
-
+<!-- North Africa -->
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="HQ-Army" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Armor-Med" 		quantity="1" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Tunis-Tunisia" 					unitType="Inf-Trained" 		quantity="1" owner="Germany"/>
 	<unitPlacement territory="Tunis-Tunisia" 					unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Tunis-Tunisia" 					unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Tunis-Tunisia" 					unitType="Fighter" 			quantity="1" owner="Germany"/>
+
 <!-- French surrended -->
 	<unitPlacement territory="French Dahomey" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
 	<unitPlacement territory="French Guiana" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
@@ -9447,7 +9483,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bucharest-Cen.Romania" 			unitType="Industry-Med" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Odesa-Mykoliav" 					unitType="Industry-Hvy" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Kherson" 							unitType="Industry-Med" 	quantity="1" owner="Italy"/>
-	<unitPlacement territory="Crimea" 							unitType="Industry-Med" 	quantity="1" owner="Italy"/>
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Bunker" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Venice-Trieste" 					unitType="Bunker" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Istria" 							unitType="Bunker" 			quantity="1" owner="Italy"/>
@@ -9457,7 +9492,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Tripoli-W.Tripolitania" 			unitType="Bunker" 			quantity="1" owner="Italy"/>
 <!--	<unitPlacement territory="Italian Somaliland" 				unitType="Bunker" 			quantity="2" owner="Italy"/>  -->
 	<unitPlacement territory="Bucharest-Cen.Romania" 			unitType="Bunker" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Crimea" 							unitType="Bunker" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Sardinia" 						unitType="Bunker" 			quantity="1" owner="Italy"/>
 
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Inf-Trained"		quantity="2" owner="Italy"/>
@@ -9484,29 +9518,33 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Inf-Motorized" 	quantity="2" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Anti-Tank" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Artillery" 		quantity="2" owner="Italy"/>
-	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Inf-Trained" 		quantity="5" owner="Italy"/>
+	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Inf-Trained" 		quantity="4" owner="Italy"/>
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Inf-Elite" 		quantity="1" owner="Italy"/>
-	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Fighter" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Bomber-Tac" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Fighter" 			quantity="2" owner="Italy"/>
+	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Bomber-Tac" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="Tripoli-W.Tripolitania" 			unitType="Fighter" 			quantity="1" owner="Italy"/>
 
-	<unitPlacement territory="Chernihiv"						unitType="HQ-Army" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Chernihiv"						unitType="Anti-Tank" 		quantity="2" owner="Italy"/>
-	<unitPlacement territory="Chernihiv"						unitType="Artillery" 		quantity="3" owner="Italy"/>
-	<unitPlacement territory="Chernihiv"	 					unitType="Inf-Trained" 		quantity="7" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 						unitType="HQ-Army" 			quantity="2" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 	 					unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 		 				unitType="Anti-Tank" 		quantity="5" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 	 	 				unitType="Artillery" 		quantity="3" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 	 					unitType="Inf-Trained" 		quantity="12" owner="Italy"/>
-	<unitPlacement territory="Mariupol" 	 	 				unitType="Inf-Elite" 		quantity="7" owner="Italy"/>
-	<unitPlacement territory="Odesa-Mykoliav" 	 	 			unitType="Armor-Lgt" 		quantity="2" owner="Italy"/>
-	<unitPlacement territory="Odesa-Mykoliav" 	 				unitType="Armor-Med" 		quantity="4" owner="Italy"/>
-	<unitPlacement territory="Odesa-Mykoliav" 	 				unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
-	<unitPlacement territory="Kherson" 	 	 					unitType="HQ-Air" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Kherson" 	 	 					unitType="Fighter" 			quantity="3" owner="Italy"/>
-	<unitPlacement territory="Kherson" 		 					unitType="Bomber-Tac" 		quantity="6" owner="Italy"/>
-	<unitPlacement territory="Kherson" 		 					unitType="Bomber" 			quantity="2" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav"					unitType="HQ-Army" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav"					unitType="Anti-Tank" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav"					unitType="Artillery" 		quantity="3" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav"					unitType="Inf-Trained" 		quantity="7" owner="Italy"/>
+	<unitPlacement territory="Odesa-Mykoliav"	 				unitType="Inf-Elite" 		quantity="7" owner="Italy"/>
+
+	<unitPlacement territory="Kherson" 							unitType="HQ-Army" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Kherson" 		 					unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
+	<unitPlacement territory="Kherson" 			 				unitType="Anti-Tank" 		quantity="5" owner="Italy"/>
+	<unitPlacement territory="Kherson" 		 	 				unitType="Artillery" 		quantity="3" owner="Italy"/>
+	<unitPlacement territory="Kherson" 		 					unitType="Inf-Trained" 		quantity="12" owner="Italy"/>
+
+	<unitPlacement territory="Lviv" 							unitType="HQ-Army" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Lviv" 	  	 	 				unitType="Armor-Lgt" 		quantity="2" owner="Italy"/>
+	<unitPlacement territory="Lviv" 	 	  	 				unitType="Armor-Med" 		quantity="4" owner="Italy"/>
+	<unitPlacement territory="Lviv" 	 	  	 				unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
+
+	<unitPlacement territory="Moldavia" 	 	 				unitType="HQ-Air" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Moldavia" 	 					unitType="Fighter" 			quantity="3" owner="Italy"/>
+	<unitPlacement territory="Moldavia" 	 					unitType="Bomber-Tac" 		quantity="6" owner="Italy"/>
+	<unitPlacement territory="Moldavia" 	 					unitType="Bomber" 			quantity="4" owner="Italy"/>
 
 	<unitPlacement territory="097 A Sea Zone" 					unitType="HQ-Fleet" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="097 A Sea Zone" 					unitType="Battleship" 		quantity="1" owner="Italy"/>
@@ -9517,14 +9555,14 @@ Less shuffling than above, but still not Player friendly
 
 
 <!-- ======================================== Japan ======================================== -->
-	<unitPlacement territory="Hokkaido" 						unitType="Industry-Med" 	quantity="1" owner="Japan"/>
-	<unitPlacement territory="Tohoku" 							unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
-	<unitPlacement territory="Chubu" 							unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Hokkaido" 						unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Tohoku" 							unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Chubu" 							unitType="Industry-Med" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Tokyo" 							unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Kyoto-Osaka" 						unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
-	<unitPlacement territory="Hiroshima" 						unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Hiroshima" 						unitType="Industry-Med" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Kyushu" 							unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
-	<unitPlacement territory="Shikoku" 							unitType="Industry-Med" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Shikoku" 							unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Mukden-Port Arthur" 				unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Truk-Coraline Is." 				unitType="Industry-Med" 	quantity="1" owner="Japan"/>
@@ -9616,18 +9654,25 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="033 B Sea Zone" 					unitType="Destroyer" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="033 B Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Japan"/>
 
-	<unitPlacement territory="006 C Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Japan"/>
+	<unitPlacement territory="006 C Sea Zone" 					unitType="Convoy" 			quantity="4" owner="Japan"/>
 
 
 <!-- mainland -->
 	<unitPlacement territory="Mukden-Port Arthur" 				unitType="Inf-Trained" 		quantity="1" owner="Japan"/>
 
+	<unitPlacement territory="Jehol-Rehe" 						unitType="Base-Camp" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Jehol-Rehe" 						unitType="Bunker" 			quantity="1" owner="Japan"/>
+	<unitPlacement territory="Jehol-Rehe" 						unitType="Inf-Trained" 		quantity="2" owner="Japan"/>
+	<unitPlacement territory="Jehol-Rehe" 						unitType="Artillery" 		quantity="1" owner="Japan"/>
+
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Base-Camp" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Peking-Tientsin" 					unitType="Bunker" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="HQ-Army" 			quantity="1" owner="Japan"/>
-	<unitPlacement territory="Peking-Tientsin" 					unitType="Armor-Lgt" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Armor-Med" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Peking-Tientsin" 					unitType="Armor-Lgt" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Inf-Trained" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Artillery" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Peking-Tientsin"					unitType="HQ-Air" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Fighter" 			quantity="2" owner="Japan"/>
 	<unitPlacement territory="Peking-Tientsin" 					unitType="Bomber-Tac" 		quantity="1" owner="Japan"/>
 
@@ -9636,11 +9681,10 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Inf-Trained" 		quantity="4" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Artillery" 		quantity="1" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Fighter" 			quantity="2" owner="Japan"/>
+	<unitPlacement territory="Bangkok-Siam" 					unitType="Bomber-Tac" 		quantity="1" owner="Japan"/>
 
 	<unitPlacement territory="Udon Thani" 						unitType="Base-Camp" 		quantity="1" owner="Japan"/>
 
-	<unitPlacement territory="Jehol-Rehe" 						unitType="Inf-Trained" 		quantity="2" owner="Japan"/>
-	<unitPlacement territory="Jehol-Rehe" 						unitType="Artillery" 		quantity="1" owner="Japan"/>
 
 	<unitPlacement territory="Hopei" 							unitType="Inf-Trained" 		quantity="3" owner="Japan"/>
 	<unitPlacement territory="Hopei" 							unitType="Artillery" 		quantity="1" owner="Japan"/>
@@ -9657,8 +9701,12 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Bunker" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="HQ-Army" 			quantity="1" owner="Japan"/>
+	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Armor-Med" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Armor-Lgt" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Inf-Trained" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Shanghai-Kiangsu" 				unitType="Artillery" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Shanghai-Kiangsu"					unitType="Fighter" 			quantity="2" owner="Japan"/>
+	<unitPlacement territory="Shanghai-Kiangsu"					unitType="Bomber-Tac" 		quantity="1" owner="Japan"/>
 
 	<unitPlacement territory="Kiangsi" 							unitType="Inf-Trained" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Kiangsi" 							unitType="Artillery" 		quantity="1" owner="Japan"/>
@@ -9854,6 +9902,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Amur" 							unitType="Industry-Lgt" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Archangelsk"		 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Industry-Med" 	quantity="1" owner="USSR"/>
+	<unitPlacement territory="Crimea" 							unitType="Industry-Med" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Irkutsk" 							unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Kuybysev" 						unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Leningrad"		 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
@@ -9861,12 +9910,12 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Omsk" 							unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Rostov" 							unitType="Industry-Med" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Siberia"			 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
-	<unitPlacement territory="Vitebsk" 							unitType="Industry-Lgt" 	quantity="1" owner="USSR"/>
 <!--	<unitPlacement territory="Stalingrad-Volga" 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>  moved east -->
 
 
 	<unitPlacement territory="Amur" 							unitType="Bunker" 			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Archangelsk"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Crimea" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Irkutsk" 							unitType="Bunker" 			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Kuybysev" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Leningrad"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
@@ -9875,7 +9924,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Rostov" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Siberia"			 				unitType="Bunker" 			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Stalingrad-Volga" 				unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Vitebsk" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
+
 
 	<unitPlacement territory="Archangelsk"		 				unitType="Lend-Lease-Depot" quantity="8" owner="USSR"/>
 
@@ -9890,25 +9939,24 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Leningrad" 						unitType="Armor-Med" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Leningrad" 						unitType="Anti-Tank" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Leningrad" 						unitType="Artillery" 		quantity="5" owner="USSR"/>
-	<unitPlacement territory="Leningrad" 						unitType="Inf-Conscript" 	quantity="9" owner="USSR"/>
-	<unitPlacement territory="Leningrad" 						unitType="Inf-Trained" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Inf-Trained" 		quantity="9" owner="USSR"/>
 
-	<unitPlacement territory="Pskov" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Pskov" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Pskov" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Pskov" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
-	<unitPlacement territory="Pskov" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Leningrad" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 
-	<unitPlacement territory="Vitebsk" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Vitebsk" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Vitebsk" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Vitebsk" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Rzhev" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Rzhev" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Rzhev" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Rzhev" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 
-	<unitPlacement territory="Mogilev" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Mogilev" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Mogilev" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Mogilev" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
-	<unitPlacement territory="Mogilev" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Bryansk" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Bryansk" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Bryansk" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Bryansk" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+
 
 	<unitPlacement territory="Smolensk" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Smolensk" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
@@ -9922,22 +9970,25 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 
-	<unitPlacement territory="Kharkiv" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Kharkiv" 							unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Kharkiv" 							unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Kharkiv" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
-	<unitPlacement territory="Kharkiv" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernihiv" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Chernihiv" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Chernihiv" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernihiv" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Chernihiv" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 
-	<unitPlacement territory="Rostov" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Rostov" 	 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Rostov" 	 						unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Rostov" 	 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Mariupol" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Mariupol" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Mariupol" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Mariupol" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Mariupol"  						unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 	<unitPlacement territory="Tula" 							unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Tula" 				 			unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
 	<unitPlacement territory="Tula" 				 			unitType="Artillery" 		quantity="2" owner="USSR"/>
 	<unitPlacement territory="Tula" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Tula" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
+
+	<unitPlacement territory="Crimea" 							unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
 
 	<unitPlacement territory="Aktobe" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Astrakhan" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
@@ -9946,7 +9997,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Chelyabinsk" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Dagestan" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Demyansk" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Estonia" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Bryansk" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Grozny-Chechnya" 	 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kazan" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Khanty-Mansiysk" 	 				unitType="Bunker" 			quantity="1" owner="USSR"/>
@@ -9967,6 +10018,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Vologda" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Yamalia" 	 						unitType="Bunker" 			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Yaroslavl" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Kharkiv" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 <!-- 2nd line -->
 	<unitPlacement territory="Moscow-Cen.Russia" 				unitType="Fighter" 			quantity="2" owner="USSR"/>
@@ -10265,7 +10317,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Khorasan" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Kurdistan" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/> 	<!-- Iran -->
 	<unitPlacement territory="Leopoldville-Kinshasa" 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
-	<unitPlacement territory="Lorestan" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
 	<unitPlacement territory="Maputo-S.Mozambique" 	 			unitType="Bunker"			quantity="2" owner="Neutrals"/>	<!-- Portugal -->
 	<unitPlacement territory="Mauritania" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>	<!-- France -->
 	<unitPlacement territory="Mazandaran" 	 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/>
@@ -10288,7 +10339,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="S.Hijaz" 	 	 	 	 			unitType="Bunker"			quantity="2" owner="Neutrals"/>
 	<unitPlacement territory="Sistan-Baluchestan" 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>	<!-- Iran -->
 	<unitPlacement territory="Southwest Africa" 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
-	<unitPlacement territory="Tehran" 	 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
 	<unitPlacement territory="Timbuktu-Mali" 	 	 	 	 	unitType="Bunker"			quantity="1" owner="Germany"/>	<!-- France -->
 	<unitPlacement territory="Tsagaan Olom" 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Ulaanbaatar" 	 	 	 			unitType="Bunker"			quantity="1" owner="USSR"/>
@@ -10637,53 +10687,7 @@ Fighters adjacent to the production SZ CANNOT be moved to new carriers  == Land 
     <property name="mapName" value="1941_global_command_decision" editable="false">	<boolean/>	</property>
 
 <!-- ============================================= NOTES =============================================  -->	
-    <property name="notes">
-        <value>
-        <![CDATA[
-        <html>
-		<body bgcolor="AAAAAA" align="left">
-		<div style="padding:10px;"text-align:justify;">
-			<br>Version 1.170
-			<br>
-			<br> For the latest download and discussion, copy and paste the link below
-			<br><a href="https://forums.triplea-game.org/topic/3326/1941-global-command-decision">https://forums.triplea-game.org/topic/3326/1941-global-command-decision</a>
-			<br>
-			<br>For tips to improve game speed of bigger maps like 1941 Global Command Descision,  270bc Wars,  Gundam,  Shogun,  Shogun Advanced,  Warcraft War Heroes
-			<br><a href="https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon">https://forums.triplea-game.org/topic/3133/get-ready-for-our-new-game-the-shogun-coming-soon</a>
-			<br>
-			<br><img src="Preview.png"/>
-			<br><img src="Game_Notes.png"/>
-			<br><img src="Prologue.png"/>
-			<br><img src="Start_Germany.png"/>
-			<br><img src="Start_Italy.png"/>
-			<br><img src="Start_Japan.png"/>
-
-			<br><img src="Start_Britain.png"/>
-			<br><img src="Start_China.png"/>
-			<br><img src="Start_Pacific-Allies.png"/>
-			<br><img src="Start_USA.png"/>
-			<br><img src="Start_USSR.png"/>
-
-			<br><img src="1941_Global_Command_Decision_Manual_01.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_02.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_03.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_04.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_05.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_06.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_07.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_08.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_09.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_10.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_11.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_12.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_13.png"/>
-			<br><img src="1941_Global_Command_Decision_Manual_14.png"/>
-		</div>
-		</body>
-		</html>
-        ]]>
-        </value>
-    </property>
+<!-- for game notes see file 1941_global_command_decision.notes.html -->
 
 </propertyList>
 </game>
