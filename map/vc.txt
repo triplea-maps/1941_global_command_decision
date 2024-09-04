@@ -1,7 +1,3 @@
-# Dakota  (183,2000) 
-# Hong Kong-Kwangtung  (11053,4087) 
-# Surabaya-E.Java  (10891,6227) 
-# Texas  (361,2966) 
 Baghdad  (7733,3540) 
 Baku-Azerbaijan  (7997,2919) 
 Balikpapan-S.Borneo  (10821,5662) 

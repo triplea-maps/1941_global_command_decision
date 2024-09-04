@@ -1,11 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.175"/>
+	<info name="1941 Global Command Decision" version="1.180"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
-	<triplea minimumVersion="2.6.14790"/>
+	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
+
+v180
+Thanks Cernel for the HQ & renaming suggestions.
+Swapped Gemany HQ-Army Manstein, was Rommel. (thanks Black Elk) Rommel icon is in 1941_global_command_decision\map\units\Germany\NotUsed
+Swapped Italy HQ-Army icon Bastico, was Roatta (thanks Black Elk)
+Swapped Italy HQ-Fleet icon Angelo Iachino
+Swapped Italy HQ-Air icon Rino Corso Fougier (BW with AI colorized)
+Renamed Chernihiv to Chernigov
+Renamed Kyiv to Kiev
+Renamed Prinsk to Pinsk
+Renamed Prypriat to Prypiat
+
+Tool Tips includes canNotTarget (thanks to johnnycat) Some are now color coded to aid the player 
+Manual update politics sheet (thanks to johnnycat)
+
 v175
 WEST
 * German Eastern front realigned and forces moved ((thanks Cernel) (Due to TripleA map distortion it is approximate, but more accurate for the time period, late 41)
@@ -586,7 +602,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Charlotte-Carolina"/>
 	<territory name="Chelyabinsk"/>
 	<territory name="Chengdu-Szechwan"/>
-	<territory name="Chernihiv"/>
+	<territory name="Chernigov"/>
 	<territory name="Chersky"/>
 	<territory name="Chiang Mai"/>
 	<territory name="Chicago"/>
@@ -757,7 +773,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Kwajalein-Marshall Is."/>
 	<territory name="Kwangsi"/>
 	<territory name="Kweichow"/>
-	<territory name="Kyiv-Cen.Ukraine"/>
+	<territory name="Kiev-Cen.Ukraine"/>
 	<territory name="Kyoto-Osaka"/>
 	<territory name="Kyrgyzstan-Tajikistan"/>
 	<territory name="Kyushu"/>
@@ -909,9 +925,9 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Praetoria"/>
 	<territory name="Prague-Bohemia Moravia"/>
 	<territory name="Primorsky"/>
-	<territory name="Prinsk"/>
+	<territory name="Pinsk"/>
 	<territory name="Provence-Marseille"/>
-	<territory name="Prypriat"/>
+	<territory name="Prypiat"/>
 	<territory name="Pskov"/>
 	<territory name="Punjab"/>
 	<territory name="Qatar"/>
@@ -2333,8 +2349,8 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Bratsk" t2="Yakutsk"/>
 	<connection t1="Brest" t2="Grodno"/>
 	<connection t1="Brest" t2="Krakow-Lublin"/>
-	<connection t1="Brest" t2="Prinsk"/>
-	<connection t1="Brest" t2="Prypriat"/>
+	<connection t1="Brest" t2="Pinsk"/>
+	<connection t1="Brest" t2="Prypiat"/>
 	<connection t1="Brest" t2="Rzesow"/>
 	<connection t1="Brisbane-Queensland" t2="Darwin-Northern Territory"/>
 	<connection t1="Brisbane-Queensland" t2="Sydney Canberra-New South Wales"/>
@@ -2349,12 +2365,12 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Brittany" t2="Poitou"/>
 	<connection t1="Broome-Exmouth" t2="Darwin-Northern Territory"/>
 	<connection t1="Broome-Exmouth" t2="Perth-W.Australia"/>
-	<connection t1="Bryansk" t2="Chernihiv"/>
+	<connection t1="Bryansk" t2="Chernigov"/>
 	<connection t1="Bryansk" t2="Kursk-Vorozneh"/>
-	<connection t1="Bryansk" t2="Kyiv-Cen.Ukraine"/>
+	<connection t1="Bryansk" t2="Kiev-Cen.Ukraine"/>
 	<connection t1="Bryansk" t2="Mogilev"/>
-	<connection t1="Bryansk" t2="Prinsk"/>
-	<connection t1="Bryansk" t2="Prypriat"/>
+	<connection t1="Bryansk" t2="Pinsk"/>
+	<connection t1="Bryansk" t2="Prypiat"/>
 	<connection t1="Bryansk" t2="Smolensk"/>
 	<connection t1="Bryansk" t2="Tula"/>
 	<connection t1="Bucharest-Cen.Romania" t2="Ploiesti-E.Romania"/>
@@ -2426,11 +2442,11 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Chengdu-Szechwan" t2="Shensi"/>
 	<connection t1="Chengdu-Szechwan" t2="Sikang"/>
 	<connection t1="Chengdu-Szechwan" t2="Yunnan"/>
-	<connection t1="Chernihiv" t2="Kharkiv"/>
-	<connection t1="Chernihiv" t2="Kursk-Vorozneh"/>
-	<connection t1="Chernihiv" t2="Kyiv-Cen.Ukraine"/>
-	<connection t1="Chernihiv" t2="Mariupol"/>
-	<connection t1="Chernihiv" t2="Odesa-Mykoliav"/>
+	<connection t1="Chernigov" t2="Kharkiv"/>
+	<connection t1="Chernigov" t2="Kursk-Vorozneh"/>
+	<connection t1="Chernigov" t2="Kiev-Cen.Ukraine"/>
+	<connection t1="Chernigov" t2="Mariupol"/>
+	<connection t1="Chernigov" t2="Odesa-Mykoliav"/>
 	<connection t1="Chersky" t2="Chukotka"/>
 	<connection t1="Chersky" t2="Gizhiga"/>
 	<connection t1="Chersky" t2="Kolyma"/>
@@ -2602,7 +2618,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Grand Erg" t2="W.Algerian-Sahara"/>
 	<connection t1="Grodno" t2="Krakow-Lublin"/>
 	<connection t1="Grodno" t2="Minsk"/>
-	<connection t1="Grodno" t2="Prinsk"/>
+	<connection t1="Grodno" t2="Pinsk"/>
 	<connection t1="Grodno" t2="Vilna"/>
 	<connection t1="Grozny-Chechnya" t2="Krasnodar"/>
 	<connection t1="Grozny-Chechnya" t2="Stavropol"/>
@@ -2862,9 +2878,9 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Kweichow" t2="Shensi"/>
 	<connection t1="Kweichow" t2="Wuhan"/>
 	<connection t1="Kweichow" t2="Yunnan"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Lviv"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Odesa-Mykoliav"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Prypriat"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Lviv"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Odesa-Mykoliav"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Prypiat"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Sinkiang"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Urumchi-Kansu"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Uzbekistan"/>
@@ -2922,7 +2938,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Lucknow-Oudh" t2="Rajputana"/>
 	<connection t1="Lviv" t2="Moldavia"/>
 	<connection t1="Lviv" t2="Odesa-Mykoliav"/>
-	<connection t1="Lviv" t2="Prypriat"/>
+	<connection t1="Lviv" t2="Prypiat"/>
 	<connection t1="Lviv" t2="Rzesow"/>
 	<connection t1="Madras" t2="Orissa"/>
 	<connection t1="Madras" t2="Yanaon"/>
@@ -2974,12 +2990,12 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Milan-N.Italy" t2="Venice-Trieste"/>
 	<connection t1="Milan-N.Italy" t2="Vichy-Rhone"/>
 	<connection t1="Minsk" t2="Mogilev"/>
-	<connection t1="Minsk" t2="Prinsk"/>
+	<connection t1="Minsk" t2="Pinsk"/>
 	<connection t1="Minsk" t2="Vilna"/>
 	<connection t1="Minsk" t2="Vitebsk"/>
 	<connection t1="Mobile-Alabama" t2="New Orleans-Louisiana"/>
 	<connection t1="Mobile-Alabama" t2="St.Louis-Arkansas"/>
-	<connection t1="Mogilev" t2="Prinsk"/>
+	<connection t1="Mogilev" t2="Pinsk"/>
 	<connection t1="Mogilev" t2="Smolensk"/>
 	<connection t1="Mogilev" t2="Vitebsk"/>
 	<connection t1="Moldavia" t2="Odesa-Mykoliav"/>
@@ -3106,10 +3122,10 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Prague-Bohemia Moravia" t2="Slovakia"/>
 	<connection t1="Prague-Bohemia Moravia" t2="Vienna-N.Austria"/>
 	<connection t1="Primorsky" t2="Vladivostok"/>
-	<connection t1="Prinsk" t2="Prypriat"/>
+	<connection t1="Pinsk" t2="Prypiat"/>
 	<connection t1="Provence-Marseille" t2="Toulouse-Occitania"/>
 	<connection t1="Provence-Marseille" t2="Vichy-Rhone"/>
-	<connection t1="Prypriat" t2="Rzesow"/>
+	<connection t1="Prypiat" t2="Rzesow"/>
 	<connection t1="Pskov" t2="Rzhev"/>
 	<connection t1="Pskov" t2="Vitebsk"/>
 	<connection t1="Punjab" t2="Rajputana"/>
@@ -3456,6 +3472,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="Japan0EndTurn" 		delegate="endTurn" 			player="Japan"/>
 		<step name="JapanCombatMove" 	delegate="move" 			player="Japan"/>
 		<step name="JapanBattle" 		delegate="battle" 			player="Japan"/>
+			<step name="JapanEndRoundStep" delegate="endRound"/>
 		<step name="JapanNonCombatMove" delegate="move" 			player="Japan"		display="Non Combat Move"/>
 		<step name="JapanPurchase" 		delegate="purchase" 		player="Japan"/>
 		<step name="JapanPlace" 		delegate="place" 			player="Japan"/>
@@ -4448,7 +4465,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Charlotte-Carolina" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chelyabinsk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chengdu-Szechwan" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Chernihiv" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Chernigov" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chersky" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chiang Mai" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chicago" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
@@ -4620,7 +4637,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Kwajalein-Marshall Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kwangsi" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kweichow" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Kyiv-Cen.Ukraine" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Kiev-Cen.Ukraine" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kyoto-Osaka" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kyrgyzstan-Tajikistan" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kyushu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4772,9 +4789,9 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Praetoria" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Prague-Bohemia Moravia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Primorsky" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Prinsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Pinsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Provence-Marseille" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Prypriat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Prypiat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Pskov" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Punjab" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Qatar" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>													<option name="capital" value="Britain"/></attachment>
@@ -5453,7 +5470,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="maxConstructionsPerTypePerTerr" value="2"/>
 			<option name="constructionsPerTerrPerTypePerTurn" value="2"/>
 			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="1"/>
-<!--				<option name="unitPlacementRestrictions" value="Prypriat"/>	not used keep all marsh same -->
+<!--				<option name="unitPlacementRestrictions" value="Prypiat"/>	not used keep all marsh same -->
 		<option name="canBeDamaged" value="true"/>
 			<option name="canDieFromReachingMaxDamage" value="true"/>
 			<option name="maxDamage" value="2"/>
@@ -6093,7 +6110,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
             <option name="maxConstructionsPerTypePerTerr" value="1"/>
 			<option name="constructionsPerTerrPerTypePerTurn" value="1"/>
 			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="1"/>
-<!--				<option name="unitPlacementRestrictions" value="Prypriat"/> not used keep all marsh same -->
+<!--				<option name="unitPlacementRestrictions" value="Prypiat"/> not used keep all marsh same -->
 <!-- AA same for all Factory type units -->
 		<option name="isAAforCombatOnly" value="false"/>		<!-- false = it will defend against strategic bombing raids -->
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
@@ -6240,7 +6257,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- Blitzkrieg Armor Support for Bomber-Tac or Inf-Motorized -->
+<!-- Blitzkrieg Armor Support for Attacking Bomber-Tac or Inf-Motorized -->
     <attachment foreach="$All-Armor$" name="supportAttachment@All-Armor@_Bomber-Tac" attachTo="@All-Armor@" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Bomber-Tac:Inf-Motorized"/>
@@ -6253,7 +6270,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- Blitzkrieg Bomber-Tac Support for Infantry, not Conscript -->
+<!-- Blitzkrieg Bomber-Tac Support for Attacking Inf-Motorized, Anti-Tank, Infantry, not Conscript -->
     <attachment name="supportAttachmentBomber-Tac_Infantry" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Inf-Trained:Inf-Elite:Inf-Motorized:Anti-Tank"/>	<!-- not Inf-Conscript -->
@@ -6266,7 +6283,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- All-Players Artillery Support for Infantry, not Conscript -->
+<!-- All-Players Artillery Support for Attacking Inf-Motorized, Anti-Tank, Infantry, not Conscript  -->
     <attachment name="supportAttachmentArtillery_Infantry" attachTo="Artillery" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Inf-Trained:Inf-Elite:Inf-Motorized:Anti-Tank"/>	<!-- not Inf-Conscript -->
@@ -6380,13 +6397,13 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Bialystok:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Brest:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Grodno:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Kyiv-Cen.Ukraine:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Kiev-Cen.Ukraine:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latgale:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latvia:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Lithuania:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Minsk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Prinsk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Prypriat:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Pinsk:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Prypiat:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Rzesow:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vilna:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vyborg:USSR:Germany:true"/>
@@ -6406,7 +6423,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Odesa-Mykoliav:USSR:Italy:true"/>
 <!--
 		<option name="changeOwnership" value="Bryansk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Chernihiv:USSR:Italy:true"/>
+		<option name="changeOwnership" value="Chernigov:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Crimea:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Mariupol:USSR:Italy:true"/>
 -->
@@ -6913,15 +6930,16 @@ foreach does NOT appear to work with changeOwnership
     </attachment>
 
 <!-- Italy GO AI isAI Place 1x Industry-Med & 1x Industry-Lgt -->
+<!--
 	<attachment name="triggerAttachment_NationalTheme_Italy-AI_Place-Industries" attachTo="Italy" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Turn1_Italy"/>
         <option name="conditions" value="conditionAttachment_isAI_Italy"/>
 		<option name="placement" value="Mariupol:Industry-Lgt" 	count="1"/>
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-16"/>	<!-- 16  -->
+			<option name="resourceCount" value="-16"/>
 		<option name="when" value="before:ItalyPurchase"/>
 	</attachment>
-
+-->
 
 <!-- Japan GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Japan-AI" attachTo="Japan" javaClass="RulesAttachment" type="player">
@@ -7855,7 +7873,7 @@ foreach does NOT appear to work with changeOwnership
 
 
 <!-- ============================================= Allow Air to fly over marsh, but not land =============================================  -->
-<!-- not used to keep TT the same Prypriat is not the same as Calcutta or Florida -->
+<!-- not used to keep TT the same Prypiat is not the same as Calcutta or Florida -->
 <!-- Allow air units to enter marsh during combat -->
 <!-- not used as all marsh should be consistent 
 <attachment name="triggerAttachment_Marsh_Allow_Air" attachTo="Germany" javaClass="TriggerAttachment" type="player">
@@ -8490,7 +8508,7 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Charlotte-Carolina" 	 	 	owner="USA"/>			<!-- -->
 	<territoryOwner territory="Chelyabinsk" 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chengdu-Szechwan" 	 	 	owner="China"/>			<!-- -->
-	<territoryOwner territory="Chernihiv" 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Chernigov" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chersky" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chiang Mai" 	 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Chicago" 	 	 	 	 	owner="USA"/>			<!-- -->
@@ -8661,7 +8679,7 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Kwajalein-Marshall Is." 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kwangsi" 	 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kweichow" 	 	 	 	 	owner="China"/>			<!-- -->
-	<territoryOwner territory="Kyiv-Cen.Ukraine" 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Kiev-Cen.Ukraine" 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Kyoto-Osaka" 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kyrgyzstan-Tajikistan" 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Kyushu" 	 	 	 	 	 	owner="Japan"/>			<!-- -->
@@ -8813,9 +8831,9 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Praetoria" 	 	 	 	 	owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Prague-Bohemia Moravia" 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Primorsky" 	 	 	 	 	owner="USSR"/>			<!-- -->
-	<territoryOwner territory="Prinsk" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Pinsk" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Provence-Marseille" 	 	 	owner="Germany"/>		<!-- -->
-	<territoryOwner territory="Prypriat" 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Prypiat" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Pskov" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Punjab" 	 	 	 	 	 	owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Qatar" 	 	 	 	 	 	owner="Britain"/>		<!-- -->
@@ -9383,10 +9401,10 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Fighter" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Inf-Elite" 		quantity="5" owner="Germany"/>
 
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 	  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 	  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
 
 	<unitPlacement territory="Lapland" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Lapland" 							unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
@@ -9414,13 +9432,13 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Mogilev" 			 				unitType="Inf-Trained" 		quantity="19" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			  				unitType="Artillery" 		quantity="7" owner="Germany"/>
 
-	<unitPlacement territory="Prinsk" 							unitType="Anti-Tank" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 							unitType="Artillery" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 				 			unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 							unitType="Anti-Tank" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 							unitType="Artillery" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 				 			unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 		 					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
 
-	<unitPlacement territory="Prypriat" 			  			unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Prypiat" 			  			unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Armor-Med" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Artillery" 		quantity="3" owner="Germany"/>
@@ -9970,11 +9988,11 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 
-	<unitPlacement territory="Chernihiv" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 	<unitPlacement territory="Mariupol" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Mariupol" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
@@ -10438,17 +10456,11 @@ Less shuffling than above, but still not Player friendly
 <!-- ======================================= GO VICTORY =======================================  -->	
 
 <!-- Triggered Victory is a victory condition set by a trigger, using a condition or national objective -->
-    <property name="Triggered Victory" 	value="false" editable="true">			<boolean/>	</property>
+    <property name="Triggered Victory" 		value="false" editable="true">			<boolean/>	</property>
 
     <property name="Total Victory" 			value="true" editable="true">			<boolean/>	</property>
     <property name="Axis Total Victory VCs" 		value="21" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 10 -->
     <property name="Allies Total Victory VCs" 		value="21" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 19 -->
-
-
-	<property name="Economic Victory" 		value="false" editable="true">			<boolean/>	</property>
-	<property name="Allied Economic Victory" 		value="1200" editable="true">	<number min="1000" max="1900"/>   </property>
-	<property name="Axis Economic Victory" 			value="1200" editable="true">	<number min="1000" max="1900"/>   </property>
-
 
     <property name="Projection of Power" 	value="false" editable="true">			<boolean/>	</property>
 	<property name="Allies Projection of Power VCs" value="20" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 10 -->
@@ -10571,7 +10583,7 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
 
     <property name="Transport Casualties Restricted" 	value="false" editable="false">	<boolean/>	</property>
 
-    <property name="Transport Restricted Unload" 		value="false" editable="false">	<boolean/>	</property>
+    <property name="Transport Restricted Unload" 		value="true" editable="false">	<boolean/>	</property>
 
 	<!-- If enabled, transports can capture convoy zones. -->
     <property name="Transport Control Sea Zone" 		value="false" editable="false">	<boolean/>	</property>
