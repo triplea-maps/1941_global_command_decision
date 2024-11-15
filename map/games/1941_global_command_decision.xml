@@ -6,15 +6,43 @@
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
-v195 need to refresh 1-15 pages of the manual
-
-
 v190
 * Added over 275 unit Place.txt locations to reduce Teritory & Sea Zone overflow
 * Chinese AT-Gun fixed for Chinese can now buy Anti-Tank *** put in v195
 * Chinese added 6x AT-Gun 
-* Manual p6,7 Oil-Field=20, was 10 /
 
+
+v190
+Manual p6,7 Oil-Field=20, was 10 /
+print above
+
+v185
+* Ant-Tank now produced by Industry-Med was Industry-Hvy (As Industry-Med can make Armor-Med, this is a better fit)
+Britain
+* Weakened Britain by 15pu/turn & removed some Navy units, so they do not usually attack Western Europe for a few rounds, more historic.  (thanks Black Elk)
+* Britain Victoria-1, Socotra-1, Basra-1, Beruit-Lebanon-1, Damascus-S.Syria-1, Cape of Good Hope-1, S.Quebec-1, Upper Egypt-1, Belgian Congo-1
+* Britain Lagos-S.Nigeria now Base-Camp & 2pu, was Industry-Lgt & 5pu
+* Britain Italian Somaliland now Base-Camp & 2pu, was Industry-Lgt & 5pu
+* Removed Destroyers in Caribbean
+* Removed Convoy & Cruiser off Liverpool SZ109
+* Removed Inf-Trained in N Ireland & Wales
+
+Germany
+* Can now randomly spawn in the Atlantic HQ-Submarine, before they could not
+* 105SZ has HQ-Submarine & 2x Submarine
+* 105SZ is now part of the spawning area for random uBoats
+
+USA
+* Texas Oil-Field increased to 20 (represent the importance of Texas Oil), was 10, balanced by 10 extra Bunkers in the coastal states (Represents State Guards), net effect is +0pu
+* Venezuela new Oil-Field x10 (represent its importance to the Allies) reduced the pu of Gulf states to balance this
+* Port Au Prince-Haiti, Santo Domingo-Domingo-Dominica & Venezuela join the Lend-Lease agreement, so are effectively allied with the USA on Round 2
+
+* USSR almost doubled Oil-Field production to balance this added more Bunkers
+
+* USA Closed-Border with Neutrals has now been fixed, so will not attack Neutrals on rounds 1-4
+* Open-BorderAI has been removed and replaced with Closed-Border.  Open-BorderAI was too complicated.
+
+* Manual text now uses Combined-Arms, was Blitzkrieg (Thanks Black Elk)
 
 Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
 GCD is trying to be more of a simulation, than just a boardgame -
