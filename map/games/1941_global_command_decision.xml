@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.175"/>
+	<info name="1941 Global Command Decision" version="1.190"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
-	<triplea minimumVersion="2.6.14790"/>
+	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
-v175
-WEST
-* German Eastern front realigned and forces moved ((thanks Cernel) (Due to TripleA map distortion it is approximate, but more accurate for the time period, late 41)
-* Germany gained 4 territories in the north of Russia and lost 2 in the south
-* Italy gained 1 territory of Germanys in the Russian South, lost 3 to Russia
-* Germany gained a few bombers and more uBoats in the North Atlantic
+v195 need to refresh 1-15 pages of the manual
 
-EAST
-* Japan homeland lost 12pu from Territories as Industry is linked to Territories so lost another 12pu
-* Japan owned 2x SZ and 2x TT gain +1 PU, overall Japan has lost 20pu per turn
-* Gain extra units mainly in Shanghai-Kiangsu & Convoy in 6C Sea Zone
-* Main reason for the change was that compared to Britain, Japan homeland industrially looked too good, had 6x Industry-Hvy, now has 3, Britain has 4 Industry-Hvy
-* As the game progressess Japan gets weaker compared to the previous release (but still has a chance to win in its area of influence
-* Lend-Lease-Depot units placed in Fars:Lorestan:Tehran:Gilan & N.Burma so Players know which TT need to be held/taken
 
-MAP
-* HQ-Army now has isMarine -1, was missing
-* map.properties unit width & height increased (overall units display better)
-* Tool Tip Industries have “rail links” and can move land units upto 3 territories, depending on terrain effects.  
-Sometimes this produces inconsistancies in move 2 units like armor over mountains, where they cannot move 3, so work around it. (thanks johnnycat)
-* Transport cost of Armor-Lgt now 4, was 3 (thanks johnnycat)
-* Tool Tip Inf-Conscript expanded, have no AA attack/defence (thanks johnnycat)
-* Tool Tip Nuclear-Bomber expanded, including Can only be targeted by air units in a Dog-Fight & AA from a Strategic Bombing Run on Industry/Base-Camp (thanks johnnycat)
+v190
+* Added over 275 unit Place.txt locations to reduce Teritory & Sea Zone overflow
+* Chinese AT-Gun fixed for Chinese can now buy Anti-Tank *** put in v195
+* Chinese added 6x AT-Gun 
+* Manual p6,7 Oil-Field=20, was 10 /
+
+
+Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
+GCD is trying to be more of a simulation, than just a boardgame -
+Bombers cannot target ships, they did not do this successful hence they had Torpedo and Dive Bombers.  
+It is rare the AI tries to target ships, Im hoping that a Dev will fix the AI so it obeys canNotTarget rules
+Bunkers could have AA? I can argue for & against, went with against
+Design Why are infantry invulnable to Fighters? Fighters would target high value/TUV units and not low value
+
+
+Tool-Tips have improved, now better color coded;
+* Red    - Combat additions
+* Orange - Warning or notification, usually to say what can be targeted or not
+* Blue   - Suppression (-1) off enemy attack or defence
+* Green  - Movement or transport
 
 =============================
 
@@ -125,9 +125,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="HQ-Fleet"/>
 		<element name="Convoy"/>
 		<element name="Destroyer"/>
-<!--		<element name="Destroyer-LongL"/>  -->
 		<element name="Cruiser"/>
-<!--		<element name="Cruiser-LongL"/>  -->
 		<element name="Battleship"/>
 		<element name="Carrier"/>
 		<element name="Carrier-Fleet"/>
@@ -135,9 +133,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 
 	<variable name="All-HQ-Sea-Command">	<!-- 5 -->
 		<element name="Destroyer"/>
-<!--		<element name="Destroyer-LongL"/>  -->
 		<element name="Cruiser"/>
-<!--		<element name="Cruiser-LongL"/>  -->
 		<element name="Battleship"/>
 		<element name="Submarine"/>
 		<element name="Submarine-Adv"/>
@@ -172,7 +168,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="Air-Transport"/>
 		<element name="Bomber-Tac"/>
 		<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
-<!--		<element name="Bomber-LongR"/>  -->
 
 		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
 		<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
@@ -184,7 +179,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="Air-Transport"/>
 		<element name="Bomber-Tac"/>
 		<element name="Bomber"/>
-<!--		<element name="Bomber-LongR"/>  -->
 		<element name="Nuclear-Bomber"/>
 		<element name="V1-Rocket"/>
 		<element name="V2-Rocket"/>
@@ -195,8 +189,8 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
 		<element name="Bomber-Tac"/>
 		<element name="Bomber"/>
-<!--		<element name="Bomber-LongR"/>  -->
-<!--		<element name="HQ-Air"/>		Not self
+<!--		<element name="Bomber-LongR"/>
+		<element name="HQ-Air"/>		Not self
 		<element name="Kamikaze-Plane"/>	Special
 		<element name="Air-Transport"/>		0/0
 		<element name="Nuclear-Bomber"/>	Special
@@ -205,13 +199,15 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
  -->
     </variable>
 
-	<variable name="SubmarineSZ">	<!-- 11+3 doubled, Random SZ for German submarines -->
+	<variable name="SubmarineSZ">	<!-- 11+5 doubled, Random SZ for German submarines -->
 		<element name="091 A Sea Zone"/>
 		<element name="102 Sea Zone"/>
 		<element name="102 Sea Zone"/>
 		<element name="103 Sea Zone"/>
 		<element name="104 Sea Zone"/>
 		<element name="104 Sea Zone"/>
+		<element name="105 Sea Zone"/>
+		<element name="105 Sea Zone"/>
 		<element name="107 Sea Zone"/>
 		<element name="108 Sea Zone"/>
 		<element name="108 Sea Zone"/>
@@ -586,7 +582,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Charlotte-Carolina"/>
 	<territory name="Chelyabinsk"/>
 	<territory name="Chengdu-Szechwan"/>
-	<territory name="Chernihiv"/>
+	<territory name="Chernigov"/>
 	<territory name="Chersky"/>
 	<territory name="Chiang Mai"/>
 	<territory name="Chicago"/>
@@ -757,7 +753,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Kwajalein-Marshall Is."/>
 	<territory name="Kwangsi"/>
 	<territory name="Kweichow"/>
-	<territory name="Kyiv-Cen.Ukraine"/>
+	<territory name="Kiev-Cen.Ukraine"/>
 	<territory name="Kyoto-Osaka"/>
 	<territory name="Kyrgyzstan-Tajikistan"/>
 	<territory name="Kyushu"/>
@@ -909,9 +905,9 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="Praetoria"/>
 	<territory name="Prague-Bohemia Moravia"/>
 	<territory name="Primorsky"/>
-	<territory name="Prinsk"/>
+	<territory name="Pinsk"/>
 	<territory name="Provence-Marseille"/>
-	<territory name="Prypriat"/>
+	<territory name="Prypiat"/>
 	<territory name="Pskov"/>
 	<territory name="Punjab"/>
 	<territory name="Qatar"/>
@@ -2333,8 +2329,8 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Bratsk" t2="Yakutsk"/>
 	<connection t1="Brest" t2="Grodno"/>
 	<connection t1="Brest" t2="Krakow-Lublin"/>
-	<connection t1="Brest" t2="Prinsk"/>
-	<connection t1="Brest" t2="Prypriat"/>
+	<connection t1="Brest" t2="Pinsk"/>
+	<connection t1="Brest" t2="Prypiat"/>
 	<connection t1="Brest" t2="Rzesow"/>
 	<connection t1="Brisbane-Queensland" t2="Darwin-Northern Territory"/>
 	<connection t1="Brisbane-Queensland" t2="Sydney Canberra-New South Wales"/>
@@ -2349,12 +2345,12 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Brittany" t2="Poitou"/>
 	<connection t1="Broome-Exmouth" t2="Darwin-Northern Territory"/>
 	<connection t1="Broome-Exmouth" t2="Perth-W.Australia"/>
-	<connection t1="Bryansk" t2="Chernihiv"/>
+	<connection t1="Bryansk" t2="Chernigov"/>
 	<connection t1="Bryansk" t2="Kursk-Vorozneh"/>
-	<connection t1="Bryansk" t2="Kyiv-Cen.Ukraine"/>
+	<connection t1="Bryansk" t2="Kiev-Cen.Ukraine"/>
 	<connection t1="Bryansk" t2="Mogilev"/>
-	<connection t1="Bryansk" t2="Prinsk"/>
-	<connection t1="Bryansk" t2="Prypriat"/>
+	<connection t1="Bryansk" t2="Pinsk"/>
+	<connection t1="Bryansk" t2="Prypiat"/>
 	<connection t1="Bryansk" t2="Smolensk"/>
 	<connection t1="Bryansk" t2="Tula"/>
 	<connection t1="Bucharest-Cen.Romania" t2="Ploiesti-E.Romania"/>
@@ -2426,11 +2422,11 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Chengdu-Szechwan" t2="Shensi"/>
 	<connection t1="Chengdu-Szechwan" t2="Sikang"/>
 	<connection t1="Chengdu-Szechwan" t2="Yunnan"/>
-	<connection t1="Chernihiv" t2="Kharkiv"/>
-	<connection t1="Chernihiv" t2="Kursk-Vorozneh"/>
-	<connection t1="Chernihiv" t2="Kyiv-Cen.Ukraine"/>
-	<connection t1="Chernihiv" t2="Mariupol"/>
-	<connection t1="Chernihiv" t2="Odesa-Mykoliav"/>
+	<connection t1="Chernigov" t2="Kharkiv"/>
+	<connection t1="Chernigov" t2="Kursk-Vorozneh"/>
+	<connection t1="Chernigov" t2="Kiev-Cen.Ukraine"/>
+	<connection t1="Chernigov" t2="Mariupol"/>
+	<connection t1="Chernigov" t2="Odesa-Mykoliav"/>
 	<connection t1="Chersky" t2="Chukotka"/>
 	<connection t1="Chersky" t2="Gizhiga"/>
 	<connection t1="Chersky" t2="Kolyma"/>
@@ -2602,7 +2598,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Grand Erg" t2="W.Algerian-Sahara"/>
 	<connection t1="Grodno" t2="Krakow-Lublin"/>
 	<connection t1="Grodno" t2="Minsk"/>
-	<connection t1="Grodno" t2="Prinsk"/>
+	<connection t1="Grodno" t2="Pinsk"/>
 	<connection t1="Grodno" t2="Vilna"/>
 	<connection t1="Grozny-Chechnya" t2="Krasnodar"/>
 	<connection t1="Grozny-Chechnya" t2="Stavropol"/>
@@ -2862,9 +2858,9 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Kweichow" t2="Shensi"/>
 	<connection t1="Kweichow" t2="Wuhan"/>
 	<connection t1="Kweichow" t2="Yunnan"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Lviv"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Odesa-Mykoliav"/>
-	<connection t1="Kyiv-Cen.Ukraine" t2="Prypriat"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Lviv"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Odesa-Mykoliav"/>
+	<connection t1="Kiev-Cen.Ukraine" t2="Prypiat"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Sinkiang"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Urumchi-Kansu"/>
 	<connection t1="Kyrgyzstan-Tajikistan" t2="Uzbekistan"/>
@@ -2922,7 +2918,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Lucknow-Oudh" t2="Rajputana"/>
 	<connection t1="Lviv" t2="Moldavia"/>
 	<connection t1="Lviv" t2="Odesa-Mykoliav"/>
-	<connection t1="Lviv" t2="Prypriat"/>
+	<connection t1="Lviv" t2="Prypiat"/>
 	<connection t1="Lviv" t2="Rzesow"/>
 	<connection t1="Madras" t2="Orissa"/>
 	<connection t1="Madras" t2="Yanaon"/>
@@ -2974,12 +2970,12 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Milan-N.Italy" t2="Venice-Trieste"/>
 	<connection t1="Milan-N.Italy" t2="Vichy-Rhone"/>
 	<connection t1="Minsk" t2="Mogilev"/>
-	<connection t1="Minsk" t2="Prinsk"/>
+	<connection t1="Minsk" t2="Pinsk"/>
 	<connection t1="Minsk" t2="Vilna"/>
 	<connection t1="Minsk" t2="Vitebsk"/>
 	<connection t1="Mobile-Alabama" t2="New Orleans-Louisiana"/>
 	<connection t1="Mobile-Alabama" t2="St.Louis-Arkansas"/>
-	<connection t1="Mogilev" t2="Prinsk"/>
+	<connection t1="Mogilev" t2="Pinsk"/>
 	<connection t1="Mogilev" t2="Smolensk"/>
 	<connection t1="Mogilev" t2="Vitebsk"/>
 	<connection t1="Moldavia" t2="Odesa-Mykoliav"/>
@@ -3106,10 +3102,10 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Prague-Bohemia Moravia" t2="Slovakia"/>
 	<connection t1="Prague-Bohemia Moravia" t2="Vienna-N.Austria"/>
 	<connection t1="Primorsky" t2="Vladivostok"/>
-	<connection t1="Prinsk" t2="Prypriat"/>
+	<connection t1="Pinsk" t2="Prypiat"/>
 	<connection t1="Provence-Marseille" t2="Toulouse-Occitania"/>
 	<connection t1="Provence-Marseille" t2="Vichy-Rhone"/>
-	<connection t1="Prypriat" t2="Rzesow"/>
+	<connection t1="Prypiat" t2="Rzesow"/>
 	<connection t1="Pskov" t2="Rzhev"/>
 	<connection t1="Pskov" t2="Vitebsk"/>
 	<connection t1="Punjab" t2="Rajputana"/>
@@ -3329,7 +3325,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
         <relationshipType name="Allied"/>
         <relationshipType name="Allied-USSR"/>
         <relationshipType name="Open-Border"/>
-        <relationshipType name="Open-BorderAI"/>
         <relationshipType name="Neutrals"/>
         <relationshipType name="Closed-Border"/>
         <relationshipType name="War"/>
@@ -3380,20 +3375,20 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <!-- TODO placed before Bid to attach Prologue and Nation_Start panels usually this is not possible, but GCD style Tech allows this to be -->
 		<step name="GermanyTech" 			delegate="tech" 				player="Germany"	maxRunCount="1"/>
 		<step name="GermanyTechActivation"	delegate="tech_activation" 		player="Germany"	maxRunCount="1"/>
-		<step name="USSRTech" 				delegate="tech" 				player="USSR"		maxRunCount="1"/>>
-		<step name="USSRTechActivation"		delegate="tech_activation" 		player="USSR"		maxRunCount="1"/>>
-		<step name="ItalyTech" 				delegate="tech" 				player="Italy"		maxRunCount="1"/>>
+		<step name="USSRTech" 				delegate="tech" 				player="USSR"		maxRunCount="1"/>
+		<step name="USSRTechActivation"		delegate="tech_activation" 		player="USSR"		maxRunCount="1"/>
+		<step name="ItalyTech" 				delegate="tech" 				player="Italy"		maxRunCount="1"/>
 		<step name="ItalyTechActivation" 	delegate="tech_activation" 		player="Italy"		maxRunCount="1"/>
-		<step name="BritainTech" 			delegate="tech" 				player="Britain"	maxRunCount="1"/>>
+		<step name="BritainTech" 			delegate="tech" 				player="Britain"	maxRunCount="1"/>
 		<step name="BritainTechActivation"	delegate="tech_activation" 		player="Britain"	maxRunCount="1"/>
-		<step name="JapanTech" 				delegate="tech" 				player="Japan"		maxRunCount="1"/>>
+		<step name="JapanTech" 				delegate="tech" 				player="Japan"		maxRunCount="1"/>
 		<step name="JapanTechActivation" 	delegate="tech_activation" 		player="Japan"		maxRunCount="1"/>
 		<step name="USATech" 				delegate="tech" 				player="USA"		maxRunCount="1"/>
 		<step name="USATechActivation"		delegate="tech_activation" 		player="USA"		maxRunCount="1"/>
 		<step name="Pacific-AlliesTech" 	delegate="tech" 				player="Pacific-Allies"		maxRunCount="1"/>
-		<step name="Pacific-AlliesTechActivation"	delegate="tech_activation" 	player="Pacific-Allies"	maxRunCount="1"/>>
-		<step name="ChinaTech" 				delegate="tech" 				player="China"		maxRunCount="1"/>>
-		<step name="ChinaTechActivation" 	delegate="tech_activation" 		player="China"		maxRunCount="1"/>>
+		<step name="Pacific-AlliesTechActivation"	delegate="tech_activation" 	player="Pacific-Allies"	maxRunCount="1"/>
+		<step name="ChinaTech" 				delegate="tech" 				player="China"		maxRunCount="1"/>
+		<step name="ChinaTechActivation" 	delegate="tech_activation" 		player="China"		maxRunCount="1"/>
 
 <!-- TODO Bid High to Low, lowest wins or use Bids to give a bonus to a weak/new player or use Bids to fix an unbalanced. A map Bid is special purchase/place phase -->
 		<step name="GermanyBid" 		delegate="bid" 		player="Germany" 	maxRunCount="1"/>
@@ -3420,7 +3415,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<stepProperty name="resetUnitStateAtStart" value="true"/>						<!-- Allows Subs to move after being randomly placed -->
 		</step>
 		<step name="GermanyBattle" 			delegate="battle" 		player="Germany"/>
-		<step name="GermanyNonCombatMove" 	delegate="move" 		player="Germany" display="Non Combat Move"/>
+		<step name="GermanyNonCombatMove" 	delegate="move" 		player="Germany" 	display="Non Combat Move"/>
 		<step name="GermanyPurchase" 		delegate="purchase" 	player="Germany"/>
 		<step name="GermanyPlace" 			delegate="place" 		player="Germany"/>
 		<step name="Germany1EndTurn" 		delegate="endTurnNoPU" 	player="Germany"/>
@@ -3429,7 +3424,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="USSR0EndTurn"	 	delegate="endTurn" 			player="USSR"/>
 		<step name="USSRCombatMove" 	delegate="move" 			player="USSR"/>
 		<step name="USSRBattle" 		delegate="battle" 			player="USSR"/>
-		<step name="USSRNonCombatMove" 	delegate="move" 			player="USSR"	display="Non Combat Move"/>
+		<step name="USSRNonCombatMove" 	delegate="move" 			player="USSR"		display="Non Combat Move"/>
 		<step name="USSRPurchase" 		delegate="purchase" 		player="USSR"/>
 		<step name="USSRPlace" 			delegate="place" 			player="USSR"/>
 		<step name="USSR1EndTurn"		delegate="endTurnNoPU" 		player="USSR"/>
@@ -3456,6 +3451,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="Japan0EndTurn" 		delegate="endTurn" 			player="Japan"/>
 		<step name="JapanCombatMove" 	delegate="move" 			player="Japan"/>
 		<step name="JapanBattle" 		delegate="battle" 			player="Japan"/>
+			<step name="JapanEndRoundStep" delegate="endRound"/>
 		<step name="JapanNonCombatMove" delegate="move" 			player="Japan"		display="Non Combat Move"/>
 		<step name="JapanPurchase" 		delegate="purchase" 		player="Japan"/>
 		<step name="JapanPlace" 		delegate="place" 			player="Japan"/>
@@ -3617,11 +3613,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionFrontier name="production_China">
 		<frontierRules name="buyHQ-Army"/>
 		<frontierRules name="buyInf-Conscript"/>
-		<frontierRules name="buyInf-Elite"/>
+<!--		<frontierRules name="buyInf-Elite"/>  -->
 
 		<frontierRules name="buyArmor-Lgt"/>
+
 		<frontierRules name="buyArtillery"/>
+		<frontierRules name="buyAnti-Tank"/>
 		<frontierRules name="buyBunker"/>
+
 		<frontierRules name="buyFighter-Early"/>
 
 		<frontierRules name="buyIndustry-Lgt"/>
@@ -3744,6 +3743,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyArmor-Lgt"/>
 
 		<frontierRules name="buyArtillery"/>
+		<frontierRules name="buyAnti-Tank"/>
 		<frontierRules name="buyBunker"/>
 
 		<frontierRules name="buyDestroyer"/>
@@ -3949,7 +3949,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <technology>
 	<technologies>						<!-- .=unit tech, no dot=a system tech like Cruiser-LongL -->
 		<techname name="Armor-Hvy."/>			<!-- Germany, USA, USSR -->
-		<techname name="Blitzkrieg"/>		<!-- Tech Britain, Germany, Italy, USA Fighters, Bombers-Tac & Armor -->
+		<techname name="Combined-Arms"/>		<!-- Tech Britain, Germany, Italy, USA Fighters, Bombers-Tac & Armor -->
 		<techname name="Bomber-LongR"/>		<!-- Tech Britain, USA Long Range Bomber -->
 		<techname name="Carrier-Fleet."/>		<!-- Britain, Germany, Japan, USA -->
 		<techname name="Cruiser-LongL"/>	<!-- Tech Japan -->
@@ -3966,7 +3966,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="Britain">
 		<category name="Technology Advances">	<!-- 5+2 -->
-			<tech name="Blitzkrieg"/>
+			<tech name="Combined-Arms"/>
 			<tech name="Bomber-LongR"/>
 			<tech name="Carrier-Fleet."/>
 			<tech name="Fighter-Jet."/>
@@ -3986,7 +3986,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="Germany">
 		<category name="Technology Advances">	<!-- 7+2 -->
 			<tech name="Armor-Hvy."/>
-			<tech name="Blitzkrieg"/>
+			<tech name="Combined-Arms"/>
 			<tech name="Carrier-Fleet."/>
 			<tech name="Fighter-Jet."/>
 			<tech name="Submarine-Adv."/>
@@ -3999,7 +3999,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="Italy">
 		<category name="Technology Advances">	<!-- 1+2 -->
-			<tech name="Blitzkrieg"/>
+			<tech name="Combined-Arms"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4026,7 +4026,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="USA">
 		<category name="Technology Advances">	<!-- 7+2 -->
 			<tech name="Armor-Hvy."/>
-			<tech name="Blitzkrieg"/>
+			<tech name="Combined-Arms"/>
 			<tech name="Bomber-LongR"/>
 			<tech name="Carrier-Fleet."/>
 			<tech name="Fighter-Jet."/>
@@ -4058,24 +4058,11 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<option name="archeType" value="war"/>
     </attachment>
 
-<!-- Used by Player Axis, USSR, USA T1-3, can invade Neutrals & use Aircraft, changed 2023/07-20 -->
+<!-- Used by Player Axis, USSR, can invade Neutrals & use Aircraft, changed 2023/07-20 -->
     <attachment name="relationshipTypeAttachment" attachTo="Open-Border" javaClass="RelationshipTypeAttachment" type="relationship">
         <option name="archeType" value="war"/>
         <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
         <option name="canMoveAirUnitsOverOwnedLand" value="true"/>	<!-- note -->
-        <option name="canMoveLandUnitsOverOwnedLand" value="true"/>
-        <option name="canTakeOverOwnedTerritory" 	value="true"/>	<!-- take over YES -->
-        <option name="givesBackOriginalTerritories" value="false"/>
-        <option name="canMoveIntoDuringCombatMove" 	value="true"/>
-        <option name="canMoveThroughCanals" 		value="false"/>	<!-- Turkish Straits cannot move through -->
-        <option name="rocketsCanFlyOver" 			value="false"/>	<!-- was true -->
-    </attachment>
-
-<!-- Used by AI Axis, USSR, can invade Neutrals, no aircraft 2/3 chance, 1/3 chance above -->
-    <attachment name="relationshipTypeAttachment" attachTo="Open-BorderAI" javaClass="RelationshipTypeAttachment" type="relationship">
-        <option name="archeType" value="war"/>
-        <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
-        <option name="canMoveAirUnitsOverOwnedLand" value="false"/>	<!-- note -->
         <option name="canMoveLandUnitsOverOwnedLand" value="true"/>
         <option name="canTakeOverOwnedTerritory" 	value="true"/>	<!-- take over YES -->
         <option name="givesBackOriginalTerritories" value="false"/>
@@ -4089,7 +4076,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<option name="archeType" value="neutral"/>
     </attachment>
 
-<!-- Used by Allies Britain, China, Pacific-Allies, USA T4+ CANNOT invade Neutrals -->
+<!-- Used by Allies Britain, China, Pacific-Allies, USA T4+ CANNOT invade Neutrals & Axis AI * USSR -->
     <attachment name="relationshipTypeAttachment" attachTo="Closed-Border" javaClass="RelationshipTypeAttachment" type="relationship">
         <option name="archeType" value="neutral"/>
         <option name="canLandAirUnitsOnOwnedLand" 	value="false"/>
@@ -4383,17 +4370,17 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Baghdad" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Britain"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Bahamas" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Bahia-Norde Este" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Baja-Sonora" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="desert"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Baja-Sonora" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Baku-Azerbaijan" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>													<option name="capital" value="USSR"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Bali-Sunda Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Balikpapan-S.Borneo" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Pacific-Allies"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Bangkok-Siam" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Japan"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Barat Daya Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Basra" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Basra" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Batavia-W.Java" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Bavaria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Bechuanaland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Belgian Congo" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Belgian Congo" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Belgium-Luxembourg" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Belgrade-Cen.Yugoslavia"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Bengal" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
@@ -4402,7 +4389,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Bergen-Vestland" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Berlin-Cen.Germany" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Germany"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Bermuda" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Beruit-Lebanon" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Beruit-Lebanon" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Bessarabia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Bethel" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Bhutan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4436,7 +4423,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Canary Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Cape Town" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Cape Verde Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Cape of Good Hope" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Cape of Good Hope" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Caracas-Venezuela" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Castille-Leon" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Cayman Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4448,11 +4435,11 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Charlotte-Carolina" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chelyabinsk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chengdu-Szechwan" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Chernihiv" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Chernigov" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Chersky" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chiang Mai" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chicago" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Chihuahua-Durango" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="desert"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Chihuahua-Durango" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chile" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christchurch-S.New Zealand" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christmas Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4465,7 +4452,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Copenhagen-Denmark" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="Germany"/></attachment>
 <attachment name="territoryAttachment" attachTo="Corregidor-Mindoro Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Corsica" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Costa" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Costa" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Crete" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Crimea" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Croatia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4476,7 +4463,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Dakota" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="USA"/></attachment>
 <attachment name="territoryAttachment" attachTo="Dalarna" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Dalmatia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Damascus-S.Syria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Damascus-S.Syria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Danakil" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Danzig-Posen" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Dar es Salaam-Zanzibar" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4491,11 +4478,11 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Dzavhan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="E.Algerian-Sahara" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="E.British Columbia" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="E.Tripolitania" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>													<option name="capital" value="Italy"/></attachment>
+<attachment name="territoryAttachment" attachTo="E.Tripolitania" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Ecuador" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Eire" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="El Alamein-Alexandria" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="El Salvador" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="El Salvador" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ellice Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Eritrea" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Erzurum" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4528,7 +4515,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Grodno" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Grozny-Chechnya" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="USSR"/></attachment>
 <attachment name="territoryAttachment" attachTo="Guadalcanal-Solomon Is."	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Guatemala" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Guatemala" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Gujarat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Haditha-Rutbah" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Haichow-Lunghai" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4541,7 +4528,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Hamburg-Lower Saxony" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hanoi-Tonkin" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Harbin" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Havana-Cuba" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Havana-Cuba" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hawaiian Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Helsinki" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Germany"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Herat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4549,7 +4536,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Hiroshima" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hokkaido" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hollandia-Dutch New Guinea" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Honduras" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Honduras" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Hong Kong-Kwangtung" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Pacific-Allies"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Honolulu-Pearl Harbor" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="USA"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hopei" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4562,7 +4549,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Isfahan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Istanbul" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Istria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Italian Somaliland" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Italian Somaliland" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Ivory Coast" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Iwo Jima-Bonin Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Japan"/></attachment>
 <attachment name="territoryAttachment" attachTo="Jamaica" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4620,12 +4607,12 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Kwajalein-Marshall Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kwangsi" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kweichow" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Kyiv-Cen.Ukraine" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Kiev-Cen.Ukraine" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kyoto-Osaka" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kyrgyzstan-Tajikistan" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kyushu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Labrador" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Lagos-S.Nigeria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Lagos-S.Nigeria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Lanzhou" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Laos" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Lapland" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4652,7 +4639,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Madras" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Madrid-Cen.Spain" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Magadan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Majorca" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Majorca" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Makassar-S.Celebs" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Malaya" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Maldives" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4685,7 +4672,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Moldavia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Montana" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Montenegro" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Monterrey" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Monterrey" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Morocco" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Moscow-Cen.Russia" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="USSR"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Mosul-Kirkuk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>													<option name="capital" value="Britain"/></attachment>
@@ -4716,14 +4703,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Nepal" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Netherlands" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Nevada" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="desert"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="S.Quebec" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="S.Quebec" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="New Caledonia Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="New Delhi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="New Hebrides Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="New Orleans-Louisiana" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="New York-New Jersey" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Niamey" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Nicaragua" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Nicaragua" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Nizhny Novgorod" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Nome" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Normandy" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Germany"/></attachment>
@@ -4765,16 +4752,16 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Ploiesti-E.Romania" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="Italy"/>	<option name="victoryCity" value="1"/> </attachment>
 <attachment name="territoryAttachment" attachTo="Poitou" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Pomerania" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Port Au Prince-Haiti" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Port Au Prince-Haiti" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Port Moresby-Papua" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Portland-Oregon" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Portuguese Guinea" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Praetoria" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Prague-Bohemia Moravia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Primorsky" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Prinsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Pinsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Provence-Marseille" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Prypriat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Prypiat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Pskov" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Punjab" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Qatar" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>													<option name="capital" value="Britain"/></attachment>
@@ -4807,7 +4794,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="San Juan-Puerto Rico" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sansapor-Vogelkop Pen." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Santiago-Guantanamo" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Santo Domingo-Domenica" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Santo Domingo-Domenica" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sarajevo-Bosnia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sarawak-N.Borneo" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sardinia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4827,7 +4814,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Sikang" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Silesia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sinai" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Sinaloa-Guadalajara" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Sinaloa-Guadalajara" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Singapore-Malacca" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sinkiang" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sistan-Baluchestan" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4838,7 +4825,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Smolensk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Smyrna" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Society Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Socotra" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Socotra" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sofia-W.Bulgaria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Southwest Africa" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Spanish Gabon" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4886,8 +4873,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Tsagaan Olom" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Tsinghai" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Tula" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Tunis-Tunisia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Turkmenistan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="USSR"/></attachment>
+<attachment name="territoryAttachment" attachTo="Tunis-Tunisia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Germany"/></attachment>
+<attachment name="territoryAttachment" attachTo="Turkmenistan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="USSR"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Tver" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Tyrol-S.Austria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Tyumen" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4896,7 +4883,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Uelen" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Uganda" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ulaanbaatar" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Upper Egypt" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Upper Egypt" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Upper Volta" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Uruguay" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Urumchi-Kansu" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
@@ -4906,9 +4893,9 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Vancouver-W.British Columbia" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="forest"/>	</attachment>">
 <attachment name="territoryAttachment" attachTo="Varna" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Venice-Trieste" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Veracruz" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Veracruz" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vichy-Rhone" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Victoria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Victoria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vienna-N.Austria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vilna" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Virginia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
@@ -4934,7 +4921,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Yamalia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Yanaon" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Yaroslavl" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Yucatan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Yucatan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Yukon" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Yunnan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/> <option name="capital" value="China"/></attachment>
 <attachment name="territoryAttachment" attachTo="Yuzhny-Novaya Zemlya" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
@@ -5156,7 +5143,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5439,6 +5426,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
                 <option name="targetsAA" value="$All-Air-Targetable$"/>
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
+			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
 <!-- Bunker -->
@@ -5453,7 +5441,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="maxConstructionsPerTypePerTerr" value="2"/>
 			<option name="constructionsPerTerrPerTypePerTurn" value="2"/>
 			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="1"/>
-<!--				<option name="unitPlacementRestrictions" value="Prypriat"/>	not used keep all marsh same -->
+<!--				<option name="unitPlacementRestrictions" value="Prypiat"/>	not used keep all marsh same -->
 		<option name="canBeDamaged" value="true"/>
 			<option name="canDieFromReachingMaxDamage" value="true"/>
 			<option name="maxDamage" value="2"/>
@@ -5484,7 +5472,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 		
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5510,7 +5498,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5539,7 +5527,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5569,7 +5557,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5594,7 +5582,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -5619,7 +5607,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 					<option name="maxAAattacks" value="1"/>
 					<option name="maxRoundsAA" value="-1"/>
             <option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>											
+		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
@@ -6093,7 +6081,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
             <option name="maxConstructionsPerTypePerTerr" value="1"/>
 			<option name="constructionsPerTerrPerTypePerTurn" value="1"/>
 			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="1"/>
-<!--				<option name="unitPlacementRestrictions" value="Prypriat"/> not used keep all marsh same -->
+<!--				<option name="unitPlacementRestrictions" value="Prypiat"/> not used keep all marsh same -->
 <!-- AA same for all Factory type units -->
 		<option name="isAAforCombatOnly" value="false"/>		<!-- false = it will defend against strategic bombing raids -->
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
@@ -6122,7 +6110,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	<attachment name="unitAttachment" attachTo="Oil-Field" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
 		<option name="createsResourcesList" value="1:PUs"/>	<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
-		<option name="tuv" value="10"/>
+		<option name="tuv" value="5"/>
 	</attachment>
 
 <!-- Lend-Lease-Depot -->
@@ -6136,7 +6124,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- ============================================= SUPPORT ATTACHMENTS =============================================  -->	
 <!-- ============================================= GO UNIT =============================================  -->	
 <!-- HQ-Air can add 10 support, 5 Dog Fight, 5 Ground -->
-    <attachment name="supportAttachmentHQ-Air_Dog_Fight" attachTo="HQ-Air" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Air_Dog_Fight" attachTo="HQ-Air" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Air-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6148,7 +6136,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-    <attachment name="supportAttachmentHQ-Air" attachTo="HQ-Air" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Air" attachTo="HQ-Air" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Air-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6162,7 +6150,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 
 <!-- HQ-Army can add 10 support 5 Dog Fight, 5 Ground  -->
-    <attachment name="supportAttachmentHQ-Army_Dog_Fight" attachTo="HQ-Army" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Army_Dog_Fight" attachTo="HQ-Army" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Air-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6174,7 +6162,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-    <attachment name="supportAttachmentHQ-Army" attachTo="HQ-Army" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Army" attachTo="HQ-Army" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Army-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6188,7 +6176,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 
 <!-- HQ-Fleet can add 10 support, 5 Dog Fight, 5 Sea -->
-    <attachment name="supportAttachmentHQ-Fleet_Dog_Fight" attachTo="HQ-Fleet" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Fleet_Dog_Fight" attachTo="HQ-Fleet" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Air-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6200,7 +6188,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-    <attachment name="supportAttachmentHQ-Fleet" attachTo="HQ-Fleet" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Fleet" attachTo="HQ-Fleet" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Sea-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6214,7 +6202,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 
 <!-- HQ-Submarine can add 5 support, 5 Sea -->
-    <attachment name="supportAttachmentHQ-Submarine" attachTo="HQ-Submarine" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_HQ-Submarine" attachTo="HQ-Submarine" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="$All-HQ-Sea-Command$"/>
         <option name="side" value="offence:defence"/>
@@ -6226,9 +6214,9 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- ======================================= Support OffensiveSupport - Blitzkrieg for Britain:Germany:Italy:USA ======================================= -->
-<!-- Blitzkrieg Fighter Support for Bomber-Tac -->
-   <attachment foreach="$All-Fighters$" name="supportAttachment@All-Fighters@_Bomber-Tac" attachTo="@All-Fighters@" javaClass="UnitSupportAttachment" type="unitType">
+<!-- ======================================= Support OffensiveSupport - Combined-Arms for Britain:Germany:Italy:USA ======================================= -->
+<!-- Combined-Arms Fighter Support for Bomber-Tac -->
+   <attachment foreach="$All-Fighters$" name="supportAttachment_@All-Fighters@_Bomber-Tac" attachTo="@All-Fighters@" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Bomber-Tac"/>
         <option name="side" value="offence"/>
@@ -6240,8 +6228,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- Blitzkrieg Armor Support for Bomber-Tac or Inf-Motorized -->
-    <attachment foreach="$All-Armor$" name="supportAttachment@All-Armor@_Bomber-Tac" attachTo="@All-Armor@" javaClass="UnitSupportAttachment" type="unitType">
+<!-- Combined-Arms Armor Support for Attacking Bomber-Tac or Inf-Motorized -->
+    <attachment foreach="$All-Armor$" name="supportAttachment_@All-Armor@_Bomber-Tac" attachTo="@All-Armor@" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Bomber-Tac:Inf-Motorized"/>
         <option name="side" value="offence"/>
@@ -6253,8 +6241,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- Blitzkrieg Bomber-Tac Support for Infantry, not Conscript -->
-    <attachment name="supportAttachmentBomber-Tac_Infantry" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
+<!-- Combined-Arms Bomber-Tac Support for Attacking Inf-Motorized, Anti-Tank, Infantry, not Conscript -->
+    <attachment name="supportAttachment_Bomber-Tac_Infantry" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Inf-Trained:Inf-Elite:Inf-Motorized:Anti-Tank"/>	<!-- not Inf-Conscript -->
         <option name="side" value="offence"/>
@@ -6266,8 +6254,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="impArtTech" value="false"/>
     </attachment>
 
-<!-- All-Players Artillery Support for Infantry, not Conscript -->
-    <attachment name="supportAttachmentArtillery_Infantry" attachTo="Artillery" javaClass="UnitSupportAttachment" type="unitType">
+<!-- All-Players Artillery Support for Attacking Inf-Motorized, Anti-Tank, Infantry, not Conscript  -->
+    <attachment name="supportAttachment_Artillery_Infantry" attachTo="Artillery" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="allied"/>
         <option name="unitType" value="Inf-Trained:Inf-Elite:Inf-Motorized:Anti-Tank"/>	<!-- not Inf-Conscript -->
         <option name="side" value="offence"/>
@@ -6281,7 +6269,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 <!-- ======================================= Support to Suppress ENEMY ======================================= -->
 <!-- Artillery Suppress ENEMY Base-Camp:Bunker -->
-    <attachment name="supportAttachmentArtillery_sup_Bunker" attachTo="Artillery" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_Artillery_sup_Bunker" attachTo="Artillery" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="enemy"/>
         <option name="unitType" value="Base-Camp:Bunker"/>
         <option name="side" value="offence:defence"/>		<!-- reduces enemy Base-Camp:Bunker strength Atk & Def -->
@@ -6294,10 +6282,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
 
 <!-- Bomber-Tac Suppress ENEMY Base-Camp:Bunker -->
-    <attachment name="supportAttachmentBomber-Tac_sup_Bunker" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_Bomber-Tac_sup_Bunker" attachTo="Bomber-Tac" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="enemy"/>
         <option name="unitType" value="Base-Camp:Bunker"/>
-        <option name="side" value="offence"/>				<!-- offence is correct, causes -1 to Defence of enemy Base-Camp:Bunker -->
+        <option name="side" value="offence"/>				<!-- offence is correct, reduces enemy Base-Camp:Bunker strength Def-->
         <option name="dice" value="strength"/>
         <option name="bonus" value="-1"/>
         <option name="number" value="1"/>
@@ -6307,10 +6295,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
 
 <!-- Anti-Tank Suppress ENEMY Armor -->
-    <attachment name="supportAttachmentAnti-Tank_sup_Armor" attachTo="Anti-Tank" javaClass="UnitSupportAttachment" type="unitType">
+    <attachment name="supportAttachment_Anti-Tank_sup_Armor" attachTo="Anti-Tank" javaClass="UnitSupportAttachment" type="unitType">
         <option name="faction" value="enemy"/>
         <option name="unitType" value="$All-Armor$:Inf-Motorized"/>
-        <option name="side" value="offence:defence"/>		<!-- reduces enemy Armor strength Atk & Def -->
+        <option name="side" value="defence"/>				<!-- defence is correct, reduces enemy Armor strength Atk -->
         <option name="dice" value="strength"/>
         <option name="bonus" value="-1"/>
         <option name="number" value="1"/>
@@ -6380,13 +6368,13 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Bialystok:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Brest:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Grodno:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Kyiv-Cen.Ukraine:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Kiev-Cen.Ukraine:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latgale:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Latvia:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Lithuania:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Minsk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Prinsk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Prypriat:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Pinsk:USSR:Germany:true"/>
+		<option name="changeOwnership" value="Prypiat:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Rzesow:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vilna:USSR:Germany:true"/>
 		<option name="changeOwnership" value="Vyborg:USSR:Germany:true"/>
@@ -6404,12 +6392,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Lviv:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Moldavia:USSR:Italy:true"/>
 		<option name="changeOwnership" value="Odesa-Mykoliav:USSR:Italy:true"/>
-<!--
-		<option name="changeOwnership" value="Bryansk:USSR:Germany:true"/>
-		<option name="changeOwnership" value="Chernihiv:USSR:Italy:true"/>
-		<option name="changeOwnership" value="Crimea:USSR:Italy:true"/>
-		<option name="changeOwnership" value="Mariupol:USSR:Italy:true"/>
--->
+
         <option name="when" value="before:GermanyTechActivation"/>
     </attachment>
 
@@ -6423,14 +6406,18 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-Brazil" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-Brazil"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+2+5+2+2+3+3=20  -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+2+5+(1+10)+2+3+3=29  -->
+		<option name="relationshipChange" value="USA:Neutrals:Closed-Border:Open-Border"/>
 		<option name="changeOwnership" value="Amapa-Brazilian Guiana:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Amazonas:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Bahia-Norde Este:Neutrals:USA:true"/>
+		<option name="changeOwnership" value="Caracas-Venezuela:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Maracaju:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Mato Grosso:Neutrals:USA:true"/>
+		<option name="changeOwnership" value="Port Au Prince-Haiti:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Rio De Janeiro-Sao Paulo:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Rio Grande Du Sol:Neutrals:USA:true"/>
+		<option name="changeOwnership" value="Santo Domingo-Domenica:Neutrals:USA:true"/>
         <option name="when" value="after:USA0EndTurn"/>
     </attachment>
     <attachment foreach="$All-Players$" name="conditionAttachment_Notify__USA-Brazil_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
@@ -6439,6 +6426,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     <attachment foreach="$All-Players$" name="triggerAttachment_Notify__USA-Brazil_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Notify__USA-Brazil_@All-Players@"/>	<!-- see notification.properties -->
 		<option name="notification" value="Notify_USA-Brazil_@All-Players@"/> 
+		<option name="relationshipChange" value="USA:Neutrals:Open-Border:Closed-Border"/>
 		<option name="players" value="@All-Players@"/>
         <option name="when" value="before:@All-Players@CombatMove"/>
 	</attachment>
@@ -6451,7 +6439,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-Mexico" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-Mexico"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+3+3+3+3+3+3+3=24 -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+1+1+3+2+2+2+2=16 -->
+		<option name="relationshipChange" value="USA:Neutrals:Closed-Border:Open-Border"/>
 		<option name="changeOwnership" value="Acapulco-Chiapas:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Baja-Sonora:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Chihuahua-Durango:Neutrals:USA:true"/>
@@ -6468,6 +6457,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     <attachment foreach="$All-Players$" name="triggerAttachment_Notify__USA-Mexico_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Notify__USA-Mexico_@All-Players@"/>	<!-- see notification.properties -->
 		<option name="notification" value="Notify_USA-Mexico_@All-Players@"/> 
+		<option name="relationshipChange" value="USA:Neutrals:Open-Border:Closed-Border"/>
 		<option name="players" value="@All-Players@"/>
         <option name="when" value="before:@All-Players@CombatMove"/>
 	</attachment>
@@ -6480,7 +6470,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-GulfofMexico" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-GulfofMexico"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+3+3+3+3=15 -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 1+2+2+2+2=9 -->
+		<option name="relationshipChange" value="USA:Neutrals:Closed-Border:Open-Border"/>
 		<option name="changeOwnership" value="Costa:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="El Salvador:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Guatemala:Neutrals:USA:true"/>
@@ -6494,30 +6485,13 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     <attachment foreach="$All-Players$" name="triggerAttachment_Notify__USA-GulfofMexico_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Notify__USA-GulfofMexico_@All-Players@"/>	<!-- see notification.properties -->
 		<option name="notification" value="Notify_USA-GulfofMexico_@All-Players@"/> 
+		<option name="relationshipChange" value="USA:Neutrals:Open-Border:Closed-Border"/>
 		<option name="players" value="@All-Players@"/>
         <option name="when" value="before:@All-Players@CombatMove"/>
 	</attachment>
 
-<!-- GO USA-Neutrals changed to Closed-Border on T4 to stop them from invading Neutrals -->
-    <attachment name="conditionAttachment_NationalTheme_USA-Neutrals" attachTo="USA" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4"/>
-    </attachment>
-    <attachment name="triggerAttachment_NationalTheme_USA-Neutrals" attachTo="USA" javaClass="TriggerAttachment" type="player">
-        <option name="conditions" value="conditionAttachment_NationalTheme_USA-Neutrals"/>
-		<option name="relationshipChange" value="USA:Neutrals:Open-Border:Closed-Border"/>
-        <option name="when" value="before:USACombatMove"/>
-    </attachment>
-
 <!--
 foreach does NOT appear to work with changeOwnership
-    <attachment name="conditionAttachment_NationalTheme_Italy-0" attachTo="Germany" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="1"/>
-    </attachment>
-    <attachment foreach="$InvadedTT-Italy$" name="triggerAttachment_NationalTheme_Italy-0" attachTo="Germany" javaClass="TriggerAttachment" type="player">
-        <option name="conditions" value="conditionAttachment_NationalTheme_Italy-0"/>
-		<option name="changeOwnership" value="@InvadedTT-Italy@:USSR:Italy:true"/>
-        <option name="when" value="before:GermanyCombatMove"/>
-    </attachment>
 -->
 
 
@@ -6700,7 +6674,7 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2-Ham_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Ham"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Invert"/>
-	<option name="placement" value="@SubmarineSZ@:Submarine" count="2"/>
+	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
 	<option name="when" value="after:Germany0EndTurn"/>
@@ -6708,13 +6682,13 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Ham_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Ham"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Success"/>
-	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="2"/>
+	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
-	<option name="chance" value="1:9"/>
+	<option name="chance" value="1:9"/>		<!-- increased chance because of increase in production -->
 	<option name="when" value="after:Germany0EndTurn"/>
 </attachment>
 
-<!-- Meckleburg Subs -->
+<!-- Meckleburg Subs & HQ-Submarine -->
 <attachment name="conditionAttachment_NationalTheme_Germany-2-Mec" attachTo="Germany" javaClass="RulesAttachment" type="player">
 	<option name="directPresenceTerritories" value="Meckleburg" count="1"/>
 	<option name="unitPresence" value="Industry-Hvy" count="1"/>
@@ -6723,6 +6697,7 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2-Mec_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Mec"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Invert"/>
+	<option name="placement" value="@SubmarineSZ@:HQ-Submarine" count="1"/>
 	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
@@ -6731,6 +6706,7 @@ foreach does NOT appear to work with changeOwnership
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Mec_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Mec"/>
 	<option name="conditions" value="conditionAttachment_Germany_Research_Submarine-Adv_Success"/>
+	<option name="placement" value="@SubmarineSZ@:HQ-Submarine" count="1"/>
 	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>
@@ -6912,16 +6888,6 @@ foreach does NOT appear to work with changeOwnership
         <option name="when" value="before:ItalyPurchase"/>
     </attachment>
 
-<!-- Italy GO AI isAI Place 1x Industry-Med & 1x Industry-Lgt -->
-	<attachment name="triggerAttachment_NationalTheme_Italy-AI_Place-Industries" attachTo="Italy" javaClass="TriggerAttachment" type="player">
-		<option name="conditions" value="conditionAttachment_Turn1_Italy"/>
-        <option name="conditions" value="conditionAttachment_isAI_Italy"/>
-		<option name="placement" value="Mariupol:Industry-Lgt" 	count="1"/>
-			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-16"/>	<!-- 16  -->
-		<option name="when" value="before:ItalyPurchase"/>
-	</attachment>
-
 
 <!-- Japan GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Japan-AI" attachTo="Japan" javaClass="RulesAttachment" type="player">
@@ -7043,14 +7009,14 @@ foreach does NOT appear to work with changeOwnership
 
 
 
-<!--  AI Axis & USSR use OpenBorderAI		G0 AI isAI -->
+<!--  AI Axis & USSR use Closed-Border		G0 AI isAI -->
 	<attachment foreach="$All-OpenBorderInvaders$" name="triggerAttachment_OpenBorderAI_@All-OpenBorderInvaders@" attachTo="@All-OpenBorderInvaders@" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_Turn1_@All-OpenBorderInvaders@"/>
         <option name="conditions" value="conditionAttachment_isAI_@All-OpenBorderInvaders@"/>
 										<!-- format: "player1:player2:oldRelation:newRelation -->					
-		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Neutrals:Open-Border:Open-BorderAI"/>
-		<option name="chance" value="4:6"/>	<!-- 2in3 chance of OpenBorderAI 1in3 of OpenBorder -->
-		<option name="when" value="before:@All-OpenBorderInvaders@CombatMove"/>
+		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Neutrals:Open-Border:Closed-Border"/>
+		<option name="chance" value="4:6"/>	<!-- 2in3 chance of Closed-Border 1in3 of Open-Border=Attack -->
+		<option name="when" value="before:@All-OpenBorderInvaders@Tech"/>
 	</attachment>
 
 <!-- ======================================= END AI all nations  =======================================  -->
@@ -7067,7 +7033,7 @@ foreach does NOT appear to work with changeOwnership
 <!--  Tech Britain & USA Bomber-LongR from Turn 1 -->
 	<attachment name="triggerAttachment_Britain_Tech_T1" attachTo="Britain" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Always_True"/>
-		<option name="tech" value="Blitzkrieg"/>
+		<option name="tech" value="Combined-Arms"/>
 		<option name="tech" value="Bomber-LongR"/>
 		<option name="uses" value="1"/>
 		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
@@ -7117,7 +7083,6 @@ foreach does NOT appear to work with changeOwnership
 <!-- ======================================= Tech Britain Carrier-Fleet ======================================= -->
 <!-- Britain Carrier-Fleet & remove Carrier -->
 <!-- Has the research been successful, should be T11 but as its random T10+Random -->
-
 
 <attachment name="conditionAttachment_Britain_Research_Carrier-Fleet_Success" attachTo="Britain" javaClass="RulesAttachment" type="player">
 <!--	<option name="switch" value="false"/> replaced with tech -->
@@ -7193,10 +7158,10 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- ======================================= Germany ======================================= -->
 
-<!--  Tech Germany Blitzkrieg from Turn 1 -->
+<!--  Tech Germany Combined-Arms from Turn 1 -->
 	<attachment name="triggerAttachment_Germany_Tech_T1" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Always_True"/>
-		<option name="tech" value="Blitzkrieg"/>
+		<option name="tech" value="Combined-Arms"/>
 		<option name="uses" value="1"/>
 		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
@@ -7440,10 +7405,10 @@ foreach does NOT appear to work with changeOwnership
 <!-- ======================================= Italy ======================================= -->
 <!-- ======================================= Italy tech ======================================= -->
 
-<!--  Tech Italy Blitzkrieg from Turn 1 -->
+<!--  Tech Italy Combined-Arms from Turn 1 -->
 	<attachment name="triggerAttachment_Italy_Tech_T1" attachTo="Italy" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Always_True"/>
-		<option name="tech" value="Blitzkrieg"/>
+		<option name="tech" value="Combined-Arms"/>
 		<option name="uses" value="1"/>
 		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
@@ -7611,16 +7576,15 @@ foreach does NOT appear to work with changeOwnership
 <!-- ======================================= USA ======================================= -->
 <!-- mo conscripts have National Guard so Trained ? -->
 
-<!--  Tech USA Blitzkrieg from Turn 1 -->
+<!--  Tech USA Combined-Arms from Turn 1 -->
 <!--  Tech Britain & USA Bomber-LongR from Turn 1 -->
 	<attachment name="triggerAttachment_USA_Tech_T1" attachTo="USA" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Always_True"/>
-		<option name="tech" value="Blitzkrieg"/>
+		<option name="tech" value="Combined-Arms"/>
 		<option name="tech" value="Bomber-LongR"/>
 		<option name="uses" value="1"/>
 		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
-
 
 
 <!-- ======================================= Tech USA Turn 1 ======================================= -->
@@ -7855,7 +7819,7 @@ foreach does NOT appear to work with changeOwnership
 
 
 <!-- ============================================= Allow Air to fly over marsh, but not land =============================================  -->
-<!-- not used to keep TT the same Prypriat is not the same as Calcutta or Florida -->
+<!-- not used to keep TT the same Prypiat is not the same as Calcutta or Florida -->
 <!-- Allow air units to enter marsh during combat -->
 <!-- not used as all marsh should be consistent 
 <attachment name="triggerAttachment_Marsh_Allow_Air" attachTo="Germany" javaClass="TriggerAttachment" type="player">
@@ -8343,7 +8307,7 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="102 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="103 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="104 Sea Zone" 	owner="Britain"/>
-	<territoryOwner territory="105 Sea Zone" 	owner="Britain"/>
+	<territoryOwner territory="105 Sea Zone" 	owner="Germany"/>
 	<territoryOwner territory="106 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="107 Sea Zone" 	owner="Britain"/>
 	<territoryOwner territory="108 Sea Zone" 	owner="Britain"/>
@@ -8490,7 +8454,7 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Charlotte-Carolina" 	 	 	owner="USA"/>			<!-- -->
 	<territoryOwner territory="Chelyabinsk" 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chengdu-Szechwan" 	 	 	owner="China"/>			<!-- -->
-	<territoryOwner territory="Chernihiv" 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Chernigov" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chersky" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Chiang Mai" 	 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Chicago" 	 	 	 	 	owner="USA"/>			<!-- -->
@@ -8661,7 +8625,7 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Kwajalein-Marshall Is." 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kwangsi" 	 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kweichow" 	 	 	 	 	owner="China"/>			<!-- -->
-	<territoryOwner territory="Kyiv-Cen.Ukraine" 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Kiev-Cen.Ukraine" 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Kyoto-Osaka" 	 	 	 	owner="Japan"/>			<!-- -->
 	<territoryOwner territory="Kyrgyzstan-Tajikistan" 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Kyushu" 	 	 	 	 	 	owner="Japan"/>			<!-- -->
@@ -8813,9 +8777,9 @@ Less shuffling than above, but still not Player friendly
 	<territoryOwner territory="Praetoria" 	 	 	 	 	owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Prague-Bohemia Moravia" 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Primorsky" 	 	 	 	 	owner="USSR"/>			<!-- -->
-	<territoryOwner territory="Prinsk" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Pinsk" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Provence-Marseille" 	 	 	owner="Germany"/>		<!-- -->
-	<territoryOwner territory="Prypriat" 	 	 	 	 	owner="USSR"/>			<!-- -->
+	<territoryOwner territory="Prypiat" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Pskov" 	 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Punjab" 	 	 	 	 	 	owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Qatar" 	 	 	 	 	 	owner="Britain"/>		<!-- -->
@@ -9011,9 +8975,9 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Ottawa-Montreal"					unitType="Industry-Med" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Halifax-Nova Scotia" 				unitType="Industry-Med" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Cairo-Egypt" 						unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
-	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Cape Town" 						unitType="Industry-Med" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Madras" 							unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
+
 
 	<unitPlacement territory="London-S.England"					unitType="Bunker" 			quantity="2" owner="Britain"/>
 	<unitPlacement territory="N.England" 						unitType="Bunker" 			quantity="2" owner="Britain"/>
@@ -9026,7 +8990,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Halifax-Nova Scotia" 				unitType="Bunker" 			quantity="1" owner="Britain"/>
 
 	<unitPlacement territory="Cairo-Egypt" 						unitType="Bunker" 			quantity="2" owner="Britain"/>
-	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Bunker" 			quantity="1" owner="Britain"/>
 	<unitPlacement territory="Cape Town" 						unitType="Bunker" 			quantity="1" owner="Britain"/>
 	<unitPlacement territory="Madras" 							unitType="Bunker" 			quantity="1" owner="Britain"/>
 
@@ -9039,33 +9002,25 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="N.England" 						unitType="Inf-Trained" 		quantity="4" owner="Britain"/>
 	<unitPlacement territory="N.England" 						unitType="Bomber" 			quantity="6" owner="Britain"/>
 
-	<unitPlacement territory="Wales" 							unitType="Inf-Trained" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="Scotland" 						unitType="Inf-Trained" 		quantity="2" owner="Britain"/>
-	<unitPlacement territory="N.Ireland" 						unitType="Inf-Trained" 		quantity="2" owner="Britain"/>
+
 	<unitPlacement territory="Halifax-Nova Scotia" 				unitType="Bomber" 			quantity="4" owner="Britain"/>
 
-<!-- Liverpool -->
-	<unitPlacement territory="109 Sea Zone" 					unitType="Cruiser" 			quantity="1" owner="Britain"/>
-	<unitPlacement territory="109 Sea Zone" 					unitType="Convoy" 			quantity="1" owner="Britain"/>
 <!-- Orkney -->
 	<unitPlacement territory="111 A Sea Zone" 					unitType="HQ-Fleet" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="111 A Sea Zone" 					unitType="Battleship" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="111 A Sea Zone" 					unitType="Cruiser" 			quantity="2" owner="Britain"/>
 	<unitPlacement territory="111 A Sea Zone" 					unitType="Submarine" 		quantity="2" owner="Britain"/>
-
+<!-- Norway -->
 	<unitPlacement territory="126 Sea Zone" 					unitType="Destroyer" 		quantity="4" owner="Britain"/>
-	<unitPlacement territory="126 Sea Zone" 					unitType="Submarine" 		quantity="2" owner="Britain"/>
+	<unitPlacement territory="126 Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
 
 	<unitPlacement territory="110 A Sea Zone" 					unitType="Submarine" 		quantity="2" owner="Britain"/>
 
 <!-- Canada Halifax -->
 	<unitPlacement territory="120 Sea Zone" 					unitType="HQ-Fleet" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="120 Sea Zone" 					unitType="Destroyer" 		quantity="4" owner="Britain"/>
-	<unitPlacement territory="106 Sea Zone" 					unitType="Convoy" 			quantity="1" owner="Britain"/>
-	<unitPlacement territory="106 Sea Zone" 					unitType="Cruiser" 			quantity="1" owner="Britain"/>
-
-<!-- Caribbean -->
-	<unitPlacement territory="089 A Sea Zone" 					unitType="Destroyer" 		quantity="4" owner="Britain"/>
+	<unitPlacement territory="106 Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Britain"/>
 
 
 <!-- Med Islands -->
@@ -9083,7 +9038,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Inf-Motorized" 	quantity="2" owner="Britain"/>
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Anti-Tank" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Artillery" 		quantity="3" owner="Britain"/>
-	<unitPlacement territory="El Alamein-Alexandria"			unitType="Inf-Trained" 		quantity="5" owner="Britain"/>
+	<unitPlacement territory="El Alamein-Alexandria"			unitType="Inf-Trained" 		quantity="7" owner="Britain"/>
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Inf-Elite" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Fighter-Early" 	quantity="3" owner="Britain"/>
 	<unitPlacement territory="El Alamein-Alexandria"			unitType="Bomber-Tac" 		quantity="2" owner="Britain"/>
@@ -9091,10 +9046,6 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Kharga-Western Desert"			unitType="Inf-Motorized" 	quantity="1" owner="Britain"/>
 
-	<unitPlacement territory="Italian Somaliland" 				unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
-	<unitPlacement territory="Italian Somaliland" 				unitType="Bunker" 			quantity="1" owner="Britain"/>
-	<unitPlacement territory="Italian Somaliland"				unitType="Bomber-Tac" 		quantity="2" owner="Britain"/>
-	<unitPlacement territory="Italian Somaliland"				unitType="Fighter-Early" 	quantity="2" owner="Britain"/>
 
 
 <!-- Med -->
@@ -9145,7 +9096,17 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Gilan" 							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
 
 
-<!-- Southern Africa -->
+<!-- Africa Mid & South -->
+	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Base-Camp"		quantity="1" owner="Britain"/>
+	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Bunker" 			quantity="1" owner="Britain"/>
+	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Artillery"		quantity="1" owner="Britain"/>
+	<unitPlacement territory="Lagos-S.Nigeria" 					unitType="Inf-Trained"		quantity="2" owner="Britain"/>
+
+	<unitPlacement territory="Italian Somaliland" 				unitType="Base-Camp" 		quantity="1" owner="Britain"/>
+	<unitPlacement territory="Italian Somaliland" 				unitType="Bunker" 			quantity="1" owner="Britain"/>
+	<unitPlacement territory="Italian Somaliland"				unitType="Artillery" 		quantity="1" owner="Britain"/>
+	<unitPlacement territory="Italian Somaliland"				unitType="Inf-Trained"		quantity="2" owner="Britain"/>
+
 	<unitPlacement territory="082 Sea Zone" 					unitType="Destroyer" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="082 Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Britain"/>
 
@@ -9169,9 +9130,12 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Calcutta"							unitType="Industry-Lgt" 	quantity="1" owner="Britain"/>
 	<unitPlacement territory="Calcutta"							unitType="Bunker" 			quantity="1" owner="Britain"/>
 
-	<unitPlacement territory="N.Burma"							unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
+	<unitPlacement territory="Bengal"							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
+	<unitPlacement territory="Nagpur"							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
 
+	<unitPlacement territory="N.Burma"							unitType="Lend-Lease-Depot" quantity="1" owner="Britain"/>
 	<unitPlacement territory="N.Burma"							unitType="Base-Camp" 		quantity="1" owner="Britain"/>
+	<unitPlacement territory="N.Burma"							unitType="Bunker" 			quantity="1" owner="Britain"/>
 	<unitPlacement territory="N.Burma"							unitType="Artillery" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="N.Burma"							unitType="Inf-Trained" 		quantity="1" owner="Britain"/>
 	<unitPlacement territory="N.Burma"							unitType="HQ-Army" 			quantity="1" owner="Britain"/>
@@ -9197,6 +9161,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Chungking" 						unitType="Industry-Med" 	quantity="1" owner="China"/>
 	<unitPlacement territory="Chungking" 						unitType="HQ-Army" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Chungking" 						unitType="Inf-Trained" 		quantity="1" owner="China"/>
+	<unitPlacement territory="Chungking"						unitType="Anti-Tank" 		quantity="3" owner="China"/>
 	<unitPlacement territory="Chungking" 						unitType="Artillery" 		quantity="2" owner="China"/>
 	<unitPlacement territory="Chungking" 						unitType="Fighter-Early" 	quantity="1" owner="China"/>
 
@@ -9243,6 +9208,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Yunnan" 							unitType="Inf-Trained" 		quantity="4" owner="China"/>
 	<unitPlacement territory="Yunnan" 							unitType="Lend-Lease-Depot" quantity="20" owner="China"/>
 
+	<unitPlacement territory="Kweichow" 						unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Kweichow" 						unitType="Bunker" 			quantity="2" owner="China"/>
 	<unitPlacement territory="Kweichow" 						unitType="Inf-Conscript" 	quantity="2" owner="China"/>
 	<unitPlacement territory="Kweichow" 						unitType="Artillery" 		quantity="1" owner="China"/>
@@ -9252,6 +9218,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Lanzhou" 							unitType="Inf-Trained" 		quantity="2" owner="China"/>
 	<unitPlacement territory="Lanzhou" 							unitType="HQ-Army" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Lanzhou" 							unitType="Artillery" 		quantity="1" owner="China"/>
+	<unitPlacement territory="Lanzhou" 							unitType="Anti-Tank" 		quantity="3" owner="China"/>
 	<unitPlacement territory="Lanzhou" 							unitType="Armor-Lgt" 		quantity="3" owner="China"/>
 	<unitPlacement territory="Lanzhou" 							unitType="Fighter-Early" 	quantity="1" owner="China"/>
 
@@ -9261,6 +9228,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Sinkiang" 						unitType="Inf-Trained" 		quantity="1" owner="China"/>
 
 	<unitPlacement territory="Sikang" 							unitType="Bunker" 			quantity="1" owner="China"/>
+	<unitPlacement territory="Tsinghai" 						unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Tsinghai" 						unitType="Bunker" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Shensi" 							unitType="Bunker" 			quantity="2" owner="China"/>
 	<unitPlacement territory="Chengdu-Szechwan" 				unitType="Bunker" 			quantity="2" owner="China"/>
@@ -9311,8 +9279,8 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Budapest-N.Hungary" 				unitType="Bunker" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Oslo" 							unitType="Bunker" 			quantity="2" owner="Germany"/>
 	<unitPlacement territory="Helsinki" 						unitType="Bunker" 			quantity="2" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France" 				unitType="Bunker" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Tunis-Tunisia" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France" 				unitType="Bunker" 			quantity="2" owner="Germany"/>
+	<unitPlacement territory="Tunis-Tunisia" 	 	 	 		unitType="Bunker"			quantity="2" owner="Germany"/>
 	<unitPlacement territory="Provence-Marseille" 				unitType="Bunker"			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Vichy-Rhone" 						unitType="Bunker"			quantity="1" owner="Germany"/>
 
@@ -9333,11 +9301,23 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Troms-Finnmark" 					unitType="Bunker" 			quantity="2" owner="Germany"/>
 
 	<unitPlacement territory="Paris-Cen.France"					unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France"					unitType="Armor-Lgt" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France" 				unitType="Artillery" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Armor-Lgt" 		quantity="5" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France" 				unitType="Artillery" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Trained" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France"					unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France"					unitType="Bomber" 			quantity="4" owner="Germany"/>
+
+	<unitPlacement territory="Bordeaux-Gascony" 				unitType="Inf-Trained"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Poitou" 							unitType="Inf-Trained"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Brittany" 						unitType="Inf-Trained"		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Brittany" 						unitType="Artillery"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Normandy" 						unitType="Inf-Trained"		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Normandy" 						unitType="Artillery"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Calais-Picardy" 					unitType="Inf-Trained"		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Calais-Picardy" 					unitType="Artillery"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Inf-Trained"		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Artillery"		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Netherlands" 						unitType="Inf-Trained"		quantity="2" owner="Germany"/>
 
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="HQ-Air" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Belgium-Luxembourg" 				unitType="Fighter" 			quantity="2" owner="Germany"/>
@@ -9355,6 +9335,9 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="113 B Sea Zone" 					unitType="Destroyer" 		quantity="4" owner="Germany"/>
 	<unitPlacement territory="113 B Sea Zone" 					unitType="Submarine" 		quantity="1" owner="Germany"/>
 	<unitPlacement territory="113 B Sea Zone" 					unitType="Convoy" 			quantity="1" owner="Germany"/>
+
+	<unitPlacement territory="105 Sea Zone" 					unitType="HQ-Submarine" 	quantity="1" owner="Germany"/>
+	<unitPlacement territory="105 Sea Zone" 					unitType="Submarine" 		quantity="2" owner="Germany"/>
 
 	<unitPlacement territory="108 Sea Zone" 					unitType="HQ-Submarine" 	quantity="1" owner="Germany"/>
 	<unitPlacement territory="108 Sea Zone" 					unitType="Submarine" 		quantity="4" owner="Germany"/>
@@ -9383,10 +9366,10 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Fighter" 			quantity="1" owner="Germany"/>
 	<unitPlacement territory="Konigsberg-E.Prussia" 			unitType="Inf-Elite" 		quantity="5" owner="Germany"/>
 
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
-	<unitPlacement territory="Kyiv-Cen.Ukraine" 	  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Anti-Tank" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Artillery" 		quantity="2" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 				unitType="Industry-Lgt" 	quantity="1" owner="Germany"/>
+	<unitPlacement territory="Kiev-Cen.Ukraine" 	  			unitType="Inf-Trained" 		quantity="4" owner="Germany"/>
 
 	<unitPlacement territory="Lapland" 							unitType="Artillery" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Lapland" 							unitType="Bomber-Tac" 		quantity="1" owner="Germany"/>
@@ -9414,13 +9397,13 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Mogilev" 			 				unitType="Inf-Trained" 		quantity="19" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			  				unitType="Artillery" 		quantity="7" owner="Germany"/>
 
-	<unitPlacement territory="Prinsk" 							unitType="Anti-Tank" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 							unitType="Artillery" 		quantity="4" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 				 			unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
-	<unitPlacement territory="Prinsk" 		 					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 							unitType="Anti-Tank" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 							unitType="Artillery" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 				 			unitType="Inf-Elite" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 		 					unitType="Inf-Motorized" 	quantity="2" owner="Germany"/>
+	<unitPlacement territory="Pinsk" 		 					unitType="Inf-Trained" 		quantity="12" owner="Germany"/>
 
-	<unitPlacement territory="Prypriat" 			  			unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
+	<unitPlacement territory="Prypiat" 			  			unitType="Inf-Elite" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Anti-Tank" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Armor-Med" 		quantity="3" owner="Germany"/>
 	<unitPlacement territory="Pskov"							unitType="Artillery" 		quantity="3" owner="Germany"/>
@@ -9469,7 +9452,7 @@ Less shuffling than above, but still not Player friendly
 <!-- French surrended -->
 	<unitPlacement territory="French Dahomey" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
 	<unitPlacement territory="French Guiana" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
-	<unitPlacement territory="French Guinea" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>
+<!--	<unitPlacement territory="French Guinea" 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>  -->
 
 <!-- ======================================== Italy ======================================== -->
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Industry-Hvy" 	quantity="1" owner="Italy"/>
@@ -9489,14 +9472,14 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Bunker" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Naples-S.Italy" 					unitType="Bunker" 			quantity="2" owner="Italy"/>
 	<unitPlacement territory="Sicily" 							unitType="Bunker" 			quantity="2" owner="Italy"/>
-	<unitPlacement territory="Tripoli-W.Tripolitania" 			unitType="Bunker" 			quantity="1" owner="Italy"/>
+	<unitPlacement territory="Tripoli-W.Tripolitania" 			unitType="Bunker" 			quantity="2" owner="Italy"/>
 <!--	<unitPlacement territory="Italian Somaliland" 				unitType="Bunker" 			quantity="2" owner="Italy"/>  -->
 	<unitPlacement territory="Bucharest-Cen.Romania" 			unitType="Bunker" 			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Sardinia" 						unitType="Bunker" 			quantity="1" owner="Italy"/>
 
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Inf-Trained"		quantity="2" owner="Italy"/>
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Artillery"		quantity="1" owner="Italy"/>
-	<unitPlacement territory="Milan-N.Italy" 					unitType="Fighter" 			quantity="2" owner="Italy"/>
+	<unitPlacement territory="Milan-N.Italy" 					unitType="Fighter-Early" 	quantity="3" owner="Italy"/>
 	<unitPlacement territory="Milan-N.Italy" 					unitType="Bomber-Tac" 		quantity="1" owner="Italy"/>
 	<unitPlacement territory="Rome-Cen.Italy" 					unitType="HQ-Army"			quantity="1" owner="Italy"/>
 	<unitPlacement territory="Rome-Cen.Italy" 					unitType="Armor-Med"		quantity="2" owner="Italy"/>
@@ -9542,7 +9525,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Lviv" 	 	  	 				unitType="Inf-Motorized" 	quantity="3" owner="Italy"/>
 
 	<unitPlacement territory="Moldavia" 	 	 				unitType="HQ-Air" 			quantity="1" owner="Italy"/>
-	<unitPlacement territory="Moldavia" 	 					unitType="Fighter" 			quantity="3" owner="Italy"/>
+	<unitPlacement territory="Moldavia" 	 					unitType="Fighter-Early" 	quantity="4" owner="Italy"/>
 	<unitPlacement territory="Moldavia" 	 					unitType="Bomber-Tac" 		quantity="6" owner="Italy"/>
 	<unitPlacement territory="Moldavia" 	 					unitType="Bomber" 			quantity="4" owner="Italy"/>
 
@@ -9685,7 +9668,6 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Udon Thani" 						unitType="Base-Camp" 		quantity="1" owner="Japan"/>
 
-
 	<unitPlacement territory="Hopei" 							unitType="Inf-Trained" 		quantity="3" owner="Japan"/>
 	<unitPlacement territory="Hopei" 							unitType="Artillery" 		quantity="1" owner="Japan"/>
 
@@ -9782,16 +9764,25 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Kansas-Oklahoma" 					unitType="Industry-Lgt" 	quantity="1" owner="USA"/>
 	<unitPlacement territory="Hawaiian Is." 					unitType="Base-Camp" 		quantity="1" owner="USA"/>
 
-
 	<unitPlacement territory="Seattle-Washington" 				unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Sacramento-N.California" 			unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="San Francisco-Cen.California"     unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Los Angeles-S.California"			unitType="Bunker" 			quantity="1" owner="USA"/>
-<!--	<unitPlacement territory="Michigan-Indiana"					unitType="Bunker" 			quantity="2" owner="USA"/>  -->
 	<unitPlacement territory="Texas"							unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="New York-New Jersey" 				unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Philadelphia-Pennsylvania" 		unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Washington D.C." 					unitType="Bunker" 			quantity="1" owner="USA"/>
+
+<!-- 7pu for Industry-Med -->
+	<unitPlacement territory="Atlanta-Georgia" 					unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Boston-New England" 				unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Charleston-Savannah" 				unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Charlotte-Carolina" 				unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Florida" 							unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Mobile-Alabama" 					unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="New Orleans-Louisiana" 			unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Portland-Oregon" 					unitType="Bunker" 			quantity="1" owner="USA"/>
+	<unitPlacement territory="Virginia" 						unitType="Bunker" 			quantity="1" owner="USA"/>
 
 	<unitPlacement territory="Hawaiian Is." 					unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Honolulu-Pearl Harbor" 			unitType="Bunker" 			quantity="2" owner="USA"/>
@@ -9853,7 +9844,6 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Dovao-Mindonao" 					unitType="Inf-Trained" 		quantity="1" owner="USA"/>
 	<unitPlacement territory="Manila-Luzon" 					unitType="Inf-Trained" 		quantity="1" owner="USA"/>
 	<unitPlacement territory="Manila-Luzon" 					unitType="Bunker" 			quantity="1" owner="USA"/>
-<!--	<unitPlacement territory="Manila-Luzon" 					unitType="Fighter-Early" 	quantity="1" owner="USA"/>  -->
 	<unitPlacement territory="Manila-Luzon" 					unitType="Industry-Lgt" 	quantity="1" owner="USA"/>
 	<unitPlacement territory="Palawan" 							unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Panay Leyte-Visayas Is." 			unitType="Bunker" 			quantity="1" owner="USA"/>
@@ -9912,19 +9902,17 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Siberia"			 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>
 <!--	<unitPlacement territory="Stalingrad-Volga" 				unitType="Industry-Hvy" 	quantity="1" owner="USSR"/>  moved east -->
 
-
-	<unitPlacement territory="Amur" 							unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Amur" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Archangelsk"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Crimea" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Irkutsk" 							unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Irkutsk" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kuybysev" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Leningrad"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Moscow-Cen.Russia" 				unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Omsk" 							unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Omsk" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Rostov" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Siberia"			 				unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Siberia"			 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Stalingrad-Volga" 				unitType="Bunker" 			quantity="2" owner="USSR"/>
-
 
 	<unitPlacement territory="Archangelsk"		 				unitType="Lend-Lease-Depot" quantity="8" owner="USSR"/>
 
@@ -9970,11 +9958,11 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Kursk-Vorozneh" 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 
-	<unitPlacement territory="Chernihiv" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
-	<unitPlacement territory="Chernihiv" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Artillery" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
+	<unitPlacement territory="Chernigov" 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 	<unitPlacement territory="Mariupol" 						unitType="Armor-Lgt" 		quantity="3" owner="USSR"/>
 	<unitPlacement territory="Mariupol" 						unitType="Anti-Tank" 		quantity="1" owner="USSR"/>
@@ -9990,6 +9978,7 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Crimea" 							unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
 
+	<unitPlacement territory="Aktau"		 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Aktobe" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Astrakhan" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Atyrau" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
@@ -10000,7 +9989,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bryansk" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Grozny-Chechnya" 	 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kazan" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Khanty-Mansiysk" 	 				unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Khanty-Mansiysk" 	 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kirov" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Komi" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Krasnodar" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
@@ -10012,15 +10001,18 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Ryazan" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Rzhev" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Stavropol" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
-	<unitPlacement territory="Tomsk" 	 						unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Tomsk" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Turkmenistan"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Tver" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Tyumen" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
+	<unitPlacement territory="Uzbekistan"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Vologda" 	 						unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Yamalia" 	 						unitType="Bunker" 			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Yaroslavl" 	 					unitType="Bunker" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kharkiv" 							unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 <!-- 2nd line -->
+
 	<unitPlacement territory="Moscow-Cen.Russia" 				unitType="Fighter" 			quantity="2" owner="USSR"/>
 	<unitPlacement territory="Moscow-Cen.Russia" 				unitType="Bomber-Tac" 		quantity="2" owner="USSR"/>
 	<unitPlacement territory="Moscow-Cen.Russia" 				unitType="Bomber" 			quantity="2" owner="USSR"/>
@@ -10068,7 +10060,7 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Vladivostok" 						unitType="Lend-Lease-Depot" quantity="16" owner="USSR"/>
 	<unitPlacement territory="Vladivostok" 						unitType="Industry-Lgt" 	quantity="1" owner="USSR"/>
-	<unitPlacement territory="Vladivostok"		 				unitType="Bunker" 			quantity="1" owner="USSR"/>
+	<unitPlacement territory="Vladivostok"		 				unitType="Bunker" 			quantity="2" owner="USSR"/>
 
 <!-- Northern White Sea Fleet -->
 	<unitPlacement territory="127 A Sea Zone" 					unitType="Destroyer" 		quantity="2" owner="USSR"/>
@@ -10099,18 +10091,18 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Benghazi-Cyrenaica" 				unitType="Oil-Field" 		quantity="3" owner="Italy"/>	<!-- Capital -->
 	<unitPlacement territory="Fezzan" 							unitType="Oil-Field" 		quantity="1" owner="Italy"/>
 
-	<unitPlacement territory="Ploiesti-E.Romania" 				unitType="Oil-Field" 		quantity="2" owner="Italy"/>	<!-- Capital -->
+	<unitPlacement territory="Ploiesti-E.Romania" 				unitType="Oil-Field" 		quantity="3" owner="Italy"/>	<!-- Capital -->
 
 	<unitPlacement territory="Cairo-Egypt" 						unitType="Oil-Field" 		quantity="2" owner="Britain"/>	<!-- Capital & Suez Canal-->
 	<unitPlacement territory="Qatar" 							unitType="Oil-Field" 		quantity="2" owner="Britain"/>
 
-	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Oil-Field" 		quantity="2" owner="USSR"/>		<!-- Capital -->
-	<unitPlacement territory="Grozny-Chechnya" 					unitType="Oil-Field" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Rostov" 							unitType="Oil-Field" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Krasnodar" 						unitType="Oil-Field" 		quantity="1" owner="USSR"/>
+	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Oil-Field" 		quantity="8" owner="USSR"/>		<!-- Capital -->
+	<unitPlacement territory="Grozny-Chechnya" 					unitType="Oil-Field" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Rostov" 							unitType="Oil-Field" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Krasnodar" 						unitType="Oil-Field" 		quantity="2" owner="USSR"/>
 
-	<unitPlacement territory="Turkmenistan" 					unitType="Oil-Field" 		quantity="1" owner="USSR"/>
-	<unitPlacement territory="Uzbekistan" 						unitType="Oil-Field" 		quantity="3" owner="USSR"/>		<!-- Capital -->
+	<unitPlacement territory="Turkmenistan" 					unitType="Oil-Field" 		quantity="2" owner="USSR"/>
+	<unitPlacement territory="Uzbekistan" 						unitType="Oil-Field" 		quantity="4" owner="USSR"/>		<!-- Capital -->
 
 	<unitPlacement territory="Mosul-Kirkuk" 					unitType="Oil-Field" 		quantity="2" owner="Britain"/>
 	<unitPlacement territory="Baghdad" 							unitType="Oil-Field" 		quantity="2" owner="Britain"/>	<!-- Capital -->
@@ -10124,10 +10116,11 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Ambon" 							unitType="Oil-Field" 		quantity="1" owner="Pacific-Allies"/>
 	<unitPlacement territory="Surabaya-E.Java" 					unitType="Oil-Field" 		quantity="1" owner="Pacific-Allies"/>	<!-- Capital -->
 
-	<unitPlacement territory="Texas" 							unitType="Oil-Field" 		quantity="10" owner="USA"/>		<!-- Capital -->
+	<unitPlacement territory="Texas" 							unitType="Oil-Field" 		quantity="20" owner="USA"/>		<!-- Capital -->
 	<unitPlacement territory="Arizona-New Mexico" 				unitType="Oil-Field" 		quantity="5" owner="USA"/>		<!-- Capital -->
 	<unitPlacement territory="Dakota" 							unitType="Oil-Field" 		quantity="5" owner="USA"/>		<!-- Capital -->
 
+	<unitPlacement territory="Caracas-Venezuela" 	 	 		unitType="Oil-Field" 		quantity="10" owner="Neutrals"/>	<!-- S.America -->
 
 
 <!-- ======================================= Neutrals Iberia ======================================= -->
@@ -10293,7 +10286,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bogata-Colombia" 	 	 			unitType="Bunker"			quantity="2" owner="Neutrals"/>	<!-- S.America -->
 	<unitPlacement territory="Bolivia" 	 	 	 	 			unitType="Bunker"			quantity="2" owner="Neutrals"/>	<!-- S.America -->
 	<unitPlacement territory="Buenos Aires" 	 	 	 		unitType="Bunker"			quantity="2" owner="Neutrals"/>	<!-- S.America -->
-	<unitPlacement territory="Caracas-Venezuela" 	 	 		unitType="Bunker"			quantity="2" owner="Neutrals"/>	<!-- S.America -->
+<!--	<unitPlacement territory="Caracas-Venezuela" 	 	 		unitType="Bunker"			quantity="1" owner="Neutrals"/>	--><!-- S.America -->
 	<unitPlacement territory="Cen.Mongolia" 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Dakar" 	 	 	 	 	 		unitType="Bunker"			quantity="1" owner="Germany"/>	<!-- France -->
 	<unitPlacement territory="Dodecanese Is." 	 	 	 		unitType="Bunker"			quantity="1" owner="Italy"/>
@@ -10339,7 +10332,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="S.Hijaz" 	 	 	 	 			unitType="Bunker"			quantity="2" owner="Neutrals"/>
 	<unitPlacement territory="Sistan-Baluchestan" 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>	<!-- Iran -->
 	<unitPlacement territory="Southwest Africa" 	 	 		unitType="Bunker"			quantity="1" owner="Britain"/>
-	<unitPlacement territory="Timbuktu-Mali" 	 	 	 	 	unitType="Bunker"			quantity="1" owner="Germany"/>	<!-- France -->
+<!--	<unitPlacement territory="Timbuktu-Mali" 	 	 	 	 	unitType="Bunker"			quantity="1" owner="Germany"/>	--><!-- France -->
 	<unitPlacement territory="Tsagaan Olom" 	 	 	 		unitType="Bunker"			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Ulaanbaatar" 	 	 	 			unitType="Bunker"			quantity="1" owner="USSR"/>
 	<unitPlacement territory="Upper Volta" 	 	 	 			unitType="Bunker"			quantity="1" owner="Germany"/>	<!-- France -->
@@ -10371,8 +10364,11 @@ Less shuffling than above, but still not Player friendly
 
 <!-- ======================================= GO POLITICS needed for politics & Politics panel ======================================= -->
 <!-- ======================================= relationship  ======================================= -->
-<!-- Open-Border Axis will invade Neutrals -->
-<!-- Closed-Border Allies will not invade Neutrals -->
+<!-- 
+Open-Border   Axis can invade Neutrals
+Closed-Border Allies will not invade Neutrals
+Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
+-->
 
 <relationshipInitialize>
 	<relationship type="Allied" 		player1="Germany" 			player2="Italy" 		roundValue="1"/>
@@ -10399,26 +10395,26 @@ Less shuffling than above, but still not Player friendly
 	<relationship type="War" 			player1="Japan" 			player2="USA" 			roundValue="1"/>
 	<relationship type="Open-Border"	player1="Japan" 			player2="Neutrals" 	 	roundValue="1"/>
 
-	<relationship type="Allied-USSR" 	player1="USSR" 				player2="Britain" 		roundValue="1"/>	<!-- restricted relationship -->
-	<relationship type="Allied-USSR" 	player1="USSR" 				player2="Pacific-Allies" roundValue="1"/>	<!-- restricted relationship -->
-	<relationship type="Allied-USSR" 	player1="USSR" 				player2="China" 		roundValue="1"/>	<!-- restricted relationship -->
-	<relationship type="Allied-USSR" 	player1="USSR" 				player2="USA" 			roundValue="1"/>	<!-- restricted relationship -->
-	<relationship type="Open-Border"	player1="USSR" 				player2="Neutrals" 	 	roundValue="1"/>	<!-- will invade Neutrals -->
+	<relationship type="Allied-USSR" 	player1="USSR" 				player2="Britain" 		roundValue="1"/>
+	<relationship type="Allied-USSR" 	player1="USSR" 				player2="Pacific-Allies" roundValue="1"/>
+	<relationship type="Allied-USSR" 	player1="USSR" 				player2="China" 		roundValue="1"/>
+	<relationship type="Allied-USSR" 	player1="USSR" 				player2="USA" 			roundValue="1"/>
+	<relationship type="Open-Border"	player1="USSR" 				player2="Neutrals" 	 	roundValue="1"/>
 
 	<relationship type="Allied" 		player1="Britain" 			player2="Pacific-Allies" roundValue="1"/>
 	<relationship type="Allied" 		player1="Britain" 			player2="China" 		roundValue="1"/>
 	<relationship type="Allied" 		player1="Britain" 			player2="USA" 			roundValue="1"/>
-	<relationship type="Closed-Border"	player1="Britain" 			player2="Neutrals" 		roundValue="1"/>	<!-- will NOT invade -->
-	
+	<relationship type="Closed-Border"	player1="Britain" 			player2="Neutrals" 		roundValue="1"/>
+
 	<relationship type="Allied" 		player1="Pacific-Allies" 	player2="China" 		roundValue="1"/>
 	<relationship type="Allied" 		player1="Pacific-Allies" 	player2="USA" 			roundValue="1"/>
-	<relationship type="Closed-Border"	player1="Pacific-Allies" 	player2="Neutrals" 	 	roundValue="1"/>	<!-- will NOT invade -->
+	<relationship type="Closed-Border"	player1="Pacific-Allies" 	player2="Neutrals" 	 	roundValue="1"/>
 
 	<relationship type="Allied" 		player1="China" 			player2="USA" 			roundValue="1"/>
-	<relationship type="Closed-Border"	player1="China" 			player2="Neutrals" 		roundValue="1"/>	<!-- will NOT invade -->
+	<relationship type="Closed-Border"	player1="China" 			player2="Neutrals" 		roundValue="1"/>
 
-	<relationship type="Open-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="1"/>	<!-- Required to allow USA to have triggered alliances with Brazil Mexico etc, a Trigger changes this to "Closed-Border"  GO USA-Neutrals -->
-<!--	<relationship type="Closed-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="5"/> -->	<!-- does not work -->
+	<relationship type="Closed-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="1"/>
+<!--	<relationship type="Closed-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="5"/> --><!-- does not work -->
 </relationshipInitialize>
 
 </initialize>
@@ -10438,17 +10434,11 @@ Less shuffling than above, but still not Player friendly
 <!-- ======================================= GO VICTORY =======================================  -->	
 
 <!-- Triggered Victory is a victory condition set by a trigger, using a condition or national objective -->
-    <property name="Triggered Victory" 	value="false" editable="true">			<boolean/>	</property>
+    <property name="Triggered Victory" 		value="false" editable="true">			<boolean/>	</property>
 
     <property name="Total Victory" 			value="true" editable="true">			<boolean/>	</property>
     <property name="Axis Total Victory VCs" 		value="21" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 10 -->
     <property name="Allies Total Victory VCs" 		value="21" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 19 -->
-
-
-	<property name="Economic Victory" 		value="false" editable="true">			<boolean/>	</property>
-	<property name="Allied Economic Victory" 		value="1200" editable="true">	<number min="1000" max="1900"/>   </property>
-	<property name="Axis Economic Victory" 			value="1200" editable="true">	<number min="1000" max="1900"/>   </property>
-
 
     <property name="Projection of Power" 	value="false" editable="true">			<boolean/>	</property>
 	<property name="Allies Projection of Power VCs" value="20" editable="true">		<number min="20" max="29"/>	</property>		<!-- start 10 -->
@@ -10571,13 +10561,12 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
 
     <property name="Transport Casualties Restricted" 	value="false" editable="false">	<boolean/>	</property>
 
-    <property name="Transport Restricted Unload" 		value="false" editable="false">	<boolean/>	</property>
+    <property name="Transport Restricted Unload" 		value="true" editable="false">	<boolean/>	</property>
 
 	<!-- If enabled, transports can capture convoy zones. -->
     <property name="Transport Control Sea Zone" 		value="false" editable="false">	<boolean/>	</property>
 
 <!-- see Unit Placement In Enemy Seas -->
-
     <property name="Convoy Blockades Roll Dice For Cost" value="false" editable="false">	<boolean/>	</property>
 
 
