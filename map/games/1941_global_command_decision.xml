@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.190"/>
+	<info name="1941 Global Command Decision" version="1.195"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v195
+* Cropped a hundred+ images so they overlap less & look better on the map
+* Updated the documentation
+
+
 v190
 * Added over 275 unit Place.txt locations to reduce Teritory & Sea Zone overflow
 * Chinese AT-Gun fixed for Chinese can now buy Anti-Tank *** put in v195
@@ -16,41 +21,12 @@ v190
 Manual p6,7 Oil-Field=20, was 10 /
 print above
 
-v185
-* Ant-Tank now produced by Industry-Med was Industry-Hvy (As Industry-Med can make Armor-Med, this is a better fit)
-Britain
-* Weakened Britain by 15pu/turn & removed some Navy units, so they do not usually attack Western Europe for a few rounds, more historic.  (thanks Black Elk)
-* Britain Victoria-1, Socotra-1, Basra-1, Beruit-Lebanon-1, Damascus-S.Syria-1, Cape of Good Hope-1, S.Quebec-1, Upper Egypt-1, Belgian Congo-1
-* Britain Lagos-S.Nigeria now Base-Camp & 2pu, was Industry-Lgt & 5pu
-* Britain Italian Somaliland now Base-Camp & 2pu, was Industry-Lgt & 5pu
-* Removed Destroyers in Caribbean
-* Removed Convoy & Cruiser off Liverpool SZ109
-* Removed Inf-Trained in N Ireland & Wales
-
-Germany
-* Can now randomly spawn in the Atlantic HQ-Submarine, before they could not
-* 105SZ has HQ-Submarine & 2x Submarine
-* 105SZ is now part of the spawning area for random uBoats
-
-USA
-* Texas Oil-Field increased to 20 (represent the importance of Texas Oil), was 10, balanced by 10 extra Bunkers in the coastal states (Represents State Guards), net effect is +0pu
-* Venezuela new Oil-Field x10 (represent its importance to the Allies) reduced the pu of Gulf states to balance this
-* Port Au Prince-Haiti, Santo Domingo-Domingo-Dominica & Venezuela join the Lend-Lease agreement, so are effectively allied with the USA on Round 2
-
-* USSR almost doubled Oil-Field production to balance this added more Bunkers
-
-* USA Closed-Border with Neutrals has now been fixed, so will not attack Neutrals on rounds 1-4
-* Open-BorderAI has been removed and replaced with Closed-Border.  Open-BorderAI was too complicated.
-
-* Manual text now uses Combined-Arms, was Blitzkrieg (Thanks Black Elk)
-
 Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
 GCD is trying to be more of a simulation, than just a boardgame -
 Bombers cannot target ships, they did not do this successful hence they had Torpedo and Dive Bombers.  
 It is rare the AI tries to target ships, Im hoping that a Dev will fix the AI so it obeys canNotTarget rules
 Bunkers could have AA? I can argue for & against, went with against
 Design Why are infantry invulnable to Fighters? Fighters would target high value/TUV units and not low value
-
 
 Tool-Tips have improved, now better color coded;
 * Red    - Combat additions
@@ -3359,6 +3335,8 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
     </relationshipTypes>
 
 <!-- ============================================= GO EFFECTS TERRITORY EFFECTS =============================================  -->	
+<!-- ============================================= GO TERRAIN EFFECTS =============================================  -->	
+
 	<territoryEffectList>
 		<territoryEffect name="desert"/>
 		<territoryEffect name="forest"/>
@@ -3368,7 +3346,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<territoryEffect name="tundra"/>
 		<territoryEffect name="urban"/>
 	</territoryEffectList>
-
 
 
 <!-- ======================================= GO GAMEPLAY ======================================= -->
@@ -6434,17 +6411,17 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-Brazil" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-Brazil"/>
-<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+2+5+(1+10)+2+3+3=29  -->
+<!-- territoryName:oldOwner:newOwner:booleanCaptured false=do it now, true=captured ??? 3+2+5+2+2+3+3=21 (1+10) 2+2=4 -->
 		<option name="relationshipChange" value="USA:Neutrals:Closed-Border:Open-Border"/>
 		<option name="changeOwnership" value="Amapa-Brazilian Guiana:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Amazonas:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Bahia-Norde Este:Neutrals:USA:true"/>
-		<option name="changeOwnership" value="Caracas-Venezuela:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Maracaju:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Mato Grosso:Neutrals:USA:true"/>
-		<option name="changeOwnership" value="Port Au Prince-Haiti:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Rio De Janeiro-Sao Paulo:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Rio Grande Du Sol:Neutrals:USA:true"/>
+		<option name="changeOwnership" value="Caracas-Venezuela:Neutrals:USA:true"/>
+		<option name="changeOwnership" value="Port Au Prince-Haiti:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Santo Domingo-Domenica:Neutrals:USA:true"/>
         <option name="when" value="after:USA0EndTurn"/>
     </attachment>
