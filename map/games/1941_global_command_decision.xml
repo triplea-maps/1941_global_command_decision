@@ -1,25 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.195"/>
+	<info name="1941 Global Command Decision" version="1.200"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+Convoy 8? 9pu was 10pu
+
+I have not had time to test this, but suggestion to use Hard AI(beware their turns will take longer) for;
+* Japanese as Kamikazes work better
+* Germany as V-1 & V-2 work better
+https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
+
+
+v200
+Under AI testing Axis have been winning 66%+ of the time, so to rebalance to closer to 50%;
+* Japan Chubu reduced to Industry-Lgt, lost 4pu/turn, was Industry-Med
+* Japan Hokkaido reduced to Base-Camp, lost 7pu/turn, was Industry-Lgt
+* Russia added 9 Inf-Conscript to second line
+* USA Nuclear Bomber stats redone, it was attacking 10x in air combat and killing too many Fighter interceptors
+* USA Seattle reduced to Industry-Med, lost 4pu/turn, was Industry-Hvy (historical production)
+
+TODO doc output
+
+
 v195
 * Cropped a hundred+ images so they overlap less & look better on the map
 * Updated the documentation
-
-
-v190
-* Added over 275 unit Place.txt locations to reduce Teritory & Sea Zone overflow
-* Chinese AT-Gun fixed for Chinese can now buy Anti-Tank *** put in v195
-* Chinese added 6x AT-Gun 
-
-
-v190
-Manual p6,7 Oil-Field=20, was 10 /
-print above
 
 Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
 GCD is trying to be more of a simulation, than just a boardgame -
@@ -203,7 +211,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
  -->
     </variable>
 
-	<variable name="SubmarineSZ">	<!-- 11+5 doubled, Random SZ for German submarines -->
+	<variable name="SubmarineSZ">	<!-- 11+5 doubled 102, 104, 105, 108, 118 Random SZ for German submarines -->
 		<element name="091 A Sea Zone"/>
 		<element name="102 Sea Zone"/>
 		<element name="102 Sea Zone"/>
@@ -4448,7 +4456,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Chile" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christchurch-S.New Zealand" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Christmas Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Chubu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Chubu" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Chukotka" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Chungking" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>													<option name="capital" value="China"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Colorado" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4539,7 +4547,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Herat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Himalayas" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="impassable"/>	<option name="isImpassable" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hiroshima" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Hokkaido" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Hokkaido" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hollandia-Dutch New Guinea" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Honduras" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Hong Kong-Kwangtung" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Pacific-Allies"/>	</attachment>
@@ -4806,7 +4814,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Savo-Ostrobothnia" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Schleswig-Holstein" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Scotland" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Seattle-Washington" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Seattle-Washington" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Seychelles" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Shanghai-Kiangsu" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="China"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Shangtung" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -5887,7 +5895,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	<attachment name="unitAttachment" attachTo="Nuclear-Bomber" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="2"/>
 		<option name="attack" value="6"/>
-            <option name="attackRolls" value="10"/>
+<!--            <option name="attackRolls" value="10"/> also gives 10 rolls to airAttack not whats intended -->
 		<option name="defense" value="1"/>
 			<option name="canNotTarget" value="$All-Air$:HQ-Submarine:Submarine-Adv:Submarine"/>
 		<option name="movement" value="8"/>		<!-- 1000-ish miles radius -->
@@ -5899,21 +5907,22 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isStrategicBomber" value="true"/>
 			<option name="bombingMaxDieSides" value="3"/>
 			<option name="bombingBonus" value="10"/>
-			<!-- d3+10, result auto hit/kill -->
+			<!-- d3+10, result auto hit/kill industry -->
 			<option name="bombingTargets" value="Industry-Hvy:Industry-Med:Industry-Lgt"/>
-<!-- use AA to represent Air v Air Attack -->
-		<option name="isAAforCombatOnly" value="true"/>
-			<option name="offensiveAttackAA" value="1"/>
-			<option name="attackAA" value="1"/>
+<!-- use AA to represent Nuclear Blast -->
+		<option name="isAAforCombatOnly" value="true"/>					<!-- use AA for normal combat only -->
+			<option name="offensiveAttackAA" value="6"/>                <!-- 6=auto hit, sets the value the AA will attack at -->
+			<option name="attackAA" value="0"/>                         <!-- 0=auto miss, misnomer, this applies to defense -->
 			<option name="attackAAmaxDieSides" value="6"/>
 			<option name="offensiveAttackAAmaxDieSides" value="6"/>
-			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="-1"/>
+			<option name="maxAAattacks" value="10"/>					<!-- # of attack rolls -->
+			<option name="maxRoundsAA" value="1"/>						<!-- # of rounds -->
 				<option name="mayOverStackAA" value="true"/>
-                <option name="typeAA" value="Dog Fight"/>
-                <option name="targetsAA" value="$All-Air$"/>											 
+                <option name="typeAA" value="Nuclear_Blast"/>
+                <option name="targetsAA" value="$All-Move1Land$:$All-Move1Land$:$All-Surface$"/>											 
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
+		<option name="tuv" value="25"/>
 	</attachment>
 
 <!-- V1-Rocket -->
@@ -6799,9 +6808,7 @@ foreach does NOT appear to work with changeOwnership
     <attachment name="triggerAttachment_NationalTheme_China" attachTo="China" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_China"/>
         <option name="Purchase" value="Inf-Conscript" count="1"/>
-        <option name="Purchase" value="Inf-Trained" count="2"/>
-<!--		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="-11"/>  3+4+4 -->
+        <option name="Purchase" value="Inf-Trained" count="2"/>		<!-- free -->
         <option name="when" value="before:ChinaPurchase"/>
     </attachment>
 
@@ -6810,7 +6817,7 @@ foreach does NOT appear to work with changeOwnership
  
 <!-- Britain GO AI isAI -->
  <attachment name="conditionAttachment_NationalTheme_Britain-AI" attachTo="Britain" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_Britain-AI" attachTo="Britain" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_Britain-AI"/>
@@ -6825,7 +6832,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- China GO AI isAI  -->
     <attachment name="conditionAttachment_NationalTheme_China-AI" attachTo="China" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_China-AI" attachTo="China" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_China-AI"/>
@@ -6841,7 +6848,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- Germany GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Germany-AI" attachTo="Germany" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_Germany-AI" attachTo="Germany" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_Germany-AI"/>
@@ -6881,7 +6888,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- Italy GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Italy-AI" attachTo="Italy" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_Italy-AI" attachTo="Italy" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_Italy-AI"/>
@@ -6896,7 +6903,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- Japan GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Japan-AI" attachTo="Japan" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_Japan-AI" attachTo="Japan" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_Japan-AI"/>
@@ -6921,7 +6928,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- Pacific-Allies GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_Pacific-Allies-AI" attachTo="Pacific-Allies" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_Pacific-Allies-AI" attachTo="Pacific-Allies" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_Pacific-Allies-AI"/>
@@ -6937,7 +6944,7 @@ foreach does NOT appear to work with changeOwnership
 <!-- ======================================= USA GO AI  =======================================  -->
 <!-- USA GO AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_USA-AI" attachTo="USA" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-AI" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-AI"/>
@@ -6971,7 +6978,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- USA GO AI isAI Destroyer -->
     <attachment name="conditionAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="2-32"/>
+        <option name="rounds" value="2-40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Dest"/>
@@ -7000,7 +7007,7 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- USSR G0 AI isAI -->
     <attachment name="conditionAttachment_NationalTheme_USSR-AI" attachTo="USSR" javaClass="RulesAttachment" type="player">
-        <option name="rounds" value="4:8:12:16:20"/>
+        <option name="rounds" value="2:4:8:12:16:20:24:28:32:36:40"/>
     </attachment>
     <attachment name="triggerAttachment_NationalTheme_USSR-AI" attachTo="USSR" javaClass="TriggerAttachment" type="player">
         <option name="conditions" value="conditionAttachment_NationalTheme_USSR-AI"/>
@@ -8014,7 +8021,7 @@ foreach does NOT appear to work with changeOwnership
 -->
 <!-- Air -->
 		<option name="attackingLimit" value="owned:Fighter-Early" count="10"/>		<option name="attackingLimit" value="allied:Fighter-Early" count="15"/>
-		<option name="movementLimit"  value="owned:Fighter-Early" count="10"/>		<option name="movementLimit"  value="allied:Fighter-Early" count="15"/>		
+		<option name="movementLimit"  value="owned:Fighter-Early" count="10"/>		<option name="movementLimit"  value="allied:Fighter-Early" count="15"/>
 		<option name="placementLimit" value="owned:Fighter-Early" count="10"/>		<option name="placementLimit" value="allied:Fighter-Early" count="15"/>
 
 		<option name="attackingLimit" value="owned:Fighter" count="10"/>    		<option name="attackingLimit" value="allied:Fighter" count="15"/>
@@ -9543,9 +9550,9 @@ Less shuffling than above, but still not Player friendly
 
 
 <!-- ======================================== Japan ======================================== -->
-	<unitPlacement territory="Hokkaido" 						unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Hokkaido" 						unitType="Base-Camp" 		quantity="1" owner="Japan"/>
 	<unitPlacement territory="Tohoku" 							unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
-	<unitPlacement territory="Chubu" 							unitType="Industry-Med" 	quantity="1" owner="Japan"/>
+	<unitPlacement territory="Chubu" 							unitType="Industry-Lgt" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Tokyo" 							unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Kyoto-Osaka" 						unitType="Industry-Hvy" 	quantity="1" owner="Japan"/>
 	<unitPlacement territory="Hiroshima" 						unitType="Industry-Med" 	quantity="1" owner="Japan"/>
@@ -9667,7 +9674,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Bangkok-Siam" 					unitType="HQ-Army" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Armor-Lgt" 		quantity="1" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Inf-Trained" 		quantity="4" owner="Japan"/>
-	<unitPlacement territory="Bangkok-Siam" 					unitType="Artillery" 		quantity="1" owner="Japan"/>
+	<unitPlacement territory="Bangkok-Siam" 					unitType="Artillery" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Fighter" 			quantity="2" owner="Japan"/>
 	<unitPlacement territory="Bangkok-Siam" 					unitType="Bomber-Tac" 		quantity="1" owner="Japan"/>
 
@@ -9755,7 +9762,7 @@ Less shuffling than above, but still not Player friendly
 
 
 <!-- ============================================= USA ============================================= -->
-	<unitPlacement territory="Seattle-Washington" 				unitType="Industry-Hvy" 	quantity="1" owner="USA"/>
+	<unitPlacement territory="Seattle-Washington" 				unitType="Industry-Med" 	quantity="1" owner="USA"/>
 	<unitPlacement territory="Sacramento-N.California" 			unitType="Industry-Hvy" 	quantity="1" owner="USA"/>
 	<unitPlacement territory="San Francisco-Cen.California"		unitType="Industry-Hvy" 	quantity="1" owner="USA"/>
 	<unitPlacement territory="Los Angeles-S.California"			unitType="Industry-Hvy" 	quantity="1" owner="USA"/>
@@ -10026,7 +10033,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Kazan" 							unitType="Anti-Tank" 		quantity="6" owner="USSR"/>
 	<unitPlacement territory="Kazan" 							unitType="Armor-Med" 		quantity="9" owner="USSR"/>
 	<unitPlacement territory="Kazan" 							unitType="Artillery" 		quantity="6" owner="USSR"/>
-	<unitPlacement territory="Kazan" 							unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
+	<unitPlacement territory="Kazan" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Kazan" 							unitType="Inf-Elite" 		quantity="2" owner="USSR"/>
 	<unitPlacement territory="Kazan" 							unitType="Inf-Motorized" 	quantity="1" owner="USSR"/>
 	<unitPlacement territory="Kazan" 							unitType="Inf-Trained" 		quantity="6" owner="USSR"/>
@@ -10034,13 +10041,13 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Aktobe" 							unitType="Armor-Med" 		quantity="6" owner="USSR"/>
 	<unitPlacement territory="Aktobe" 							unitType="Anti-Tank" 		quantity="6" owner="USSR"/>
 	<unitPlacement territory="Aktobe" 							unitType="Artillery" 		quantity="6" owner="USSR"/>
-	<unitPlacement territory="Aktobe" 							unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
+	<unitPlacement territory="Aktobe" 							unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Aktobe" 							unitType="Inf-Trained" 		quantity="6" owner="USSR"/>
 
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Armor-Med" 		quantity="6" owner="USSR"/>
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Anti-Tank" 		quantity="6" owner="USSR"/>
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Artillery" 		quantity="6" owner="USSR"/>
-	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Inf-Conscript" 	quantity="3" owner="USSR"/>
+	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Inf-Conscript" 	quantity="6" owner="USSR"/>
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Inf-Trained" 		quantity="6" owner="USSR"/>
 
 	<unitPlacement territory="Baku-Azerbaijan" 					unitType="Lend-Lease-Depot" quantity="9" owner="USSR"/>

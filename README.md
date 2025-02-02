@@ -17,7 +17,7 @@ It is late 1941; Germany has launched a massive invasion against the USSR and Ja
 * Four types of HQ Commands, Air, Army, Fleet and Submarine, nations can have between none and five types of a HQ.  
     These represent Rommel, Montgomery, Patton, Cunningham, Donitz, Nimitz, US 8th Air Force HQs etc. and their staff.
 * Four different type of “Factory”
-* As a minimum requires TripleA 2.6.14517+
+* As a minimum requires TripleA 2.7.14848+
 
 | :information_source: For the latest download and discussion, click or copy and paste the link below |
 | --- |
