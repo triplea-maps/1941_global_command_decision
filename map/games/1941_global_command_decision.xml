@@ -1,17 +1,41 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.200"/>
+	<info name="1941 Global Command Decision" version="1.205"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+centers, place, polygons, pu_place
+Roger says
+Pelelui-Palau Is. should be Peleliu-Palau Is.
+Prypriat should be Prypyat (or Prypiat)
+Rio Grande Du Sol should be Rio Grande do Sol
+Rzesow should be Rzeszow
+Santo Domingo-Domenica should be Santo Domingo-Dominican
+
+
+
 Convoy 8? 9pu was 10pu
 
 I have not had time to test this, but suggestion to use Hard AI(beware their turns will take longer) for;
 * Japanese as Kamikazes work better
 * Germany as V-1 & V-2 work better
 https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
+
+v205
+Convoy & Europe invasion related 
+* Convoy TransportCapacity 14, was 7 (can carry double the units)
+* Convoy Allied stacking 20 was 15 (benefits allied Convoys invading europe)
+* Transport Restricted Unload is now false, this mainly benefits Japan as they can take multiple islands in one turn
+* Capital removed SZ 91A, 109, 119, 111A
+* Capital added Trondheim, Juteland, Belgium, Poitou, Algiers, 96A SZ (Improves chance of invasion to these TT)
+
+Other
+* Toronto-S connection x3 removed (accross the Great Lakes)
+* USA AI Purchases 2 Destroyers in 101 A Sea Zone (helps AI US/UK in the Battle of the Atlantic)
+* For those players that miss the roundels, to display mini national flags.  View> Flag Display> Small
+
 
 
 v200
@@ -20,7 +44,7 @@ Under AI testing Axis have been winning 66%+ of the time, so to rebalance to clo
 * Japan Hokkaido reduced to Base-Camp, lost 7pu/turn, was Industry-Lgt
 * Russia added 9 Inf-Conscript to second line
 * USA Nuclear Bomber stats redone, it was attacking 10x in air combat and killing too many Fighter interceptors
-* USA Seattle reduced to Industry-Med, lost 4pu/turn, was Industry-Hvy (historical production)
+* USA Seattle reduced to Industry-Med, lost 4pu/turn, was Industry-Hvy (more historical production)
 
 TODO doc output
 
@@ -247,7 +271,15 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<element name="020 Sea Zone"/>
 		<element name="021 B Sea Zone"/>
     </variable>	
-
+	
+<!-- Go Convoy 4 Western Europe SZ 
+	<variable name="usaRecoverConvoySZ">
+		<element name="110 A Sea Zone"/>
+		<element name="105 Sea Zone"/>
+		<element name="091 A Sea Zone"/>
+		<element name="092 Sea Zone"/>
+    </variable>	
+-->
 
 <!-- GO Victory -->
 	<variable name="Victory">		<!-- 29  -->
@@ -1888,7 +1920,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="106 Sea Zone" t2="Ottawa-Montreal"/>
 	<connection t1="106 Sea Zone" t2="Quebec City-C.Quebec"/>
 	<connection t1="106 Sea Zone" t2="St.Johns-Newfoundland"/>
-	<connection t1="106 Sea Zone" t2="Toronto-S.Ontario"/>
+	<!-- <connection t1="106 Sea Zone" t2="Toronto-S.Ontario"/>  -->
 	<connection t1="107 Sea Zone" t2="108 Sea Zone"/>
 	<connection t1="107 Sea Zone" t2="117 Sea Zone"/>
 	<connection t1="108 Sea Zone" t2="109 Sea Zone"/>
@@ -2683,7 +2715,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 <!--	<connection t1="Philadelphia-Pennsylvania" t2="S.Quebec"/>  -->
 	<connection t1="Philadelphia-Pennsylvania" t2="New York-New Jersey"/>
 	<connection t1="Philadelphia-Pennsylvania" t2="Ohio"/>
-	<connection t1="Philadelphia-Pennsylvania" t2="Toronto-S.Ontario"/>
+<!--	<connection t1="Philadelphia-Pennsylvania" t2="Toronto-S.Ontario"/>  -->
 	<connection t1="Philadelphia-Pennsylvania" t2="Washington D.C."/>
 	<connection t1="Hunan" t2="Kanchow"/>
 	<connection t1="Hunan" t2="Kunming"/>
@@ -2975,7 +3007,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="Mexico City" t2="Monterrey"/>
 	<connection t1="Michigan-Indiana" t2="Ohio"/>
 	<connection t1="Michigan-Indiana" t2="St.Louis-Arkansas"/>
-	<connection t1="Michigan-Indiana" t2="Toronto-S.Ontario"/>
+<!--	<connection t1="Michigan-Indiana" t2="Toronto-S.Ontario"/>  -->
 	<connection t1="Milan-N.Italy" t2="Provence-Marseille"/>
 	<connection t1="Milan-N.Italy" t2="Rome-Cen.Italy"/>
 <!--	<connection t1="Milan-N.Italy" t2="Switzerland"/>  -->
@@ -4277,14 +4309,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="089 C Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="089 D Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="USA"/></attachment>
 <attachment name="territoryAttachment" attachTo="090 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
-<attachment name="territoryAttachment" attachTo="091 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
+<attachment name="territoryAttachment" attachTo="091 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="091 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
 <attachment name="territoryAttachment" attachTo="092 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="093 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="094 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="095 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="095 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="096 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="096 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="096 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="097 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="097 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
@@ -4305,10 +4337,10 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="106 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="107 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
 <attachment name="territoryAttachment" attachTo="108 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
-<attachment name="territoryAttachment" attachTo="109 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
+<attachment name="territoryAttachment" attachTo="109 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="110 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="110 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
-<attachment name="territoryAttachment" attachTo="111 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
+<attachment name="territoryAttachment" attachTo="111 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="111 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="112 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="113 A Sea Zone" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Germany"/></attachment>
@@ -4318,7 +4350,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="116 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="117 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
 <attachment name="territoryAttachment" attachTo="118 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
-<attachment name="territoryAttachment" attachTo="119 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	<option name="capital" value="Britain"/></attachment>
+<attachment name="territoryAttachment" attachTo="119 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="120 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="121 A Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="121 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
@@ -4350,7 +4382,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Alberta" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Aleppo-Deir ez Zor" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Algarve" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Algiers" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Algiers" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														<option name="capital" value="Germany"/></attachment>
 <attachment name="territoryAttachment" attachTo="Alice Springs-Outback" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Almaty" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Alsace" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4394,7 +4426,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Bavaria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Bechuanaland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Belgian Congo" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Belgium-Luxembourg" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Belgium-Luxembourg" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														<option name="capital" value="Germany"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Belgrade-Cen.Yugoslavia"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Bengal" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Benghazi-Cyrenaica" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>													<option name="capital" value="Italy"/>	<option name="victoryCity" value="1"/></attachment>
@@ -4571,7 +4603,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Jordan" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Juba-S.Sudan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Juneau" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Juteland" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Juteland" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														<option name="capital" value="Germany"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kabul" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kalahari" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kamchatka" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4763,7 +4795,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Peru" 						javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Phoenix Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ploiesti-E.Romania" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="Italy"/>	<option name="victoryCity" value="1"/> </attachment>
-<attachment name="territoryAttachment" attachTo="Poitou" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Poitou" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														<option name="capital" value="Germany"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Pomerania" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Port Au Prince-Haiti" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Port Moresby-Papua" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4880,7 +4912,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Trebizond" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Tripoli-W.Tripolitania" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Troms-Finnmark" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Trondheim" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Trondheim" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="Germany"/></attachment>
 <attachment name="territoryAttachment" attachTo="Trucial Coast" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Truk-Coraline Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>													<option name="capital" value="Japan"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Tsagaan Olom" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -5474,7 +5506,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="movement" value="2"/>
 			<option name="isSea" value="true"/>
 			<option name="isDestroyer" value="true"/>				<!-- includes Corvettes/Frigates -->
-			<option name="TransportCapacity" value="7"/>
+			<option name="TransportCapacity" value="14"/>
 <!-- AA  -->
 		<option name="isAAforCombatOnly" value="true"/>				<!-- true = it will NOT defend against strategic bombing raids -->
 		<option name="isAAforBombingThisUnitOnly" value="false"/>
@@ -6508,6 +6540,31 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 foreach does NOT appear to work with changeOwnership
 -->
 
+<!-- ======================================= GO Convoy - recover USA Convoy in 4 Sea Zones =======================================  -->
+<!--
+	<attachment name="conditionAttachment_USA_Convoy_Recover" attachTo="USA" javaClass="RulesAttachment" type="player">
+        <option name="rounds" value="1"/>
+        <option name="rounds" value="8:10:12:14:16:18:20:22:24:26:28:30:32:34:36:38:40"/>
+	</attachment>
+	<attachment foreach="$usaRecoverConvoySZ$" name="conditionAttachment_USA_Convoy_10_@usaRecoverConvoySZ@" attachTo="USA" javaClass="RulesAttachment" type="player">
+ 	<option name="directPresenceTerritories" value="@usaRecoverConvoySZ@"/>
+	<option name="unitPresence" value="Convoy" count="10"/>
+	</attachment>
+
+
+	<attachment  foreach="$usaRecoverConvoySZ$" name="triggerAttachment_USA-AI_Convoy_Recover_@usaRecoverConvoySZ@" attachTo="USA" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_isAI_USA"/>
+		<option name="conditions" value="conditionAttachment_USA_Convoy_Recover"/>
+		<option name="conditions" value="conditionAttachment_USA_Convoy_10_@usaRecoverConvoySZ@"/>
+		<option name="removeUnits" value="@usaRecoverConvoySZ@:Convoy" count="5"/>
+		<option name="resource" value="PUs"/>
+		<option name="resourceCount" value="50"/>
+        <option name="when" value="before:USAPurchase"/>
+	</attachment>
+-->
+
+
+
 
 <!-- ======================================= GO NAP None Aggession Pact Japan & Russia =======================================  -->
 <!-- T1-11 NAP, T12-13 Notify All-Players Border skirmishes, T14+  war -->
@@ -6829,6 +6886,18 @@ foreach does NOT appear to work with changeOwnership
         <option name="when" value="before:BritainPurchase"/>
     </attachment>
 
+<!-- Britain GO AI isAI Destroyer -->
+    <attachment name="conditionAttachment_NationalTheme_Britain-AI_Dest" attachTo="Britain" javaClass="RulesAttachment" type="player">
+        <option name="rounds" value="2-40"/>
+    </attachment>
+    <attachment name="triggerAttachment_NationalTheme_Britain-AI_Dest" attachTo="Britain" javaClass="TriggerAttachment" type="player">
+        <option name="conditions" value="conditionAttachment_NationalTheme_Britain-AI_Dest"/>
+        <option name="conditions" value="conditionAttachment_isAI_Britain"/>
+		<option name="placement" value="119 Sea Zone:Destroyer" count="2"/>	<!-- West of Scotland -->
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-10"/>
+        <option name="when" value="before:BritainPurchase"/>
+    </attachment>
 
 <!-- China GO AI isAI  -->
     <attachment name="conditionAttachment_NationalTheme_China-AI" attachTo="China" javaClass="RulesAttachment" type="player">
@@ -6984,8 +7053,9 @@ foreach does NOT appear to work with changeOwnership
         <option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Dest"/>
         <option name="conditions" value="conditionAttachment_isAI_USA"/>
 		<option name="placement" value="010 B Sea Zone:Destroyer" count="2"/>	<!-- West Coast -->
-		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="-10"/>
+		<option name="placement" value="101 A Sea Zone:Destroyer" count="2"/>	<!-- East Coast -->
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-20"/>
         <option name="when" value="before:USAPurchase"/>
     </attachment>
 
@@ -6999,8 +7069,8 @@ foreach does NOT appear to work with changeOwnership
 		<option name="placement" value="010 B Sea Zone:Fighter" count="3"/>				<!-- West Coast -->
 		<option name="placement" value="010 B Sea Zone:Carrier-Fleet" count="1"/>
 		<option name="placement" value="010 B Sea Zone:Cruiser" count="1"/>
-		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="-47"/>	 <!-- 7+7+7 +18 +8  -->
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-47"/>	 <!-- 7+7+7 +18 +8  -->
         <option name="when" value="before:USAPurchase"/>
     </attachment>
 
@@ -8101,10 +8171,10 @@ foreach does NOT appear to work with changeOwnership
 		<option name="movementLimit"  value="owned:Anti-Tank" count="20"/>  		<option name="movementLimit"  value="allied:Anti-Tank" count="30"/>
 		<option name="placementLimit" value="owned:Anti-Tank" count="20"/>  		<option name="placementLimit" value="allied:Anti-Tank" count="30"/>
 
-<!-- Sea -->
-		<option name="attackingLimit" value="owned:Convoy" count="10"/>  			<option name="attackingLimit" value="allied:Convoy" count="15"/>
-		<option name="movementLimit"  value="owned:Convoy" count="10"/>  			<option name="movementLimit"  value="allied:Convoy" count="15"/>
-		<option name="placementLimit" value="owned:Convoy" count="10"/>  			<option name="placementLimit" value="allied:Convoy" count="15"/>
+<!-- Sea @@@ ??? -->
+		<option name="attackingLimit" value="owned:Convoy" count="10"/>  			<option name="attackingLimit" value="allied:Convoy" count="20"/>
+		<option name="movementLimit"  value="owned:Convoy" count="10"/>  			<option name="movementLimit"  value="allied:Convoy" count="20"/>
+		<option name="placementLimit" value="owned:Convoy" count="10"/>  			<option name="placementLimit" value="allied:Convoy" count="20"/>
 
 		<option name="attackingLimit" value="owned:Destroyer" count="10"/>  		<option name="attackingLimit" value="allied:Destroyer" count="15"/>
 		<option name="movementLimit"  value="owned:Destroyer" count="10"/>  		<option name="movementLimit"  value="allied:Destroyer" count="15"/>
@@ -10529,6 +10599,7 @@ Note that the rule literally states that any unit stops a blitz.  -->
 
 
 <!-- Scramble rules -->
+<!-- @@@ If Scramble Rules In Effect=true=cannot unload Transports in CombatMove, if =false=CAN unload Transports in CombatMove -->
     <property name="Scramble Rules In Effect" 			value="true" editable="true">	<boolean/>	</property>
     <property name="Scrambled Units Return To Base" 	value="true" editable="false">	<boolean/>	</property>
     <property name="Scramble To Sea Only" 				value="false" editable="false">	<boolean/>	</property>
@@ -10572,8 +10643,8 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
     <property name="Ignore Transport In Movement" 		value="false" editable="false">	<boolean/>	</property>
 
     <property name="Transport Casualties Restricted" 	value="false" editable="false">	<boolean/>	</property>
-
-    <property name="Transport Restricted Unload" 		value="true" editable="false">	<boolean/>	</property>
+<!-- @@@ ??? transports may not unload to multiple territories false=can unload -->
+    <property name="Transport Restricted Unload" 		value="false" editable="false">	<boolean/>	</property>
 
 	<!-- If enabled, transports can capture convoy zones. -->
     <property name="Transport Control Sea Zone" 		value="false" editable="false">	<boolean/>	</property>
