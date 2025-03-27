@@ -1,11 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.205"/>
+	<info name="1941 Global Command Decision" version="1.210"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+
+I think might make sense to strengthen Hawaii and New Guinea a bit vs J1/J2 press, just so it's a little harder for Japan to get on them right out the gate.
+Oh also I noticed that when Pacific Allies is awarded their industrial advance the Major Factory still autoplaced, even though the territory was 
+under Japanese occupation. You can see it down there doing the contested territory thing next to the Medium Factory we'd captured a few rounds prior.
+
+Pacfic-Allies Bunker     added 1 to Port Moresby-Papua, Brisbane, Sydney 
+USA           Inf-Elite  added 2 
+
+
 centers, place, polygons, pu_place
 Roger says
 Pelelui-Palau Is. should be Peleliu-Palau Is.
@@ -14,14 +23,45 @@ Rio Grande Du Sol should be Rio Grande do Sol
 Rzesow should be Rzeszow
 Santo Domingo-Domenica should be Santo Domingo-Dominican
 
+Juteland should be Jutland
+The geography of the Carpathian basin is distorted.I would suggest
+Cen.Romania -> S.Romania
+Wallachia -> S.Transylvania
+Transylvania -> N.Transylvania
+Southern Africa has wrong names. The Cape of Good Hope is inside the city of Capetown.
+Cape of Good Hope -> Cape Colony
+Natal -> Transvaal
+Praetoria -> Rhodesia
+Northwester Iran
+Lorestan -> Hamadan
+Kurdistan -> Tabriz
+Korea and Chosen are the same thing.
+N.Korea-Chosen -> N.Korea
+S.Korea-Chosen -> S. Korea
+Corregidor is on Luzon
+Corregidor-Mindoro Is. -> Mindoro Is.
+Tokyo
+The city of Tokyo is not showing up in the Tokyo territory
 
 
-Convoy 8? 9pu was 10pu
+Convoy 8? 9pu was 10pu?
 
 I have not had time to test this, but suggestion to use Hard AI(beware their turns will take longer) for;
 * Japanese as Kamikazes work better
 * Germany as V-1 & V-2 work better
 https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
+
+
+v210 (Thanks to Black Elk for most of these suggestions)
+* Germany Vienna now a Capital
+* Japan reduced their Convoys as don't need as many
+* Japan Bangkok-Siam +1 Bunker
+
+* Pacific-Allies Industry-Hvy fixed, only if they own it
+* Pacific-Allies Port Moresby, Brisbane, Sydney +1 Bunker
+* USA Honolulu +2 Inf-Elite/Marines
+* USSR Siberia now a Capital
+
 
 v205
 Convoy & Europe invasion related 
@@ -36,29 +76,6 @@ Other
 * USA AI Purchases 2 Destroyers in 101 A Sea Zone (helps AI US/UK in the Battle of the Atlantic)
 * For those players that miss the roundels, to display mini national flags.  View> Flag Display> Small
 
-
-
-v200
-Under AI testing Axis have been winning 66%+ of the time, so to rebalance to closer to 50%;
-* Japan Chubu reduced to Industry-Lgt, lost 4pu/turn, was Industry-Med
-* Japan Hokkaido reduced to Base-Camp, lost 7pu/turn, was Industry-Lgt
-* Russia added 9 Inf-Conscript to second line
-* USA Nuclear Bomber stats redone, it was attacking 10x in air combat and killing too many Fighter interceptors
-* USA Seattle reduced to Industry-Med, lost 4pu/turn, was Industry-Hvy (more historical production)
-
-TODO doc output
-
-
-v195
-* Cropped a hundred+ images so they overlap less & look better on the map
-* Updated the documentation
-
-Industry removed for Germany, Italy, Japan nations, so they can add it, simulating drive to improved production, T4
-GCD is trying to be more of a simulation, than just a boardgame -
-Bombers cannot target ships, they did not do this successful hence they had Torpedo and Dive Bombers.  
-It is rare the AI tries to target ships, Im hoping that a Dev will fix the AI so it obeys canNotTarget rules
-Bunkers could have AA? I can argue for & against, went with against
-Design Why are infantry invulnable to Fighters? Fighters would target high value/TUV units and not low value
 
 Tool-Tips have improved, now better color coded;
 * Red    - Combat additions
@@ -3990,6 +4007,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <!-- ======================================= GO TECH =======================================  -->
 
 <!-- please list techs in the order that they appear in the technoligies list, as doing otherwise may cause an error -->
+<!-- Displays in this order on the Players Technology Grid -->
 
 <technology>
 	<technologies>						<!-- .=unit tech, no dot=a system tech like Cruiser-LongL -->
@@ -4558,7 +4576,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Grand Erg" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Greenland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Grodno" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Grozny-Chechnya" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="USSR"/></attachment>
+<attachment name="territoryAttachment" attachTo="Grozny-Chechnya" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Guadalcanal-Solomon Is."	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Guatemala" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Gujarat" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
@@ -4641,7 +4659,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Kosice-Munkacs" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kra-Buri" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Krakow-Lublin" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Krasnodar" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="USSR"/></attachment>
+<attachment name="territoryAttachment" attachTo="Krasnodar" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Krasnoyarsk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kunming" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kurdistan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4853,7 +4871,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Shensi" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="China"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Shetland Is." 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Shikoku" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Siberia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Siberia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		<option name="capital" value="USSR"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sicily" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sierra Leone" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sikang" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4941,7 +4959,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Veracruz" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vichy-Rhone" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Victoria" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Vienna-N.Austria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Vienna-N.Austria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Germany"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Vilna" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Virginia" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Vitebsk" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
@@ -7641,13 +7659,19 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="conditionAttachment_Pacific-Allies_Research_Industry-Hvy" attachTo="Pacific-Allies" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="9"/>		<!-- should be 11, but to simulate US Lend-Lease 9 -->
 	</attachment>
+	<attachment name="conditionAttachment_Pacific-Allies_Own_Sydney" attachTo="Pacific-Allies" javaClass="RulesAttachment" type="player">
+		<option name="directOwnershipTerritories" value="Sydney Canberra-New South Wales" count="1"/>
+	</attachment>
+
 	<attachment name="triggerAttachment_Pacific-Allies_Research_Industry-Hvy" attachTo="Pacific-Allies" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Pacific-Allies_Own_Sydney"/>
 		<option name="conditions" value="conditionAttachment_Pacific-Allies_Research_Industry-Hvy"/>
             <option name="frontier" value="production_Pacific-Allies-Hvy"/>
 			<option name="removeUnits" value="Sydney Canberra-New South Wales:Industry-Med" count="1"/>
 			<option name="placement" value="Sydney Canberra-New South Wales:Industry-Hvy" count="1"/>
 	</attachment>
 	<attachment name="triggerAttachment_Pacific-Allies_Research_Industry-Hvy-2" attachTo="Pacific-Allies" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Pacific-Allies_Own_Sydney"/>
 		<option name="conditions" value="conditionAttachment_Pacific-Allies_Research_Industry-Hvy"/>
 		<option name="notification" value="Notify_Pacific-Allies_Research_Industry-Hvy"/>
 		<option name="players" value="$All-Players$"/>
@@ -9640,7 +9664,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Hiroshima" 						unitType="Bunker" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Kyushu" 							unitType="Bunker" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Shikoku" 							unitType="Bunker" 			quantity="1" owner="Japan"/>
-	<unitPlacement territory="Bangkok-Siam" 					unitType="Bunker" 			quantity="1" owner="Japan"/>
+	<unitPlacement territory="Bangkok-Siam" 					unitType="Bunker" 			quantity="2" owner="Japan"/>
 	<unitPlacement territory="Mukden-Port Arthur" 				unitType="Bunker" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="Truk-Coraline Is." 				unitType="Bunker" 			quantity="2" owner="Japan"/>
 
@@ -9688,11 +9712,11 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="020 Sea Zone" 					unitType="Bomber-Tac" 		quantity="1" owner="Japan"/>
 	<unitPlacement territory="020 Sea Zone" 					unitType="Cruiser" 			quantity="1" owner="Japan"/>
 	<unitPlacement territory="020 Sea Zone" 					unitType="Destroyer" 		quantity="3" owner="Japan"/>
-	<unitPlacement territory="020 Sea Zone" 					unitType="Convoy" 			quantity="7" owner="Japan"/>
+	<unitPlacement territory="020 Sea Zone" 					unitType="Convoy" 			quantity="5" owner="Japan"/>
 	<unitPlacement territory="020 Sea Zone" 					unitType="Submarine-Adv" 	quantity="2" owner="Japan"/>
 	<unitPlacement territory="020 Sea Zone" 					unitType="Bomber-Tac" 		quantity="2" owner="Japan"/>
 
-	<unitPlacement territory="017 A Sea Zone" 					unitType="Convoy" 			quantity="3" owner="Japan"/>
+	<unitPlacement territory="017 A Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Japan"/>
 
 	<unitPlacement territory="023 Sea Zone" 					unitType="HQ-Fleet" 		quantity="1" owner="Japan"/>
 	<unitPlacement territory="023 Sea Zone" 					unitType="Carrier-Fleet" 	quantity="1" owner="Japan"/>
@@ -9719,7 +9743,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="033 B Sea Zone" 					unitType="Destroyer" 		quantity="2" owner="Japan"/>
 	<unitPlacement territory="033 B Sea Zone" 					unitType="Convoy" 			quantity="2" owner="Japan"/>
 
-	<unitPlacement territory="006 C Sea Zone" 					unitType="Convoy" 			quantity="4" owner="Japan"/>
+	<unitPlacement territory="006 C Sea Zone" 					unitType="Convoy" 			quantity="3" owner="Japan"/>
 
 
 <!-- mainland -->
@@ -9802,10 +9826,10 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Darwin-Northern Territory" 		unitType="Bunker" 			quantity="1" owner="Pacific-Allies"/>
 	<unitPlacement territory="Melbourne-Victoria" 				unitType="Base-Camp" 		quantity="1" owner="Pacific-Allies"/>
 
-	<unitPlacement territory="Brisbane-Queensland" 				unitType="Bunker" 			quantity="1" owner="Pacific-Allies"/>
-	<unitPlacement territory="Sydney Canberra-New South Wales" 	unitType="Bunker" 			quantity="1" owner="Pacific-Allies"/>
+	<unitPlacement territory="Brisbane-Queensland" 				unitType="Bunker" 			quantity="2" owner="Pacific-Allies"/>
+	<unitPlacement territory="Sydney Canberra-New South Wales" 	unitType="Bunker" 			quantity="2" owner="Pacific-Allies"/>
 	<unitPlacement territory="Medan-W.Sumatra" 					unitType="Bunker" 			quantity="1" owner="Pacific-Allies"/>
-	<unitPlacement territory="Port Moresby-Papua" 				unitType="Bunker" 			quantity="1" owner="Pacific-Allies"/>
+	<unitPlacement territory="Port Moresby-Papua" 				unitType="Bunker" 			quantity="2" owner="Pacific-Allies"/>
 
 	<unitPlacement territory="Sydney Canberra-New South Wales" 	unitType="HQ-Army" 			quantity="1" owner="Pacific-Allies"/>
 	<unitPlacement territory="Sydney Canberra-New South Wales" 	unitType="Inf-Elite" 		quantity="5" owner="Pacific-Allies"/>
@@ -9868,6 +9892,7 @@ Less shuffling than above, but still not Player friendly
 
 	<unitPlacement territory="Hawaiian Is." 					unitType="Bunker" 			quantity="1" owner="USA"/>
 	<unitPlacement territory="Honolulu-Pearl Harbor" 			unitType="Bunker" 			quantity="2" owner="USA"/>
+	<unitPlacement territory="Honolulu-Pearl Harbor" 			unitType="Inf-Elite" 		quantity="2" owner="USA"/>
 
 	<unitPlacement territory="Seattle-Washington" 				unitType="Armor-Lgt" 		quantity="1" owner="USA"/>
 	<unitPlacement territory="Seattle-Washington" 				unitType="Artillery"		quantity="1" owner="USA"/>
@@ -10643,7 +10668,7 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
     <property name="Ignore Transport In Movement" 		value="false" editable="false">	<boolean/>	</property>
 
     <property name="Transport Casualties Restricted" 	value="false" editable="false">	<boolean/>	</property>
-<!-- @@@ ??? transports may not unload to multiple territories false=can unload -->
+<!-- @@@ Restricts an isLandTransport to unloading into a single Territory -->
     <property name="Transport Restricted Unload" 		value="false" editable="false">	<boolean/>	</property>
 
 	<!-- If enabled, transports can capture convoy zones. -->
