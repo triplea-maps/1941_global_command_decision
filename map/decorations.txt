@@ -1,1 +1,2 @@
-desert-nevada.png  (16153,2400) 
+# .png  (x.y)  (xx,yy)  (xxx,yyy) etc
+desert-nevada.png  (16153,2400)  
