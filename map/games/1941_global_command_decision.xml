@@ -1,13 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.215"/>
+	<info name="1941 Global Command Decision" version="1.220"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+V220
+Kamikaze-Plane Defence=3 /
+Air-Transport double TC to 8 was 4, as sea transport was doubled /
+
+Britain Destroyer test
+USA Fleet & 2x Destroyer test
+
+
+.
+I have not had time to test this, but suggest using Hard AI(beware their turns will take longer) for;
+* Japanese for Kamikazes
+* Germany for V1 & V2
+
+hould play better, see here
+https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
+
+
 
 Mountain fly over?
+
+
+
 
 v215
 ```WARNING:  This version is NOT compatible with your old saved games, so finish them before upgrading.```
@@ -16,52 +36,6 @@ v215
 * Lots of place names have been shortened (thanks to RogerCooper) as need more space on the status bar in preparation for, Winter is coming, as a Terrain Effect
 * Winter terrain effect can be turn on for veteran German players as it will slow your advance
 ```Use Events: Winter Weather – to turned it on, before pressing Play button, in Game Options> Use Events: Winter Weather (tick), bottom right```
-
-
-
-.
-I have not had time to test this, but suggest using Hard AI(beware their turns will take longer) for;
-* Japanese & Kamikazes
-* Germany & V1 & V2
-
-should play better, see here
-https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
-
-
-
-
-Lots of place names have been shortened, thanks to RogerCooper
-centers, place, polygons, pu_place
-Roger says
-p11 in Mega
-Peleliu-Palau Is. should be Peleliu-Palau Is.
-Prypriat should be Prypyat (or Prypiat)
-Rio Grande do Sul should be Rio Grande do Sol
-Rzeszow should be Rzeszow
-Dominican should be Dominican
-
-Jutland should be Jutland
-
-The geography of the Carpathian basin is distorted.I would suggest
-Cen.Romania -> S.Romania
-S.Transylvania -> S.Transylvania
-Transylvania -> N.Transylvania
-
-Southern Africa has wrong names. The Cape Colony is inside the city of Capetown.
-Cape Colony -> Cape Colony
-Transvaal -> Transvaal
-Rhodesia -> Rhodesia
-
-Northwester Iran
-Hamadan -> Hamadan
-Tabriz -> Tabriz
-
-Korea and Chosen are the same thing.
-N.Korea -> N.Korea
-S. Korea -> S. Korea
-
-Corregidor is on Luzon
-Mindoro Is. -> Mindoro Is.
 
 
 v210 (Thanks to Black Elk for most of these suggestions)
@@ -6003,7 +5977,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- Kamikaze-Plane -->
 	<attachment name="unitAttachment" attachTo="Kamikaze-Plane" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
-		<option name="defense" value="0"/>
+		<option name="defense" value="3"/>
 			<option name="canNotTarget" value="$All-Move1Land$:$All-Move2Land$:$All-Air$:Destroyer"/>	<!-- leaving only sea units to attack, not Destroyer -->
 		<option name="movement" value="3"/>
 			<option name="isAir" value="true"/>
@@ -6160,7 +6134,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="airAttack" value="0"/>
 			<option name="airDefense" value="0"/>							  
 				<option name="isAirTransport" value="true"/>
-				<option name="transportCapacity" value="4"/>
+				<option name="transportCapacity" value="8"/>
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
