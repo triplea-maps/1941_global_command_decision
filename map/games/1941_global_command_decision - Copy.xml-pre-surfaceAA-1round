@@ -1,41 +1,53 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.225"/>
+	<info name="1941 Global Command Decision" version="1.220"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
-v225
-All Land, not Conscript AA v aircraft fire for 2 rounds @ 1:6 chance, was 7 rounds @ 1:12 chance
-Destroyer/Convoy		AA v aircraft fire for 2 rounds @ 1:6 chance, was 5 rounds @ 1:12 chance
-Cruiser					AA v aircraft fire for 2 rounds @ 2:6 chance, was 5 rounds @ 1:6 chance
-Carrier					AA v aircraft fire for 2 rounds @ 2:6 chance, was 5 rounds @ 2:6 chance
-Battleship				AA v aircraft fire for 2 rounds @ 4:6 chance, was 5 rounds @ 3:6 chance
-Aircraft				AA v aircraft fire for 3 rounds, unchanged
-
-This reduces the chances of aircraft being shot down and removes d12 for AA fire
-
-Scramble To Sea Only - true
-
-		
-
 V220
 Kamikaze-Plane Defence=3 /
 Air-Transport double TC to 8 was 4, as sea transport was doubled /
 
-TODO
 Britain Destroyer test
 USA Fleet & 2x Destroyer test
 
+
+.
 I have not had time to test this, but suggest using Hard AI(beware their turns will take longer) for;
 * Japanese for Kamikazes
 * Germany for V1 & V2
 
-would play better, see here
+hould play better, see here
 https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
 
+
+
 Mountain fly over?
+
+
+
+
+v215
+```WARNING:  This version is NOT compatible with your old saved games, so finish them before upgrading.```
+
+* Kamikaze-Plane can now Scramble 1
+* Lots of place names have been shortened (thanks to RogerCooper) as need more space on the status bar in preparation for, Winter is coming, as a Terrain Effect
+* Winter terrain effect can be turn on for veteran German players as it will slow your advance
+```Use Events: Winter Weather – to turned it on, before pressing Play button, in Game Options> Use Events: Winter Weather (tick), bottom right```
+
+
+v210 (Thanks to Black Elk for most of these suggestions)
+* Germany Vienna now a Capital
+* Japan reduced their Convoys as don't need as many
+* Japan Bangkok-Siam +1 Bunker
+
+* Pacific-Allies Industry-Hvy fixed, only if they own it
+* Pacific-Allies Port Moresby, Brisbane, Sydney +1 Bunker
+* USA Honolulu +2 Inf-Elite/Marines
+* USSR Siberia now a Capital
+
 
 
 Tool-Tips have improved, now better color coded;
@@ -5271,10 +5283,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5298,12 +5310,12 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="bombard" value="2"/>
 <!-- AA -->
 		<option name="isAAforCombatOnly" value="true"/>
-			<option name="offensiveAttackAA" value="2"/>
-			<option name="attackAA" value="2"/>
+			<option name="offensiveAttackAA" value="1"/>
+			<option name="attackAA" value="1"/>
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5364,10 +5376,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5392,10 +5404,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5421,10 +5433,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5449,10 +5461,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5474,10 +5486,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5501,10 +5513,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5528,10 +5540,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5553,10 +5565,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5579,10 +5591,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAAmaxDieSides" value="12"/>
+			<option name="offensiveAttackAAmaxDieSides" value="12"/>
 			<option name="maxAAattacks" value="1"/>
-			<option name="maxRoundsAA" value="2"/>
+			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5629,10 +5641,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="false"/>
 			<option name="offensiveAttackAA" value="1"/>			<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>						<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
+				<option name="offensiveAttackAAmaxDieSides" value="12"/>
+				<option name="attackAAmaxDieSides" value="12"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5655,10 +5667,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
+				<option name="offensiveAttackAAmaxDieSides" value="12"/>
+				<option name="attackAAmaxDieSides" value="12"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5682,12 +5694,12 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="isCombatTransport" value="true"/>	<!-- this sea unit can transport & fight. units will not be able to move through it like they would a transport, and it can be taken casualty during battle as normal -->
 <!-- AA -->
 		<option name="isAAforCombatOnly" value="true"/>
-			<option name="offensiveAttackAA" value="2"/>
-			<option name="attackAA" value="2"/>
+			<option name="offensiveAttackAA" value="1"/>
+			<option name="attackAA" value="1"/>
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5712,12 +5724,12 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="isCombatTransport" value="true"/>	<!-- this sea unit can transport & fight. units will not be able to move through it like they would a transport, and it can be taken casualty during battle as normal -->
 <!-- AA -->
 		<option name="isAAforCombatOnly" value="true"/>
-			<option name="offensiveAttackAA" value="4"/>
-			<option name="attackAA" value="4"/>
+			<option name="offensiveAttackAA" value="3"/>
+			<option name="attackAA" value="3"/>
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5742,7 +5754,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -5767,7 +5779,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
 					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
+					<option name="maxRoundsAA" value="-1"/>
 			<option name="mayOverStackAA" value="true"/>
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
@@ -10834,10 +10846,7 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 
 
 <!-- ======================================= BATTLE ROUNDS  =======================================  -->	
-<!--
-Land AA units v aircraft fire only for 1 round, was 7 rounds
-Sea  AA units v aircraft fire only for 2 rounds, was 5 rounds
--->
+
 	<property name="Land Battle Rounds"	value="7" editable="true">	</property>
 	<property name="Sea Battle Rounds"	value="5" editable="true">	</property>
 	<property name="Air Battle Rounds"	value="3" editable="true">	</property>
@@ -10911,7 +10920,7 @@ Note that the rule literally states that any unit stops a blitz.  -->
 <!-- @@@ If Scramble Rules In Effect=true=cannot unload Transports in CombatMove, if =false=CAN unload Transports in CombatMove -->
 	<property name="Scramble Rules In Effect" 			value="true" editable="true">	<boolean/>	</property>
 	<property name="Scrambled Units Return To Base" 	value="true" editable="false">	<boolean/>	</property>
-	<property name="Scramble To Sea Only" 				value="true" editable="false">	<boolean/>	</property>
+	<property name="Scramble To Sea Only" 				value="false" editable="false">	<boolean/>	</property>
 	<property name="Scramble From Island Only" 			value="false" editable="false">	<boolean/>	</property>
 	<property name="Scramble To Any Amphibious Assault" value="true" editable="false">	<boolean/>	</property>
 	<property name="Can Scramble Into Air Battles" 		value="true" editable="false">	<boolean/>	</property>
