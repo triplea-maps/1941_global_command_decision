@@ -1,11 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.225"/>
+	<info name="1941 Global Command Decision" version="1.230"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v230
+* New capital marker in the middle of the Atlantic Ocean hopefully improves AI USA invasion of Europe
+* USA AI ship production now dependant on Industries
+* Britain AI ship production now dependant on Industries
+* If Persian Corridor, Baku, Fars, Hamadan, Tehran, Gilan is broken all the Lend-Lease-Depots are removed
+* If Burma Road, N.Burma, Yunnan is broken all the Lend-Lease-Depots are removed
+
+Suggested stable 2.7 version
+use https://github.com/triplea-game/triplea/releases/tag/2.7.15025
+also needs View> LockMap> untick (must be unticked to center)
+
+
 v225
 All Land, not Conscript AA v aircraft fire for 2 rounds @ 1:6 chance, was 7 rounds @ 1:12 chance
 Destroyer/Convoy		AA v aircraft fire for 2 rounds @ 1:6 chance, was 5 rounds @ 1:12 chance
@@ -18,16 +30,7 @@ This reduces the chances of aircraft being shot down and removes d12 for AA fire
 
 Scramble To Sea Only - true
 
-		
-
-V220
-Kamikaze-Plane Defence=3 /
-Air-Transport double TC to 8 was 4, as sea transport was doubled /
-
 TODO
-Britain Destroyer test
-USA Fleet & 2x Destroyer test
-
 I have not had time to test this, but suggest using Hard AI(beware their turns will take longer) for;
 * Japanese for Kamikazes
 * Germany for V1 & V2
@@ -466,7 +469,625 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 
 <!-- =================================================== MAP =================================================== -->
 <map>
-	<!-- Territory Definitions 190 SZ & 606 Land = 796 -->
+	<!-- Territory Definitions 8 capitals & 598 Land & 190 SZ = 796 -->
+
+<!-- these 8 capitals will have centering focus on active player's capital at the start of their turn -->
+	<territory name="Berlin-Cen.Germany"/>
+	<territory name="Chungking"/>
+	<territory name="London-S.England"/>
+	<territory name="Melbourne-Victoria"/>
+	<territory name="Moscow-Cen.Russia"/>
+	<territory name="Rome-Cen.Italy"/>
+	<territory name="Tokyo"/>
+	<territory name="Washington D.C."/>
+	
+	<territory name="Acapulco-Chiapas"/>
+	<territory name="Adana"/>
+	<territory name="Addis Ababa"/>
+	<territory name="Aden-Yemen"/>
+	<territory name="Agana-Guam"/>
+	<territory name="Akmolinsk"/>
+	<territory name="Aksu-Tarim"/>
+	<territory name="Aktau"/>
+	<territory name="Aktobe"/>
+	<territory name="Al Fishir"/>
+	<territory name="Al Hasa"/>
+	<territory name="Al Hasakah"/>
+	<territory name="Al Kufrah"/>
+	<territory name="Albania"/>
+	<territory name="Alberta"/>
+	<territory name="Aleutian Is."/>
+	<territory name="Algarve"/>
+	<territory name="Algiers"/>
+	<territory name="Almaty"/>
+	<territory name="Alsace"/>
+	<territory name="Amazonas"/>
+	<territory name="Ambon"/>
+	<territory name="Amur"/>
+	<territory name="Anadyr"/>
+	<territory name="Anchorage"/>
+	<territory name="Andalusia"/>
+	<territory name="Andaman Is."/>
+	<territory name="Angola"/>
+	<territory name="Anhwei"/>
+	<territory name="Ankara"/>
+	<territory name="Antalya"/>
+	<territory name="Aragon-Catalonia"/>
+	<territory name="Archangelsk"/>
+	<territory name="Arizona-New Mexico"/>
+	<territory name="Ascension Is."/>
+	<territory name="Asir"/>
+	<territory name="Astrakhan"/>
+	<territory name="Asturias"/>
+	<territory name="Athens-Cen.Greece"/>
+	<territory name="Atlanta-Georgia"/>
+	<territory name="Atyrau"/>
+	<territory name="Azores Is."/>
+	<territory name="Baffin Is."/>
+	<territory name="Baghdad"/>
+	<territory name="Bahamas"/>
+	<territory name="Bahia-Norde Este"/>
+	<territory name="Baja-Sonora"/>
+	<territory name="Baku-Azerbaijan"/>
+	<territory name="Bali-Sunda Is."/>
+	<territory name="Balikpapan-S.Borneo"/>
+	<territory name="Bangkok-Siam"/>
+	<territory name="Barat Daya Is."/>
+	<territory name="Basra"/>
+	<territory name="Batavia-W.Java"/>
+	<territory name="Bavaria"/>
+	<territory name="Bechuanaland"/>
+	<territory name="Belgian Congo"/>
+	<territory name="Belgium-Luxembourg"/>
+	<territory name="Bengal"/>
+	<territory name="Benghazi-Cyrenaica"/>
+	<territory name="Berar"/>
+	<territory name="Bergen-Vestland"/>
+<!--	<territory name="Berlin-Cen.Germany"/>  -->
+	<territory name="Bermuda"/>
+	<territory name="Beruit-Lebanon"/>
+	<territory name="Bessarabia"/>
+	<territory name="Bethel"/>
+	<territory name="Bhutan"/>
+	<territory name="Bhuyant Uhaa"/>
+	<territory name="Bialystok"/>
+	<territory name="Bogata-Colombia"/>
+	<territory name="Bohemia Moravia"/>
+	<territory name="Bolivia"/>
+	<territory name="Bombay"/>
+	<territory name="Bona"/>
+	<territory name="Boran"/>
+	<territory name="Bordeaux-Gascony"/>
+	<territory name="Boston-New England"/>
+	<territory name="Bratsk"/>
+	<territory name="Brazilian Guiana"/>
+	<territory name="Brest"/>
+	<territory name="Brisbane-Queensland"/>
+	<territory name="British Guiana"/>
+	<territory name="British Honduras"/>
+	<territory name="British Somaliland"/>
+	<territory name="Brittany"/>
+	<territory name="Broome-Exmouth"/>
+	<territory name="Bryansk"/>
+	<territory name="Bucharest-S.Romania"/>
+	<territory name="Budapest-N.Hungary"/>
+	<territory name="Buenos Aires"/>
+	<territory name="Buru"/>
+	<territory name="Buryatia"/>
+	<territory name="Cairo-Egypt"/>
+	<territory name="Calais-Picardy"/>
+	<territory name="Calcutta"/>
+	<territory name="Cambodia"/>
+	<territory name="Cameroon"/>
+	<territory name="Canary Is."/>
+	<territory name="Cape Colony"/>
+	<territory name="Cape Town"/>
+	<territory name="Cape Verde Is."/>
+	<territory name="Caracas-Venezuela"/>
+	<territory name="Castille-Leon"/>
+	<territory name="Cayman Is."/>
+	<territory name="Cen.California"/>
+	<territory name="Cen.Mongolia"/>
+	<territory name="Cen.Yugoslavia"/>
+	<territory name="Ceylon"/>
+	<territory name="Chad"/>
+	<territory name="Chahar"/>
+	<territory name="Charleston-Savannah"/>
+	<territory name="Charlotte-Carolina"/>
+	<territory name="Chelyabinsk"/>
+	<territory name="Chengdu-Szechwan"/>
+	<territory name="Chernigov"/>
+	<territory name="Chersky"/>
+	<territory name="Chiang Mai"/>
+	<territory name="Chicago"/>
+	<territory name="Chihuahua-Durango"/>
+	<territory name="Chile"/>
+	<territory name="Christmas Is."/>
+	<territory name="Chubu"/>
+	<territory name="Chukotka"/>
+<!--	<territory name="Chungking"/>  -->
+	<territory name="Colorado"/>
+	<territory name="Comoros"/>
+	<territory name="Cook Is."/>
+	<territory name="Copenhagen-Denmark"/>
+	<territory name="Corsica"/>
+	<territory name="Costa"/>
+	<territory name="Crete"/>
+	<territory name="Crimea"/>
+	<territory name="Croatia"/>
+	<territory name="Cyprus"/>
+	<territory name="Da Nang-Annam"/>
+	<territory name="Dagestan"/>
+	<territory name="Dakar"/>
+	<territory name="Dakota"/>
+	<territory name="Dalarna"/>
+	<territory name="Dalmatia"/>
+	<territory name="Damascus-S.Syria"/>
+	<territory name="Danakil"/>
+	<territory name="Danzig-Posen"/>
+	<territory name="Darfur"/>
+	<territory name="Deir ez Zor"/>
+	<territory name="Demyansk"/>
+	<territory name="Diyarbakir"/>
+	<territory name="Dodecanese Is."/>
+	<territory name="Dominican"/>
+	<territory name="Dovao-Mindonao"/>
+	<territory name="Dutch Guiana"/>
+	<territory name="Dutch New Guinea"/>
+	<territory name="Dzavhan"/>
+	<territory name="E.Algerian-Sahara"/>
+	<territory name="E.British Columbia"/>
+	<territory name="E.Tripolitania"/>
+	<territory name="Ecuador"/>
+	<territory name="Eire"/>
+	<territory name="El Alamein-Alexandria"/>
+	<territory name="El Salvador"/>
+	<territory name="Ellice Is."/>
+	<territory name="Eritrea"/>
+	<territory name="Erzurum"/>
+	<territory name="Estonia"/>
+	<territory name="Evenkia"/>
+	<territory name="Extramadura"/>
+	<territory name="Fairbanks"/>
+	<territory name="Falkland Is."/>
+	<territory name="Fars"/>
+	<territory name="Fezzan"/>
+	<territory name="Fiji"/>
+	<territory name="Florida"/>
+	<territory name="Frankfurt-Hesse"/>
+	<territory name="French Dahomey"/>
+	<territory name="French Guiana"/>
+	<territory name="French Guinea"/>
+	<territory name="French Somaliland"/>
+	<territory name="Gabon"/>
+	<territory name="Galapagos Is."/>
+	<territory name="Galicia"/>
+	<territory name="Gibraltar"/>
+	<territory name="Gilan"/>
+	<territory name="Gizhiga"/>
+	<territory name="Gold Coast"/>
+	<territory name="Gotland"/>
+	<territory name="Gran Chaco"/>
+	<territory name="Grand Erg"/>
+	<territory name="Greenland"/>
+	<territory name="Grodno"/>
+	<territory name="Grozny-Chechnya"/>
+	<territory name="Guatemala"/>
+	<territory name="Gujarat"/>
+	<territory name="Haditha-Rutbah"/>
+	<territory name="Haichow-Lunghai"/>
+	<territory name="Haikou-Hainan"/>
+	<territory name="Hail"/>
+	<territory name="Hailar-Hsingan"/>
+	<territory name="Halfa"/>
+	<territory name="Halifax-Nova Scotia"/>
+	<territory name="Halmahera-Maluku Is."/>
+	<territory name="Hamadan"/>
+	<territory name="Hamburg-Lower Saxony"/>
+	<territory name="Hanoi-Tonkin"/>
+	<territory name="Harbin"/>
+	<territory name="Havana-Cuba"/>
+	<territory name="Hawaiian Is."/>
+	<territory name="Helsinki"/>
+	<territory name="Herat"/>
+	<territory name="Himalayas"/>
+	<territory name="Hiroshima"/>
+	<territory name="Hokkaido"/>
+	<territory name="Honduras"/>
+	<territory name="Hong Kong-Kwangtung"/>
+	<territory name="Honolulu-Pearl Harbor"/>
+	<territory name="Hopei"/>
+	<territory name="Hunan"/>
+	<territory name="Hyderabad"/>
+	<territory name="Iceland"/>
+	<territory name="Idaho"/>
+	<territory name="Irkutsk"/>
+	<territory name="Isfahan"/>
+	<territory name="Istanbul"/>
+	<territory name="Istria"/>
+	<territory name="Italian Somaliland"/>
+	<territory name="Ivory Coast"/>
+	<territory name="Iwo Jima-Bonin Is."/>
+	<territory name="Jamaica"/>
+	<territory name="Jehol-Rehe"/>
+	<territory name="Johnston Is."/>
+	<territory name="Jordan"/>
+	<territory name="Juba-S.Sudan"/>
+	<territory name="Juneau"/>
+	<territory name="Jutland"/>
+	<territory name="Kabul"/>
+	<territory name="Kalahari"/>
+	<territory name="Kamchatka"/>
+	<territory name="Kanchow"/>
+	<territory name="Kandahar"/>
+	<territory name="Kansas-Oklahoma"/>
+	<territory name="Karachi"/>
+	<territory name="Karelia"/>
+	<territory name="Kashmire"/>
+	<territory name="Katanga"/>
+	<territory name="Kazan"/>
+	<territory name="Kendari-E.Celebs"/>
+	<territory name="Kentucky-Tennessee"/>
+	<territory name="Kenya"/>
+	<territory name="Kerman"/>
+	<territory name="Khabarovsk"/>
+	<territory name="Khanty-Mansiysk"/>
+	<territory name="Kharga-Western Desert"/>
+	<territory name="Kharkiv"/>
+	<territory name="Khartoum-Sudan"/>
+	<territory name="Kherson"/>
+	<territory name="Khorasan"/>
+	<territory name="Kiangsi"/>
+	<territory name="Kiev-Cen.Ukraine"/>
+	<territory name="Kilwa"/>
+	<territory name="King Salmon-Aleut Pen."/>
+	<territory name="Kirov"/>
+	<territory name="Kjolen"/>
+	<territory name="Kodiak Is."/>
+	<territory name="Kolyma"/>
+	<territory name="Komi"/>
+	<territory name="Konduz"/>
+	<territory name="Konigsberg-E.Prussia"/>
+	<territory name="Konya"/>
+	<territory name="Koryak"/>
+	<territory name="Kosice-Munkacs"/>
+	<territory name="Kra-Buri"/>
+	<territory name="Krakow-Lublin"/>
+	<territory name="Krasnodar"/>
+	<territory name="Krasnoyarsk"/>
+	<territory name="Kunming"/>
+	<territory name="Kurgan"/>
+	<territory name="Kursk-Vorozneh"/>
+	<territory name="Kuwait"/>
+	<territory name="Kuybysev"/>
+	<territory name="Kwangsi"/>
+	<territory name="Kweichow"/>
+	<territory name="Kyoto-Osaka"/>
+	<territory name="Kyrgyzstan-Tajikistan"/>
+	<territory name="Kyushu"/>
+	<territory name="Labrador"/>
+	<territory name="Lagos-S.Nigeria"/>
+	<territory name="Lanzhou"/>
+	<territory name="Laos"/>
+	<territory name="Lapland"/>
+	<territory name="Lashio-Shan State"/>
+	<territory name="Latgale"/>
+	<territory name="Latvia"/>
+	<territory name="Leeward Is."/>
+	<territory name="Leningrad"/>
+	<territory name="Leopoldville-Kinshasa"/>
+	<territory name="Leyte-Visayas Is."/>
+	<territory name="Lhasa-E.Tibet"/>
+	<territory name="Liberia"/>
+	<territory name="Lindi"/>
+	<territory name="Line Is."/>
+	<territory name="Lisbon"/>
+	<territory name="Lithuania"/>
+<!--	<territory name="London-S.England"/>  -->
+	<territory name="Lorraine"/>
+	<territory name="Lucknow-Oudh"/>
+	<territory name="Lviv"/>
+	<territory name="Madagascar"/>
+	<territory name="Madeira Is."/>
+	<territory name="Madras"/>
+	<territory name="Madrid-Cen.Spain"/>
+	<territory name="Magadan"/>
+	<territory name="Majorca"/>
+	<territory name="Makassar-S.Celebs"/>
+	<territory name="Malaya"/>
+	<territory name="Maldives"/>
+	<territory name="Malta"/>
+	<territory name="Manado-N.Celebs"/>
+	<territory name="Manchuria-Manchukuo"/>
+	<territory name="Manila-Luzon"/>
+	<territory name="Maputo-S.Mozambique"/>
+	<territory name="Maracaju"/>
+	<territory name="Mariupol"/>
+	<territory name="Marquesas Is."/>
+	<territory name="Marshall Is."/>
+	<territory name="Mato Grosso"/>
+	<territory name="Mauritania"/>
+	<territory name="Mazandaran"/>
+	<territory name="Mecca"/>
+	<territory name="Meckleburg"/>
+	<territory name="Medan-W.Sumatra"/>
+	<territory name="Medina-Jeddah"/>
+<!--	<territory name="Melbourne-Victoria"/>  -->
+	<territory name="Mexico City"/>
+	<territory name="Michigan-Indiana"/>
+	<territory name="Midway Is."/>
+	<territory name="Milan-N.Italy"/>
+	<territory name="Mindoro Is."/>
+	<territory name="Minsk"/>
+	<territory name="Mobile-Alabama"/>
+	<territory name="Mogadishu"/>
+	<territory name="Mogilev"/>
+	<territory name="Moldavia"/>
+	<territory name="Montana"/>
+	<territory name="Montenegro"/>
+	<territory name="Monterrey"/>
+	<territory name="Morocco"/>
+<!--	<territory name="Moscow-Cen.Russia"/>  -->
+	<territory name="Mosul-Kirkuk"/>
+	<territory name="Mozhaysk-Kaluga"/>
+	<territory name="Mukden-Port Arthur"/>
+	<territory name="Murmansk"/>
+	<territory name="Muscat"/>
+	<territory name="N.Burma"/>
+	<territory name="N.California"/>
+	<territory name="N.England"/>
+	<territory name="N.Ireland"/>
+	<territory name="N.Korea"/>
+	<territory name="N.Mozambique"/>
+	<territory name="N.New Zealand"/>
+	<territory name="N.Nigeria"/>
+	<territory name="N.Ontario"/>
+	<territory name="N.Quebec"/>
+	<territory name="N.Rhodesia"/>
+	<territory name="N.Sakhalin"/>
+	<territory name="N.Transylvania"/>
+	<territory name="Nafud"/>
+	<territory name="Nagpur"/>
+	<territory name="Nanking"/>
+	<territory name="Naples-S.Italy"/>
+	<territory name="Narvik"/>
+	<territory name="Navarre"/>
+	<territory name="Nebraska"/>
+	<territory name="Nejd"/>
+	<territory name="Nenetsia"/>
+	<territory name="Nepal"/>
+	<territory name="Netherlands"/>
+	<territory name="Nevada"/>
+	<territory name="New Britain Is."/>
+	<territory name="New Caledonia Is."/>
+	<territory name="New Delhi"/>
+	<territory name="New Guinea"/>
+	<territory name="New Hebrides Is."/>
+	<territory name="New Orleans-Louisiana"/>
+	<territory name="New South Wales"/>
+	<territory name="New York-New Jersey"/>
+	<territory name="Niamey"/>
+	<territory name="Nicaragua"/>
+	<territory name="Nizhny Novgorod"/>
+	<territory name="Nome"/>
+	<territory name="Normandy"/>
+	<territory name="Norrland"/>
+	<territory name="Norte"/>
+	<territory name="Northern Territory"/>
+	<territory name="Northwest Territories"/>
+	<territory name="Novgorod"/>
+	<territory name="Novosibirsk"/>
+	<territory name="Nunavut"/>
+	<territory name="Odesa-Mykoliav"/>
+	<territory name="Ogoden"/>
+	<territory name="Ohio"/>
+	<territory name="Okinawa-Ryukyu Is."/>
+	<territory name="Olgiy"/>
+	<territory name="Oman"/>
+	<territory name="Omsk"/>
+	<territory name="Oran"/>
+	<territory name="Orissa"/>
+	<territory name="Orleans"/>
+	<territory name="Oslo"/>
+	<territory name="Ottawa-Montreal"/>
+	<territory name="Ouargla"/>
+	<territory name="Outback"/>
+	<territory name="Palawan"/>
+	<territory name="Palembang-S.Sumatra"/>
+	<territory name="Palestine"/>
+	<territory name="Palmyra Atoll"/>
+	<territory name="Pampas"/>
+	<territory name="Panama"/>
+	<territory name="Paraguay"/>
+	<territory name="Paris-Cen.France"/>
+	<territory name="Patagonia"/>
+	<territory name="Peking-Tientsin"/>
+	<territory name="Peleliu-Palau Is."/>
+	<territory name="Peleponnese"/>
+	<territory name="Pennsylvania"/>
+	<territory name="Perm"/>
+	<territory name="Perth-W.Australia"/>
+	<territory name="Peru"/>
+	<territory name="Phoenix Is."/>
+	<territory name="Pinsk"/>
+	<territory name="Ploiesti-E.Romania"/>
+	<territory name="Poitou"/>
+	<territory name="Pomerania"/>
+	<territory name="Port Au Prince-Haiti"/>
+	<territory name="Port Moresby-Papua"/>
+	<territory name="Portland-Oregon"/>
+	<territory name="Portuguese Guinea"/>
+	<territory name="Primorsky"/>
+	<territory name="Provence-Marseille"/>
+	<territory name="Prypiat"/>
+	<territory name="Pskov"/>
+	<territory name="Punjab"/>
+	<territory name="Qatar"/>
+	<territory name="Quebec City-C.Quebec"/>
+	<territory name="Rajputana"/>
+	<territory name="Rangoon-S.Burma"/>
+	<territory name="Rhodesia"/>
+	<territory name="Rio De Oro"/>
+	<territory name="Rio Grande do Sul"/>
+	<territory name="Riyadh"/>
+<!--	<territory name="Rome-Cen.Italy"/>  -->
+	<territory name="Rostov"/>
+	<territory name="Rub Al Kali"/>
+	<territory name="Ryazan"/>
+	<territory name="Rzeszow"/>
+	<territory name="Rzhev"/>
+	<territory name="S. Korea"/>
+	<territory name="S.Australia"/>
+	<territory name="S.California"/>
+	<territory name="S.Hijaz"/>
+	<territory name="S.New Zealand"/>
+	<territory name="S.Quebec"/>
+	<territory name="S.Rhodesia"/>
+	<territory name="S.Sakhalin"/>
+	<territory name="S.Transylvania"/>
+	<territory name="Saigon-Cochinchina"/>
+	<territory name="Saipan-Mariana Is."/>
+	<territory name="Sakha"/>
+	<territory name="Samoan Is."/>
+	<territory name="San Juan-Puerto Rico"/>
+	<territory name="Santiago-Guantanamo"/>
+	<territory name="Sao Paulo"/>
+	<territory name="Sarajevo-Bosnia"/>
+	<territory name="Sarawak-N.Borneo"/>
+	<territory name="Sardinia"/>
+	<territory name="Savo-Ostrobothnia"/>
+	<territory name="Schleswig-Holstein"/>
+	<territory name="Scotland"/>
+	<territory name="Seattle-Washington"/>
+	<territory name="Seychelles"/>
+	<territory name="Shanghai-Kiangsu"/>
+	<territory name="Shangtung"/>
+	<territory name="Shensi"/>
+	<territory name="Shetland Is."/>
+	<territory name="Shikoku"/>
+	<territory name="Siberia"/>
+	<territory name="Sicily"/>
+	<territory name="Sierra Leone"/>
+	<territory name="Sikang"/>
+	<territory name="Silesia"/>
+	<territory name="Sinai"/>
+	<territory name="Sinaloa-Guadalajara"/>
+	<territory name="Singapore-Malacca"/>
+	<territory name="Sinkiang"/>
+	<territory name="Sistan-Baluchestan"/>
+	<territory name="Sitka"/>
+	<territory name="Siuyuyan"/>
+	<territory name="Slovakia"/>
+	<territory name="Slovenia-N.Croatia"/>
+	<territory name="Smolensk"/>
+	<territory name="Smyrna"/>
+	<territory name="Society Is."/>
+	<territory name="Socotra"/>
+	<territory name="Sofia-W.Bulgaria"/>
+	<territory name="Solomon Is."/>
+	<territory name="Southwest Africa"/>
+	<territory name="Spanish Gabon"/>
+	<territory name="St.Johns-Newfoundland"/>
+	<territory name="St.Louis-Arkansas"/>
+	<territory name="Stalingrad-Volga"/>
+	<territory name="Stavropol"/>
+	<territory name="Stockholm"/>
+	<territory name="Surabaya-E.Java"/>
+	<territory name="Svalbard"/>
+	<territory name="Svealand"/>
+	<territory name="Switzerland"/>
+	<territory name="Tabriz"/>
+	<territory name="Taipei-Formosa"/>
+	<territory name="Tanganyika"/>
+	<territory name="Tangier"/>
+	<territory name="Tanimbar Is."/>
+	<territory name="Tarakan-E.Borneo"/>
+	<territory name="Tarawa-Gilbert Is."/>
+	<territory name="Tasmania"/>
+	<territory name="Taymyr"/>
+	<territory name="Tbilisi-Georgia"/>
+	<territory name="Tehran"/>
+	<territory name="Tenere"/>
+	<territory name="Texas"/>
+	<territory name="Thessaloniki"/>
+	<territory name="Thrace"/>
+	<territory name="Tibesti"/>
+	<territory name="Timbuktu-Mali"/>
+	<territory name="Timor"/>
+	<territory name="Tobruk"/>
+	<territory name="Tohoku"/>
+<!--	<territory name="Tokyo"/>  -->
+	<territory name="Tomsk"/>
+	<territory name="Toronto-S.Ontario"/>
+	<territory name="Toulouse-Occitania"/>
+	<territory name="Transdanubia"/>
+	<territory name="Transvaal"/>
+	<territory name="Trebizond"/>
+	<territory name="Troms-Finnmark"/>
+	<territory name="Trondheim"/>
+	<territory name="Trucial Coast"/>
+	<territory name="Truk-Coraline Is."/>
+	<territory name="Tsagaan Olom"/>
+	<territory name="Tsinghai"/>
+	<territory name="Tula"/>
+	<territory name="Tunis-Tunisia"/>
+	<territory name="Turkmenistan"/>
+	<territory name="Tver"/>
+	<territory name="Tyrol-S.Austria"/>
+	<territory name="Tyumen"/>
+	<territory name="Ubangi Sheri"/>
+	<territory name="Udon Thani"/>
+	<territory name="Uelen"/>
+	<territory name="Uganda"/>
+	<territory name="Ulaanbaatar"/>
+	<territory name="Upper Egypt"/>
+	<territory name="Upper Volta"/>
+	<territory name="Uruguay"/>
+	<territory name="Urumchi-Kansu"/>
+	<territory name="Utah"/>
+	<territory name="Uzbekistan"/>
+	<territory name="Valencia"/>
+	<territory name="Varna"/>
+	<territory name="Venice-Trieste"/>
+	<territory name="Veracruz"/>
+	<territory name="Vichy-Rhone"/>
+	<territory name="Victoria"/>
+	<territory name="Vienna-N.Austria"/>
+	<territory name="Vilna"/>
+	<territory name="Virginia"/>
+	<territory name="Vitebsk"/>
+	<territory name="Vladivostok"/>
+	<territory name="Vogelkop Pen."/>
+	<territory name="Vologda"/>
+	<territory name="Vyborg"/>
+	<territory name="W.Algerian-Sahara"/>
+	<territory name="W.British Columbia"/>
+	<territory name="W.Nunavut"/>
+	<territory name="W.Tibet"/>
+	<territory name="W.Tripolitania"/>
+	<territory name="Wake Is."/>
+	<territory name="Wales"/>
+	<territory name="Warsaw-Cen.Poland"/>
+<!--	<territory name="Washington D.C."/>  -->
+	<territory name="Westphalia-Rhineland"/>
+	<territory name="Windhoek"/>
+	<territory name="Windward Is."/>
+	<territory name="Winnipeg"/>
+	<territory name="Wisconsin-Minnesota"/>
+	<territory name="Wuhan"/>
+	<territory name="Wurttemburg"/>
+	<territory name="Wyoming"/>
+	<territory name="Yakutia"/>
+	<territory name="Yakutsk"/>
+	<territory name="Yamalia"/>
+	<territory name="Yanaon"/>
+	<territory name="Yaroslavl"/>
+	<territory name="Yucatan"/>
+	<territory name="Yukon"/>
+	<territory name="Yunnan"/>
+	<territory name="Yuzhny-Novaya Zemlya"/>
+	<territory name="Zanzibar"/>
+
 	<territory name="000 A Sea Zone" water="true"/>
 	<territory name="000 B Sea Zone" water="true"/>
 	<territory name="001 A Sea Zone" water="true"/>
@@ -658,615 +1279,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="128 Sea Zone" water="true"/>
 	<territory name="129 Sea Zone" water="true"/>
 
-	<territory name="Acapulco-Chiapas"/>
-	<territory name="Adana"/>
-	<territory name="Addis Ababa"/>
-	<territory name="Aden-Yemen"/>
-	<territory name="Agana-Guam"/>
-	<territory name="Akmolinsk"/>
-	<territory name="Aksu-Tarim"/>
-	<territory name="Aktau"/>
-	<territory name="Aktobe"/>
-	<territory name="Al Fishir"/>
-	<territory name="Al Hasa"/>
-	<territory name="Al Hasakah"/>
-	<territory name="Al Kufrah"/>
-	<territory name="Albania"/>
-	<territory name="Alberta"/>
-	<territory name="Aleutian Is."/>
-	<territory name="Algarve"/>
-	<territory name="Algiers"/>
-	<territory name="Almaty"/>
-	<territory name="Alsace"/>
-	<territory name="Amazonas"/>
-	<territory name="Ambon"/>
-	<territory name="Amur"/>
-	<territory name="Anadyr"/>
-	<territory name="Anchorage"/>
-	<territory name="Andalusia"/>
-	<territory name="Andaman Is."/>
-	<territory name="Angola"/>
-	<territory name="Anhwei"/>
-	<territory name="Ankara"/>
-	<territory name="Antalya"/>
-	<territory name="Aragon-Catalonia"/>
-	<territory name="Archangelsk"/>
-	<territory name="Arizona-New Mexico"/>
-	<territory name="Ascension Is."/>
-	<territory name="Asir"/>
-	<territory name="Astrakhan"/>
-	<territory name="Asturias"/>
-	<territory name="Athens-Cen.Greece"/>
-	<territory name="Atlanta-Georgia"/>
-	<territory name="Atyrau"/>
-	<territory name="Azores Is."/>
-	<territory name="Baffin Is."/>
-	<territory name="Baghdad"/>
-	<territory name="Bahamas"/>
-	<territory name="Bahia-Norde Este"/>
-	<territory name="Baja-Sonora"/>
-	<territory name="Baku-Azerbaijan"/>
-	<territory name="Bali-Sunda Is."/>
-	<territory name="Balikpapan-S.Borneo"/>
-	<territory name="Bangkok-Siam"/>
-	<territory name="Barat Daya Is."/>
-	<territory name="Basra"/>
-	<territory name="Batavia-W.Java"/>
-	<territory name="Bavaria"/>
-	<territory name="Bechuanaland"/>
-	<territory name="Belgian Congo"/>
-	<territory name="Belgium-Luxembourg"/>
-	<territory name="Bengal"/>
-	<territory name="Benghazi-Cyrenaica"/>
-	<territory name="Berar"/>
-	<territory name="Bergen-Vestland"/>
-	<territory name="Berlin-Cen.Germany"/>
-	<territory name="Bermuda"/>
-	<territory name="Beruit-Lebanon"/>
-	<territory name="Bessarabia"/>
-	<territory name="Bethel"/>
-	<territory name="Bhutan"/>
-	<territory name="Bhuyant Uhaa"/>
-	<territory name="Bialystok"/>
-	<territory name="Bogata-Colombia"/>
-	<territory name="Bohemia Moravia"/>
-	<territory name="Bolivia"/>
-	<territory name="Bombay"/>
-	<territory name="Bona"/>
-	<territory name="Boran"/>
-	<territory name="Bordeaux-Gascony"/>
-	<territory name="Boston-New England"/>
-	<territory name="Bratsk"/>
-	<territory name="Brazilian Guiana"/>
-	<territory name="Brest"/>
-	<territory name="Brisbane-Queensland"/>
-	<territory name="British Guiana"/>
-	<territory name="British Honduras"/>
-	<territory name="British Somaliland"/>
-	<territory name="Brittany"/>
-	<territory name="Broome-Exmouth"/>
-	<territory name="Bryansk"/>
-	<territory name="Bucharest-S.Romania"/>
-	<territory name="Budapest-N.Hungary"/>
-	<territory name="Buenos Aires"/>
-	<territory name="Buru"/>
-	<territory name="Buryatia"/>
-	<territory name="Cairo-Egypt"/>
-	<territory name="Calais-Picardy"/>
-	<territory name="Calcutta"/>
-	<territory name="Cambodia"/>
-	<territory name="Cameroon"/>
-	<territory name="Canary Is."/>
-	<territory name="Cape Colony"/>
-	<territory name="Cape Town"/>
-	<territory name="Cape Verde Is."/>
-	<territory name="Caracas-Venezuela"/>
-	<territory name="Castille-Leon"/>
-	<territory name="Cayman Is."/>
-	<territory name="Cen.California"/>
-	<territory name="Cen.Mongolia"/>
-	<territory name="Cen.Yugoslavia"/>
-	<territory name="Ceylon"/>
-	<territory name="Chad"/>
-	<territory name="Chahar"/>
-	<territory name="Charleston-Savannah"/>
-	<territory name="Charlotte-Carolina"/>
-	<territory name="Chelyabinsk"/>
-	<territory name="Chengdu-Szechwan"/>
-	<territory name="Chernigov"/>
-	<territory name="Chersky"/>
-	<territory name="Chiang Mai"/>
-	<territory name="Chicago"/>
-	<territory name="Chihuahua-Durango"/>
-	<territory name="Chile"/>
-	<territory name="Christmas Is."/>
-	<territory name="Chubu"/>
-	<territory name="Chukotka"/>
-	<territory name="Chungking"/>
-	<territory name="Colorado"/>
-	<territory name="Comoros"/>
-	<territory name="Cook Is."/>
-	<territory name="Copenhagen-Denmark"/>
-	<territory name="Corsica"/>
-	<territory name="Costa"/>
-	<territory name="Crete"/>
-	<territory name="Crimea"/>
-	<territory name="Croatia"/>
-	<territory name="Cyprus"/>
-	<territory name="Da Nang-Annam"/>
-	<territory name="Dagestan"/>
-	<territory name="Dakar"/>
-	<territory name="Dakota"/>
-	<territory name="Dalarna"/>
-	<territory name="Dalmatia"/>
-	<territory name="Damascus-S.Syria"/>
-	<territory name="Danakil"/>
-	<territory name="Danzig-Posen"/>
-	<territory name="Darfur"/>
-	<territory name="Deir ez Zor"/>
-	<territory name="Demyansk"/>
-	<territory name="Diyarbakir"/>
-	<territory name="Dodecanese Is."/>
-	<territory name="Dominican"/>
-	<territory name="Dovao-Mindonao"/>
-	<territory name="Dutch Guiana"/>
-	<territory name="Dutch New Guinea"/>
-	<territory name="Dzavhan"/>
-	<territory name="E.Algerian-Sahara"/>
-	<territory name="E.British Columbia"/>
-	<territory name="E.Tripolitania"/>
-	<territory name="Ecuador"/>
-	<territory name="Eire"/>
-	<territory name="El Alamein-Alexandria"/>
-	<territory name="El Salvador"/>
-	<territory name="Ellice Is."/>
-	<territory name="Eritrea"/>
-	<territory name="Erzurum"/>
-	<territory name="Estonia"/>
-	<territory name="Evenkia"/>
-	<territory name="Extramadura"/>
-	<territory name="Fairbanks"/>
-	<territory name="Falkland Is."/>
-	<territory name="Fars"/>
-	<territory name="Fezzan"/>
-	<territory name="Fiji"/>
-	<territory name="Florida"/>
-	<territory name="Frankfurt-Hesse"/>
-	<territory name="French Dahomey"/>
-	<territory name="French Guiana"/>
-	<territory name="French Guinea"/>
-	<territory name="French Somaliland"/>
-	<territory name="Gabon"/>
-	<territory name="Galapagos Is."/>
-	<territory name="Galicia"/>
-	<territory name="Gibraltar"/>
-	<territory name="Gilan"/>
-	<territory name="Gizhiga"/>
-	<territory name="Gold Coast"/>
-	<territory name="Gotland"/>
-	<territory name="Gran Chaco"/>
-	<territory name="Grand Erg"/>
-	<territory name="Greenland"/>
-	<territory name="Grodno"/>
-	<territory name="Grozny-Chechnya"/>
-	<territory name="Guatemala"/>
-	<territory name="Gujarat"/>
-	<territory name="Haditha-Rutbah"/>
-	<territory name="Haichow-Lunghai"/>
-	<territory name="Haikou-Hainan"/>
-	<territory name="Hail"/>
-	<territory name="Hailar-Hsingan"/>
-	<territory name="Halfa"/>
-	<territory name="Halifax-Nova Scotia"/>
-	<territory name="Halmahera-Maluku Is."/>
-	<territory name="Hamadan"/>
-	<territory name="Hamburg-Lower Saxony"/>
-	<territory name="Hanoi-Tonkin"/>
-	<territory name="Harbin"/>
-	<territory name="Havana-Cuba"/>
-	<territory name="Hawaiian Is."/>
-	<territory name="Helsinki"/>
-	<territory name="Herat"/>
-	<territory name="Himalayas"/>
-	<territory name="Hiroshima"/>
-	<territory name="Hokkaido"/>
-	<territory name="Honduras"/>
-	<territory name="Hong Kong-Kwangtung"/>
-	<territory name="Honolulu-Pearl Harbor"/>
-	<territory name="Hopei"/>
-	<territory name="Hunan"/>
-	<territory name="Hyderabad"/>
-	<territory name="Iceland"/>
-	<territory name="Idaho"/>
-	<territory name="Irkutsk"/>
-	<territory name="Isfahan"/>
-	<territory name="Istanbul"/>
-	<territory name="Istria"/>
-	<territory name="Italian Somaliland"/>
-	<territory name="Ivory Coast"/>
-	<territory name="Iwo Jima-Bonin Is."/>
-	<territory name="Jamaica"/>
-	<territory name="Jehol-Rehe"/>
-	<territory name="Johnston Is."/>
-	<territory name="Jordan"/>
-	<territory name="Juba-S.Sudan"/>
-	<territory name="Juneau"/>
-	<territory name="Jutland"/>
-	<territory name="Kabul"/>
-	<territory name="Kalahari"/>
-	<territory name="Kamchatka"/>
-	<territory name="Kanchow"/>
-	<territory name="Kandahar"/>
-	<territory name="Kansas-Oklahoma"/>
-	<territory name="Karachi"/>
-	<territory name="Karelia"/>
-	<territory name="Kashmire"/>
-	<territory name="Katanga"/>
-	<territory name="Kazan"/>
-	<territory name="Kendari-E.Celebs"/>
-	<territory name="Kentucky-Tennessee"/>
-	<territory name="Kenya"/>
-	<territory name="Kerman"/>
-	<territory name="Khabarovsk"/>
-	<territory name="Khanty-Mansiysk"/>
-	<territory name="Kharga-Western Desert"/>
-	<territory name="Kharkiv"/>
-	<territory name="Khartoum-Sudan"/>
-	<territory name="Kherson"/>
-	<territory name="Khorasan"/>
-	<territory name="Kiangsi"/>
-	<territory name="Kiev-Cen.Ukraine"/>
-	<territory name="Kilwa"/>
-	<territory name="King Salmon-Aleut Pen."/>
-	<territory name="Kirov"/>
-	<territory name="Kjolen"/>
-	<territory name="Kodiak Is."/>
-	<territory name="Kolyma"/>
-	<territory name="Komi"/>
-	<territory name="Konduz"/>
-	<territory name="Konigsberg-E.Prussia"/>
-	<territory name="Konya"/>
-	<territory name="Koryak"/>
-	<territory name="Kosice-Munkacs"/>
-	<territory name="Kra-Buri"/>
-	<territory name="Krakow-Lublin"/>
-	<territory name="Krasnodar"/>
-	<territory name="Krasnoyarsk"/>
-	<territory name="Kunming"/>
-	<territory name="Kurgan"/>
-	<territory name="Kursk-Vorozneh"/>
-	<territory name="Kuwait"/>
-	<territory name="Kuybysev"/>
-	<territory name="Kwangsi"/>
-	<territory name="Kweichow"/>
-	<territory name="Kyoto-Osaka"/>
-	<territory name="Kyrgyzstan-Tajikistan"/>
-	<territory name="Kyushu"/>
-	<territory name="Labrador"/>
-	<territory name="Lagos-S.Nigeria"/>
-	<territory name="Lanzhou"/>
-	<territory name="Laos"/>
-	<territory name="Lapland"/>
-	<territory name="Lashio-Shan State"/>
-	<territory name="Latgale"/>
-	<territory name="Latvia"/>
-	<territory name="Leeward Is."/>
-	<territory name="Leningrad"/>
-	<territory name="Leopoldville-Kinshasa"/>
-	<territory name="Leyte-Visayas Is."/>
-	<territory name="Lhasa-E.Tibet"/>
-	<territory name="Liberia"/>
-	<territory name="Lindi"/>
-	<territory name="Line Is."/>
-	<territory name="Lisbon"/>
-	<territory name="Lithuania"/>
-	<territory name="London-S.England"/>
-	<territory name="Lorraine"/>
-	<territory name="Lucknow-Oudh"/>
-	<territory name="Lviv"/>
-	<territory name="Madagascar"/>
-	<territory name="Madeira Is."/>
-	<territory name="Madras"/>
-	<territory name="Madrid-Cen.Spain"/>
-	<territory name="Magadan"/>
-	<territory name="Majorca"/>
-	<territory name="Makassar-S.Celebs"/>
-	<territory name="Malaya"/>
-	<territory name="Maldives"/>
-	<territory name="Malta"/>
-	<territory name="Manado-N.Celebs"/>
-	<territory name="Manchuria-Manchukuo"/>
-	<territory name="Manila-Luzon"/>
-	<territory name="Maputo-S.Mozambique"/>
-	<territory name="Maracaju"/>
-	<territory name="Mariupol"/>
-	<territory name="Marquesas Is."/>
-	<territory name="Marshall Is."/>
-	<territory name="Mato Grosso"/>
-	<territory name="Mauritania"/>
-	<territory name="Mazandaran"/>
-	<territory name="Mecca"/>
-	<territory name="Meckleburg"/>
-	<territory name="Medan-W.Sumatra"/>
-	<territory name="Medina-Jeddah"/>
-	<territory name="Melbourne-Victoria"/>
-	<territory name="Mexico City"/>
-	<territory name="Michigan-Indiana"/>
-	<territory name="Midway Is."/>
-	<territory name="Milan-N.Italy"/>
-	<territory name="Mindoro Is."/>
-	<territory name="Minsk"/>
-	<territory name="Mobile-Alabama"/>
-	<territory name="Mogadishu"/>
-	<territory name="Mogilev"/>
-	<territory name="Moldavia"/>
-	<territory name="Montana"/>
-	<territory name="Montenegro"/>
-	<territory name="Monterrey"/>
-	<territory name="Morocco"/>
-	<territory name="Moscow-Cen.Russia"/>
-	<territory name="Mosul-Kirkuk"/>
-	<territory name="Mozhaysk-Kaluga"/>
-	<territory name="Mukden-Port Arthur"/>
-	<territory name="Murmansk"/>
-	<territory name="Muscat"/>
-	<territory name="N.Burma"/>
-	<territory name="N.California"/>
-	<territory name="N.England"/>
-	<territory name="N.Ireland"/>
-	<territory name="N.Korea"/>
-	<territory name="N.Mozambique"/>
-	<territory name="N.New Zealand"/>
-	<territory name="N.Nigeria"/>
-	<territory name="N.Ontario"/>
-	<territory name="N.Quebec"/>
-	<territory name="N.Rhodesia"/>
-	<territory name="N.Sakhalin"/>
-	<territory name="N.Transylvania"/>
-	<territory name="Nafud"/>
-	<territory name="Nagpur"/>
-	<territory name="Nanking"/>
-	<territory name="Naples-S.Italy"/>
-	<territory name="Narvik"/>
-	<territory name="Navarre"/>
-	<territory name="Nebraska"/>
-	<territory name="Nejd"/>
-	<territory name="Nenetsia"/>
-	<territory name="Nepal"/>
-	<territory name="Netherlands"/>
-	<territory name="Nevada"/>
-	<territory name="New Britain Is."/>
-	<territory name="New Caledonia Is."/>
-	<territory name="New Delhi"/>
-	<territory name="New Guinea"/>
-	<territory name="New Hebrides Is."/>
-	<territory name="New Orleans-Louisiana"/>
-	<territory name="New South Wales"/>
-	<territory name="New York-New Jersey"/>
-	<territory name="Niamey"/>
-	<territory name="Nicaragua"/>
-	<territory name="Nizhny Novgorod"/>
-	<territory name="Nome"/>
-	<territory name="Normandy"/>
-	<territory name="Norrland"/>
-	<territory name="Norte"/>
-	<territory name="Northern Territory"/>
-	<territory name="Northwest Territories"/>
-	<territory name="Novgorod"/>
-	<territory name="Novosibirsk"/>
-	<territory name="Nunavut"/>
-	<territory name="Odesa-Mykoliav"/>
-	<territory name="Ogoden"/>
-	<territory name="Ohio"/>
-	<territory name="Okinawa-Ryukyu Is."/>
-	<territory name="Olgiy"/>
-	<territory name="Oman"/>
-	<territory name="Omsk"/>
-	<territory name="Oran"/>
-	<territory name="Orissa"/>
-	<territory name="Orleans"/>
-	<territory name="Oslo"/>
-	<territory name="Ottawa-Montreal"/>
-	<territory name="Ouargla"/>
-	<territory name="Outback"/>
-	<territory name="Palawan"/>
-	<territory name="Palembang-S.Sumatra"/>
-	<territory name="Palestine"/>
-	<territory name="Palmyra Atoll"/>
-	<territory name="Pampas"/>
-	<territory name="Panama"/>
-	<territory name="Paraguay"/>
-	<territory name="Paris-Cen.France"/>
-	<territory name="Patagonia"/>
-	<territory name="Peking-Tientsin"/>
-	<territory name="Peleliu-Palau Is."/>
-	<territory name="Peleponnese"/>
-	<territory name="Pennsylvania"/>
-	<territory name="Perm"/>
-	<territory name="Perth-W.Australia"/>
-	<territory name="Peru"/>
-	<territory name="Phoenix Is."/>
-	<territory name="Pinsk"/>
-	<territory name="Ploiesti-E.Romania"/>
-	<territory name="Poitou"/>
-	<territory name="Pomerania"/>
-	<territory name="Port Au Prince-Haiti"/>
-	<territory name="Port Moresby-Papua"/>
-	<territory name="Portland-Oregon"/>
-	<territory name="Portuguese Guinea"/>
-	<territory name="Primorsky"/>
-	<territory name="Provence-Marseille"/>
-	<territory name="Prypiat"/>
-	<territory name="Pskov"/>
-	<territory name="Punjab"/>
-	<territory name="Qatar"/>
-	<territory name="Quebec City-C.Quebec"/>
-	<territory name="Rajputana"/>
-	<territory name="Rangoon-S.Burma"/>
-	<territory name="Rhodesia"/>
-	<territory name="Rio De Oro"/>
-	<territory name="Rio Grande do Sul"/>
-	<territory name="Riyadh"/>
-	<territory name="Rome-Cen.Italy"/>
-	<territory name="Rostov"/>
-	<territory name="Rub Al Kali"/>
-	<territory name="Ryazan"/>
-	<territory name="Rzeszow"/>
-	<territory name="Rzhev"/>
-	<territory name="S. Korea"/>
-	<territory name="S.Australia"/>
-	<territory name="S.California"/>
-	<territory name="S.Hijaz"/>
-	<territory name="S.New Zealand"/>
-	<territory name="S.Quebec"/>
-	<territory name="S.Rhodesia"/>
-	<territory name="S.Sakhalin"/>
-	<territory name="S.Transylvania"/>
-	<territory name="Saigon-Cochinchina"/>
-	<territory name="Saipan-Mariana Is."/>
-	<territory name="Sakha"/>
-	<territory name="Samoan Is."/>
-	<territory name="San Juan-Puerto Rico"/>
-	<territory name="Santiago-Guantanamo"/>
-	<territory name="Sao Paulo"/>
-	<territory name="Sarajevo-Bosnia"/>
-	<territory name="Sarawak-N.Borneo"/>
-	<territory name="Sardinia"/>
-	<territory name="Savo-Ostrobothnia"/>
-	<territory name="Schleswig-Holstein"/>
-	<territory name="Scotland"/>
-	<territory name="Seattle-Washington"/>
-	<territory name="Seychelles"/>
-	<territory name="Shanghai-Kiangsu"/>
-	<territory name="Shangtung"/>
-	<territory name="Shensi"/>
-	<territory name="Shetland Is."/>
-	<territory name="Shikoku"/>
-	<territory name="Siberia"/>
-	<territory name="Sicily"/>
-	<territory name="Sierra Leone"/>
-	<territory name="Sikang"/>
-	<territory name="Silesia"/>
-	<territory name="Sinai"/>
-	<territory name="Sinaloa-Guadalajara"/>
-	<territory name="Singapore-Malacca"/>
-	<territory name="Sinkiang"/>
-	<territory name="Sistan-Baluchestan"/>
-	<territory name="Sitka"/>
-	<territory name="Siuyuyan"/>
-	<territory name="Slovakia"/>
-	<territory name="Slovenia-N.Croatia"/>
-	<territory name="Smolensk"/>
-	<territory name="Smyrna"/>
-	<territory name="Society Is."/>
-	<territory name="Socotra"/>
-	<territory name="Sofia-W.Bulgaria"/>
-	<territory name="Solomon Is."/>
-	<territory name="Southwest Africa"/>
-	<territory name="Spanish Gabon"/>
-	<territory name="St.Johns-Newfoundland"/>
-	<territory name="St.Louis-Arkansas"/>
-	<territory name="Stalingrad-Volga"/>
-	<territory name="Stavropol"/>
-	<territory name="Stockholm"/>
-	<territory name="Surabaya-E.Java"/>
-	<territory name="Svalbard"/>
-	<territory name="Svealand"/>
-	<territory name="Switzerland"/>
-	<territory name="Tabriz"/>
-	<territory name="Taipei-Formosa"/>
-	<territory name="Tanganyika"/>
-	<territory name="Tangier"/>
-	<territory name="Tanimbar Is."/>
-	<territory name="Tarakan-E.Borneo"/>
-	<territory name="Tarawa-Gilbert Is."/>
-	<territory name="Tasmania"/>
-	<territory name="Taymyr"/>
-	<territory name="Tbilisi-Georgia"/>
-	<territory name="Tehran"/>
-	<territory name="Tenere"/>
-	<territory name="Texas"/>
-	<territory name="Thessaloniki"/>
-	<territory name="Thrace"/>
-	<territory name="Tibesti"/>
-	<territory name="Timbuktu-Mali"/>
-	<territory name="Timor"/>
-	<territory name="Tobruk"/>
-	<territory name="Tohoku"/>
-	<territory name="Tokyo"/>
-	<territory name="Tomsk"/>
-	<territory name="Toronto-S.Ontario"/>
-	<territory name="Toulouse-Occitania"/>
-	<territory name="Transdanubia"/>
-	<territory name="Transvaal"/>
-	<territory name="Trebizond"/>
-	<territory name="Troms-Finnmark"/>
-	<territory name="Trondheim"/>
-	<territory name="Trucial Coast"/>
-	<territory name="Truk-Coraline Is."/>
-	<territory name="Tsagaan Olom"/>
-	<territory name="Tsinghai"/>
-	<territory name="Tula"/>
-	<territory name="Tunis-Tunisia"/>
-	<territory name="Turkmenistan"/>
-	<territory name="Tver"/>
-	<territory name="Tyrol-S.Austria"/>
-	<territory name="Tyumen"/>
-	<territory name="Ubangi Sheri"/>
-	<territory name="Udon Thani"/>
-	<territory name="Uelen"/>
-	<territory name="Uganda"/>
-	<territory name="Ulaanbaatar"/>
-	<territory name="Upper Egypt"/>
-	<territory name="Upper Volta"/>
-	<territory name="Uruguay"/>
-	<territory name="Urumchi-Kansu"/>
-	<territory name="Utah"/>
-	<territory name="Uzbekistan"/>
-	<territory name="Valencia"/>
-	<territory name="Varna"/>
-	<territory name="Venice-Trieste"/>
-	<territory name="Veracruz"/>
-	<territory name="Vichy-Rhone"/>
-	<territory name="Victoria"/>
-	<territory name="Vienna-N.Austria"/>
-	<territory name="Vilna"/>
-	<territory name="Virginia"/>
-	<territory name="Vitebsk"/>
-	<territory name="Vladivostok"/>
-	<territory name="Vogelkop Pen."/>
-	<territory name="Vologda"/>
-	<territory name="Vyborg"/>
-	<territory name="W.Algerian-Sahara"/>
-	<territory name="W.British Columbia"/>
-	<territory name="W.Nunavut"/>
-	<territory name="W.Tibet"/>
-	<territory name="W.Tripolitania"/>
-	<territory name="Wake Is."/>
-	<territory name="Wales"/>
-	<territory name="Warsaw-Cen.Poland"/>
-	<territory name="Washington D.C."/>
-	<territory name="Westphalia-Rhineland"/>
-	<territory name="Windhoek"/>
-	<territory name="Windward Is."/>
-	<territory name="Winnipeg"/>
-	<territory name="Wisconsin-Minnesota"/>
-	<territory name="Wuhan"/>
-	<territory name="Wurttemburg"/>
-	<territory name="Wyoming"/>
-	<territory name="Yakutia"/>
-	<territory name="Yakutsk"/>
-	<territory name="Yamalia"/>
-	<territory name="Yanaon"/>
-	<territory name="Yaroslavl"/>
-	<territory name="Yucatan"/>
-	<territory name="Yukon"/>
-	<territory name="Yunnan"/>
-	<territory name="Yuzhny-Novaya Zemlya"/>
-	<territory name="Zanzibar"/>
-
 <!-- Territory Connections -->
-
 	<!-- <connection t1="106 Sea Zone" t2="Toronto-S.Ontario"/>  -->
 	<connection t1="000 A Sea Zone" t2="000 B Sea Zone"/>
 	<connection t1="000 A Sea Zone" t2="002 Sea Zone"/>
@@ -4442,7 +4455,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="101 B Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="101 C Sea Zone"	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="102 Sea Zone"		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
-<attachment name="territoryAttachment" attachTo="103 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												</attachment>
+<attachment name="territoryAttachment" attachTo="103 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>												<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="104 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="105 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="106 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
@@ -6779,6 +6792,27 @@ foreach does NOT appear to work with changeOwnership
 		<option name="resourceCount" value="9"/>
 		<option name="when" value="after:Britain0EndTurn"/>
 	</attachment>
+<!-- Remove Persian Corridor if any are false for each nation units -->
+	<attachment name="triggerAttachment_Baku_USSR_Lend-Lease-Depot_Remove" attachTo="USSR" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Baku_Britain_Lend-Lease-Depot:conditionAttachment_Baku_Persian_Corridor"/>
+		<option name="invert" value="true"/>
+<!--		<option name="removeUnits" value="Fars:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Hamadan:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>  -->
+		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>
+		<option name="when" value="before:USSR0EndTurn"/>
+	</attachment>
+	<attachment name="triggerAttachment_Baku_Britain_Lend-Lease-Depot_Remove" attachTo="Britain" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Baku_Britain_Lend-Lease-Depot:conditionAttachment_Baku_Persian_Corridor"/>
+		<option name="invert" value="true"/>
+		<option name="removeUnits" value="Fars:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Hamadan:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
+		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>
+<!--		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>  -->
+		<option name="when" value="before:USSR0EndTurn"/>
+	</attachment>
 
 
 <!-- USA Lend-Lease-Depot in Yunnan China after USA Resource phase xx Tons are for balance -->
@@ -6806,6 +6840,22 @@ foreach does NOT appear to work with changeOwnership
 		<option name="resourceCount" value="20"/>
 		<option name="when" value="after:USA0EndTurn"/>
 	</attachment>
+<!-- Remove Burma Road if either are false for each nation units -->
+	<attachment name="triggerAttachment_Yunnan_China_Lend-Lease-Depot_Remove" attachTo="China" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Yunnan_USA_Lend-Lease-Depot:conditionAttachment_Burma_Road"/>
+		<option name="invert" value="true"/>
+<!--		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>  -->
+		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>
+		<option name="when" value="before:USA0EndTurn"/>
+	</attachment>
+	<attachment name="triggerAttachment_Yunnan_Britain_Lend-Lease-Depot_Remove" attachTo="Britain" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Yunnan_USA_Lend-Lease-Depot:conditionAttachment_Burma_Road"/>
+		<option name="invert" value="true"/>
+		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>
+<!--		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>  -->
+		<option name="when" value="before:USA0EndTurn"/>
+	</attachment>
+
 
 
 <!-- USA Lend-Lease-Depot in Vladivostok USSR after USA Resource phase whilst NAP holds 8 million tons -->
@@ -7005,7 +7055,10 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 
 <!-- Britain GO AI isAI Destroyer -->
+<!-- N.Ireland Hvy -->
 	<attachment name="conditionAttachment_NationalTheme_Britain-AI_Dest" attachTo="Britain" javaClass="RulesAttachment" type="player">
+		<option name="directPresenceTerritories" value="N.Ireland" count="1"/>
+		<option name="unitPresence" value="Industry-Hvy" count="1"/>
 		<option name="rounds" value="2-40"/>
 	</attachment>
 	<attachment name="triggerAttachment_NationalTheme_Britain-AI_Dest" attachTo="Britain" javaClass="TriggerAttachment" type="player">
@@ -7164,31 +7217,52 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 
 <!-- USA GO AI isAI Destroyer -->
-	<attachment name="conditionAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="RulesAttachment" type="player">
+<!-- Seattle-Washington Med -->
+	<attachment name="conditionAttachment_NationalTheme_USA-AI_DestW" attachTo="USA" javaClass="RulesAttachment" type="player">
+		<option name="directPresenceTerritories" value="Seattle-Washington" count="1"/>
+		<option name="unitPresence" value="Industry-Med" count="1"/>
 		<option name="rounds" value="2-40"/>
 	</attachment>
-	<attachment name="triggerAttachment_NationalTheme_USA-AI_Dest" attachTo="USA" javaClass="TriggerAttachment" type="player">
-		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Dest"/>
+	<attachment name="triggerAttachment_NationalTheme_USA-AI_DestW" attachTo="USA" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_DestW"/>
 		<option name="conditions" value="conditionAttachment_isAI_USA"/>
 		<option name="placement" value="010 B Sea Zone:Destroyer" count="2"/>	<!-- West Coast -->
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-10"/>
+		<option name="when" value="before:USAPurchase"/>
+	</attachment>
+<!-- Washington D.C. Hvy -->
+	<attachment name="conditionAttachment_NationalTheme_USA-AI_DestE" attachTo="USA" javaClass="RulesAttachment" type="player">
+		<option name="directPresenceTerritories" value="Washington D.C." count="1"/>
+		<option name="unitPresence" value="Industry-Hvy" count="1"/>
+		<option name="rounds" value="2-40"/>
+	</attachment>
+	<attachment name="triggerAttachment_NationalTheme_USA-AI_DestE" attachTo="USA" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_DestE"/>
+		<option name="conditions" value="conditionAttachment_isAI_USA"/>
 		<option name="placement" value="101 A Sea Zone:Destroyer" count="2"/>	<!-- East Coast -->
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-20"/>
+			<option name="resourceCount" value="-10"/>
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
 
+
 <!-- USA GO AI isAI Fleet -->
+<!-- Cen.California Hvy -->
 	<attachment name="conditionAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="RulesAttachment" type="player">
+		<option name="directPresenceTerritories" value="Cen.California" count="1"/>
+		<option name="unitPresence" value="Industry-Hvy" count="1"/>
 		<option name="rounds" value="4:8:12:16:20:24:28:32"/>
 	</attachment>
 	<attachment name="triggerAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Fleet"/>
 		<option name="conditions" value="conditionAttachment_isAI_USA"/>
-		<option name="placement" value="010 B Sea Zone:Fighter" count="3"/>				<!-- West Coast -->
+		<option name="placement" value="010 B Sea Zone:Fighter" count="2"/>				<!-- West Coast -->
+		<option name="placement" value="010 B Sea Zone:Bomber-Tac" count="1"/>				<!-- West Coast -->
 		<option name="placement" value="010 B Sea Zone:Carrier-Fleet" count="1"/>
 		<option name="placement" value="010 B Sea Zone:Cruiser" count="1"/>
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-47"/>	 <!-- 7+7+7 +18 +8  -->
+			<option name="resourceCount" value="-48"/>	 <!-- 7+7+8 +18 +8  -->
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
 
