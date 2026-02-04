@@ -21,4 +21,4 @@ It is late 1941; Germany has launched a massive invasion against the USSR and Ja
 
 | :information_source: For the latest download and discussion, click or copy and paste the link below |
 | --- |
-| [**https://forums.triplea-game.org/topic/3326/1941-global-command-decision**]https://forums.triplea-game.org/topic/3326/1941-global-command-decision | 
+| [**https://forums.triplea-game.org/topic/3326/1941-global-command-decision**](https://forums.triplea-game.org/topic/3326/1941-global-command-decision) | 

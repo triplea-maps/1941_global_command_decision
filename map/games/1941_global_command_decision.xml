@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.230"/>
+	<info name="1941 Global Command Decision" version="1.235"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v235
+* Armor-Inf, Armor-Hvy Battleship, Carrier, Carrier-Fleet all cost 2pu for Upkeep/turn, was 1pu
+* New Infrastructure called Factory add 3pu/turn/Factory can stack upto 2 per TT with Industry-Med or Industry-Hvy
+This is to simulate increases in production as the war progressed, as they cost 9pu, that gives ROI after 3 turns.
+* Manual p6-7 been updated with above
+
 v230
 * New capital marker in the middle of the Atlantic Ocean hopefully improves AI USA invasion of Europe
 * USA AI ship production now dependant on Industries
@@ -3455,6 +3461,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<unit name="Industry-Med"/>
 	<unit name="Industry-Lgt"/>
 	<unit name="Base-Camp"/>
+	<unit name="Factory"/>
 	<unit name="Oil-Field"/>
 	<unit name="Flag"/>
 	<unit name="Lend-Lease-Depot"/>
@@ -3702,6 +3709,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionRule name="buyIndustry-Med">		<cost resource="PUs" quantity="21"/>	<result resourceOrUnit="Industry-Med"	quantity="1"/>	</productionRule>
 	<productionRule name="buyIndustry-Lgt">		<cost resource="PUs" quantity="16"/>	<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</productionRule>
 	<productionRule name="buyBase-Camp">		<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</productionRule>
+	<productionRule name="buyFactory">			<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</productionRule>
 
 	<productionRule name="buyFlag">				<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Flag"			quantity="1"/>	</productionRule>
 	<productionRule name="buyLend-Lease-Depot">	<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Lend-Lease-Depot" quantity="1"/></productionRule>
@@ -3712,6 +3720,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<repairRule name="repairIndustry-Med">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Industry-Med"	quantity="1"/>	</repairRule>
 	<repairRule name="repairIndustry-Lgt">		<cost resource="PUs" quantity="3"/>		<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</repairRule>
 	<repairRule name="repairBase-Camp">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</repairRule>
+	<repairRule name="repairFactory">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</repairRule>
 
 
 	<repairFrontier name="repair">
@@ -3719,6 +3728,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<repairRules name="repairIndustry-Med"/>
 		<repairRules name="repairIndustry-Lgt"/>
 		<repairRules name="repairBase-Camp"/>
+		<repairRules name="repairFactory"/>
 	</repairFrontier>
 
 
@@ -3759,6 +3769,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3779,6 +3790,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3813,6 +3825,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3847,6 +3860,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -3884,6 +3898,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3908,6 +3923,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3940,6 +3956,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -3972,6 +3989,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 	<productionFrontier name="production_USA_HQs">
@@ -4005,6 +4023,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -4038,6 +4057,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -4070,6 +4090,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
+		<frontierRules name="buyFactory"/>
 	</productionFrontier>
 
 
@@ -5469,7 +5490,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
-		<option name="createsResourcesList" value="-1:PUs"/>
+		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
@@ -5548,7 +5569,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="mayOverStackAA" value="true"/>
 				<option name="typeAA" value="Flak"/>
 				<option name="targetsAA" value="$All-Air-Targetable$"/>
-		<option name="createsResourcesList" value="-1:PUs"/>
+		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
@@ -5735,7 +5756,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
-		<option name="createsResourcesList" value="-1:PUs"/>
+		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
@@ -5760,7 +5781,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
-		<option name="createsResourcesList" value="-1:PUs"/>
+		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
@@ -5785,7 +5806,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="typeAA" value="Flak"/>
 		<option name="targetsAA" value="$All-Air-Targetable$"/>
 
-		<option name="createsResourcesList" value="-1:PUs"/>
+		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
@@ -6274,6 +6295,38 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>
+	</attachment>
+
+<!-- Factory -->
+	<attachment name="unitAttachment" attachTo="Factory" javaClass="UnitAttachment" type="unitType">
+		<option name="isInfrastructure" value="true"/>
+		<option name="canBeDamaged" value="true"/>
+			<option name="maxDamage" value="3"/>
+			<option name="maxOperationalDamage" value="2"/>
+			<option name="canDieFromReachingMaxDamage" value="true"/>
+			<option name="whenCapturedSustainsDamage" value="1"/>
+		<option name="isConstruction" value="true"/>			<!-- place anywhere owned -->
+			<option name="constructionType" value="FactoryPU"/>
+			<option name="maxConstructionsPerTypePerTerr" value="3"/>
+			<option name="constructionsPerTerrPerTypePerTurn" value="1"/>
+			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="7"/>
+<!-- AA same for all Factory type units -->
+		<option name="isAAforCombatOnly" value="false"/>		<!-- false = it will defend against strategic bombing raids -->
+		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
+			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
+			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
+				<option name="offensiveAttackAAmaxDieSides" value="6"/>
+				<option name="attackAAmaxDieSides" value="6"/>
+					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
+					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
+			<option name="typeAA" value="AA-Industry"/>
+			<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+		<option name="isAirBase" value="true"/>
+			<option name="requiresUnits" value="Industry-Hvy"/>
+			<option name="requiresUnits" value="Industry-Med"/>
+		<option name="createsResourcesList" value="3:PUs"/>		<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="tuv" value="9"/>
 	</attachment>
 
 
@@ -7050,6 +7103,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="2"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:BritainPurchase"/>
 	</attachment>
@@ -7079,6 +7133,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_isAI_China"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="1"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="purchase" value="HQ-Army" count="1"/>			<!-- free as no Industry-Hvy -->
 		<option name="purchase" value="Fighter-Early" count="1"/>	<!-- free Foreign Fighters -->
@@ -7096,6 +7151,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="2"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:GermanyPurchase"/>
 	</attachment>
@@ -7136,6 +7192,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="2"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:ItalyPurchase"/>
 	</attachment>
@@ -7151,6 +7208,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="2"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:JapanPurchase"/>
 	</attachment>
@@ -7176,6 +7234,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="1"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:Pacific-AlliesPurchase"/>
 	</attachment>
@@ -7192,6 +7251,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="3"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
@@ -7277,6 +7337,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
+		<option name="purchase" value="Factory" count="2"/>
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:USSRPurchase"/>
 	</attachment>
@@ -8377,6 +8438,23 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:Pacific-Allies0EndTurn"/>
 </attachment>
 
+<!-- reset Factory -3 -->
+<attachment name="triggerAttachment_Reset_PUs5" attachTo="Germany" javaClass="TriggerAttachment" type="player">
+	<option name="conditions" value="conditionAttachment_Always_True"/>
+		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
+		<option name="unitType" value="Factory"/>
+		<option name="unitProperty" value="createsResourcesList" count="-reset-3:PUs"/>
+		<option name="when" value="before:Germany0EndTurn"/>
+		<option name="when" value="before:USSR0EndTurn"/>
+		<option name="when" value="before:China0EndTurn"/>
+		<option name="when" value="before:Italy0EndTurn"/>
+		<option name="when" value="before:Britain0EndTurn"/>
+		<option name="when" value="before:Japan0EndTurn"/>
+		<option name="when" value="before:USA0EndTurn"/>
+		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+</attachment>
+
+
 <!-- reset Oil-Field:Lend-Lease-Depot -1 -->
 <attachment name="triggerAttachment_Reset_PUs1" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_Always_True"/>
@@ -8450,6 +8528,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 
 		<option name="placementLimit" value="owned:Bunker" count="2"/>
 		<option name="placementLimit" value="owned:Industry-Hvy:Industry-Med:Industry-Lgt:Base-Camp" count="1"/>
+		<option name="placementLimit" value="owned:Factory" count="2"/>
 
 <!-- ======================================= GO Stack Unit ======================================= -->
 <!-- Limit Air & Sea units to 10 OWNED units of each type per SZ/TT.  Limit Land units to 20 OWNED units of each type per TT 
