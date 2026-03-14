@@ -1,42 +1,45 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.235"/>
+	<info name="1941 Global Command Decision" version="1.240"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v240
+Cruiser        7pu was 8
+Battleship    15pu was 18
+Carrier-Fleet 16pu was 18 
+
+* Submarines cannot target Submarines
+* Chinese Themed reinforcements Inf-Trained x3, was Inf-Conscript x1 & Inf-Trained x2
+* China had a massive population and these are Conscripts through battle attrition who are now Trained
+War Bonds
+* Game Options has 2 new tick boxes 
+War Bonds bonus to all AI Allies
+War Bonds bonus to all AI Axis
+If you are a veteran player and like playing Axis then for a harder game tick **War Bonds bonus to all AI Allies**, this will give **2d6pu** to each of the 5 Allied nations/turn
+* Removed Factory added last version :roll:, these unbalanced the AI too in favour of the Allies.  (code commented out)
+
 v235
 * Armor-Inf, Armor-Hvy Battleship, Carrier, Carrier-Fleet all cost 2pu for Upkeep/turn, was 1pu
 * New Infrastructure called Factory add 3pu/turn/Factory can stack upto 2 per TT with Industry-Med or Industry-Hvy
 This is to simulate increases in production as the war progressed, as they cost 9pu, that gives ROI after 3 turns.
 * Manual p6-7 been updated with above
 
-v230
-* New capital marker in the middle of the Atlantic Ocean hopefully improves AI USA invasion of Europe
-* USA AI ship production now dependant on Industries
-* Britain AI ship production now dependant on Industries
-* If Persian Corridor, Baku, Fars, Hamadan, Tehran, Gilan is broken all the Lend-Lease-Depots are removed
-* If Burma Road, N.Burma, Yunnan is broken all the Lend-Lease-Depots are removed
-
 Suggested stable 2.7 version
 use https://github.com/triplea-game/triplea/releases/tag/2.7.15025
 also needs View> LockMap> untick (must be unticked to center)
 
-
-v225
-All Land, not Conscript AA v aircraft fire for 2 rounds @ 1:6 chance, was 7 rounds @ 1:12 chance
-Destroyer/Convoy		AA v aircraft fire for 2 rounds @ 1:6 chance, was 5 rounds @ 1:12 chance
-Cruiser					AA v aircraft fire for 2 rounds @ 2:6 chance, was 5 rounds @ 1:6 chance
-Carrier					AA v aircraft fire for 2 rounds @ 2:6 chance, was 5 rounds @ 2:6 chance
-Battleship				AA v aircraft fire for 2 rounds @ 4:6 chance, was 5 rounds @ 3:6 chance
-Aircraft				AA v aircraft fire for 3 rounds, unchanged
-
-This reduces the chances of aircraft being shot down and removes d12 for AA fire
-
-Scramble To Sea Only - true
-
 TODO
+Fighter-Early 5pu was 6
+Fighter       6pu was 7
+Fighter-LR    8pu was 9
+Fighter-Jet   8pu was 9
+Bomber-Tac    7pu was 8
+Bomber        9pu was 11
+Bomber-LR    11pu was 13
+Air transport 6pu was 7
 I have not had time to test this, but suggest using Hard AI(beware their turns will take longer) for;
 * Japanese for Kamikazes
 * Germany for V1 & V2
@@ -68,367 +71,386 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 
 <!-- Go Winter -->
 <!-- forest -->
-	<variable name="All-WinterTT-forest">		<!-- xxx -->
-		<element name="Alberta"/>
-		<element name="Anadyr"/>
-		<element name="Anchorage"/>
-		<element name="Bethel"/>
-		<element name="Bratsk"/>
-		<element name="Chersky"/>
-		<element name="E.British Columbia"/>
-		<element name="Evenkia"/>
-		<element name="Halifax-Nova Scotia"/>
-		<element name="Juneau"/>
-		<element name="Karelia"/>
-		<element name="Khanty-Mansiysk"/>
-		<element name="King Salmon-Aleut Pen."/>
-		<element name="Kirov"/>
-		<element name="Kodiak Is."/>
-		<element name="Labrador"/>
-		<element name="Murmansk"/>
-		<element name="N.Ontario"/>
-		<element name="N.Quebec"/>
-		<element name="Ottawa-Montreal"/>
-		<element name="Quebec City-C.Quebec"/>
-		<element name="S.Quebec"/>
-		<element name="Savo-Ostrobothnia"/>
-		<element name="Siberia"/>
-		<element name="St.Johns-Newfoundland"/>
-		<element name="Toronto-S.Ontario"/>
-		<element name="Victoria"/>
-		<element name="Vyborg"/>
-		<element name="W.British Columbia"/>
-		<element name="Winnipeg"/>
-		<element name="Yakutia"/>
-		<element name="Idaho"/>
-		<element name="Montana"/>
-		<element name="Dakota"/>
-		<element name="Wisconsin-Minnesota"/>
-		<element name="Ohio"/>
-	</variable>
+<variable name="All-WinterTT-forest">		<!-- xxx -->
+	<element name="Alberta"/>
+	<element name="Anadyr"/>
+	<element name="Anchorage"/>
+	<element name="Bethel"/>
+	<element name="Bratsk"/>
+	<element name="Chersky"/>
+	<element name="E.British Columbia"/>
+	<element name="Evenkia"/>
+	<element name="Halifax-Nova Scotia"/>
+	<element name="Juneau"/>
+	<element name="Karelia"/>
+	<element name="Khanty-Mansiysk"/>
+	<element name="King Salmon-Aleut Pen."/>
+	<element name="Kirov"/>
+	<element name="Kodiak Is."/>
+	<element name="Labrador"/>
+	<element name="Murmansk"/>
+	<element name="N.Ontario"/>
+	<element name="N.Quebec"/>
+	<element name="Ottawa-Montreal"/>
+	<element name="Quebec City-C.Quebec"/>
+	<element name="S.Quebec"/>
+	<element name="Savo-Ostrobothnia"/>
+	<element name="Siberia"/>
+	<element name="St.Johns-Newfoundland"/>
+	<element name="Toronto-S.Ontario"/>
+	<element name="Victoria"/>
+	<element name="Vyborg"/>
+	<element name="W.British Columbia"/>
+	<element name="Winnipeg"/>
+	<element name="Yakutia"/>
+	<element name="Idaho"/>
+	<element name="Montana"/>
+	<element name="Dakota"/>
+	<element name="Wisconsin-Minnesota"/>
+	<element name="Ohio"/>
+</variable>
 
-	<variable name="All-WinterTT-hills">		<!-- xxx -->
-		<element name="Gizhiga"/>
-		<element name="Khabarovsk"/>
-		<element name="Koryak"/>
-		<element name="Krasnoyarsk"/>
-		<element name="Magadan"/>
-		<element name="Nizhny Novgorod"/>
-		<element name="Novgorod"/>
-		<element name="Novosibirsk"/>
-		<element name="Tomsk"/>
-		<element name="Tyumen"/>
-		<element name="Vologda"/>
-		<element name="Yakutsk"/>
-		<element name="Yaroslavl"/>
-		<element name="Wyoming"/>
-		<element name="Michigan-Indiana"/>
-		<element name="Chicago"/>
-		<element name="Nebraska"/>
-	</variable>
+<variable name="All-WinterTT-hills">		<!-- xxx -->
+	<element name="Gizhiga"/>
+	<element name="Khabarovsk"/>
+	<element name="Koryak"/>
+	<element name="Krasnoyarsk"/>
+	<element name="Magadan"/>
+	<element name="Nizhny Novgorod"/>
+	<element name="Novgorod"/>
+	<element name="Novosibirsk"/>
+	<element name="Tomsk"/>
+	<element name="Tyumen"/>
+	<element name="Vologda"/>
+	<element name="Yakutsk"/>
+	<element name="Yaroslavl"/>
+	<element name="Wyoming"/>
+	<element name="Michigan-Indiana"/>
+	<element name="Chicago"/>
+	<element name="Nebraska"/>
+</variable>
 
 <!-- mountains -->
-	<variable name="All-WinterTT-mountains">		<!-- xxx -->
-		<element name="Adana"/>
-		<element name="Albania"/>
-		<element name="Almaty"/>
-		<element name="Athens-Cen.Greece"/>
-		<element name="Bergen-Vestland"/>
-		<element name="Bhutan"/>
-		<element name="Chengdu-Szechwan"/>
-		<element name="Chubu"/>
-		<element name="Colorado"/>
-		<element name="Corsica"/>
-		<element name="Croatia"/>
-		<element name="Dalarna"/>
-		<element name="Gotland"/>
-		<element name="Hiroshima"/>
-		<element name="Hokkaido"/>
-		<element name="Iceland"/>
-		<element name="Kamchatka"/>
-		<element name="Kjolen"/>
-		<element name="Komi"/>
-		<element name="Kyrgyzstan-Tajikistan"/>
-		<element name="Lapland"/>
-		<element name="Montenegro"/>
-		<element name="N.Transylvania"/>
-		<element name="Narvik"/>
-		<element name="Navarre"/>
-		<element name="Nepal"/>
-		<element name="Norrland"/>
-		<element name="Omsk"/>
-		<element name="Perm"/>
-		<element name="Peru"/>
-		<element name="Ploiesti-E.Romania"/>
-		<element name="Provence-Marseille"/>
-		<element name="S.Sakhalin"/>
-		<element name="S.Transylvania"/>
-		<element name="Sarajevo-Bosnia"/>
-		<element name="Scotland"/>
-		<element name="Shikoku"/>
-		<element name="Slovakia"/>
-		<element name="Stockholm"/>
-		<element name="Svealand"/>
-		<element name="Tbilisi-Georgia"/>
-		<element name="Tohoku"/>
-		<element name="Troms-Finnmark"/>
-		<element name="Trondheim"/>
-		<element name="Vichy-Rhone"/>
-		<element name="Wales"/>
-		<element name="Yunnan"/>
-	</variable>
+<variable name="All-WinterTT-mountains">		<!-- xxx -->
+	<element name="Adana"/>
+	<element name="Albania"/>
+	<element name="Almaty"/>
+	<element name="Athens-Cen.Greece"/>
+	<element name="Bergen-Vestland"/>
+	<element name="Bhutan"/>
+	<element name="Chengdu-Szechwan"/>
+	<element name="Chubu"/>
+	<element name="Colorado"/>
+	<element name="Corsica"/>
+	<element name="Croatia"/>
+	<element name="Dalarna"/>
+	<element name="Gotland"/>
+	<element name="Hiroshima"/>
+	<element name="Hokkaido"/>
+	<element name="Iceland"/>
+	<element name="Kamchatka"/>
+	<element name="Kjolen"/>
+	<element name="Komi"/>
+	<element name="Kyrgyzstan-Tajikistan"/>
+	<element name="Lapland"/>
+	<element name="Montenegro"/>
+	<element name="N.Transylvania"/>
+	<element name="Narvik"/>
+	<element name="Navarre"/>
+	<element name="Nepal"/>
+	<element name="Norrland"/>
+	<element name="Omsk"/>
+	<element name="Perm"/>
+	<element name="Peru"/>
+	<element name="Ploiesti-E.Romania"/>
+	<element name="Provence-Marseille"/>
+	<element name="S.Sakhalin"/>
+	<element name="S.Transylvania"/>
+	<element name="Sarajevo-Bosnia"/>
+	<element name="Scotland"/>
+	<element name="Shikoku"/>
+	<element name="Slovakia"/>
+	<element name="Stockholm"/>
+	<element name="Svealand"/>
+	<element name="Tbilisi-Georgia"/>
+	<element name="Tohoku"/>
+	<element name="Troms-Finnmark"/>
+	<element name="Trondheim"/>
+	<element name="Vichy-Rhone"/>
+	<element name="Wales"/>
+	<element name="Yunnan"/>
+</variable>
 
 <!-- tundra -->
-	<variable name="All-WinterTT-tundra">		<!-- xxx -->
-		<element name="Baffin Is."/>
-		<element name="Chukotka"/>
-		<element name="Fairbanks"/>
-		<element name="Greenland"/>
-		<element name="Kolyma"/>
-		<element name="Nenetsia"/>
-		<element name="Nome"/>
-		<element name="Northwest Territories"/>
-		<element name="Nunavut"/>
-		<element name="Sakha"/>
-		<element name="Svalbard"/>
-		<element name="Taymyr"/>
-		<element name="Uelen"/>
-		<element name="W.Nunavut"/>
-		<element name="Yamalia"/>
-		<element name="Yukon"/>
-		<element name="Yuzhny-Novaya Zemlya"/>
-	</variable>
+<variable name="All-WinterTT-tundra">		<!-- xxx -->
+	<element name="Baffin Is."/>
+	<element name="Chukotka"/>
+	<element name="Fairbanks"/>
+	<element name="Greenland"/>
+	<element name="Kolyma"/>
+	<element name="Nenetsia"/>
+	<element name="Nome"/>
+	<element name="Northwest Territories"/>
+	<element name="Nunavut"/>
+	<element name="Sakha"/>
+	<element name="Svalbard"/>
+	<element name="Taymyr"/>
+	<element name="Uelen"/>
+	<element name="W.Nunavut"/>
+	<element name="Yamalia"/>
+	<element name="Yukon"/>
+	<element name="Yuzhny-Novaya Zemlya"/>
+</variable>
 
-	<variable name="All-WinterTT-urban">		<!-- xxx -->
-		<element name="Archangelsk"/>
-		<element name="Helsinki"/>
-		<element name="Irkutsk"/>
-		<element name="Kuybysev"/>
-		<element name="Leningrad"/>
-		<element name="Moscow-Cen.Russia"/>
-		<element name="Oslo"/>
-		<element name="Boston-New England"/>
-		<element name="New York-New Jersey"/>
-		<element name="Pennsylvania"/>
-	</variable>
-
-
-	<variable name="All-WinterTT">	<!-- xx -->
-		<element name="$All-WinterTT-forest$"/>		<!-- xx -->
-		<element name="$All-WinterTT-hills$"/>		<!-- x -->
-		<element name="$All-WinterTT-mountains$"/>	<!-- xx -->
-		<element name="$All-WinterTT-tundra$"/>		<!-- x -->
-		<element name="$All-WinterTT-urban$"/>		<!-- x -->
-	</variable>
+<variable name="All-WinterTT-urban">		<!-- xxx -->
+	<element name="Archangelsk"/>
+	<element name="Helsinki"/>
+	<element name="Irkutsk"/>
+	<element name="Kuybysev"/>
+	<element name="Leningrad"/>
+	<element name="Moscow-Cen.Russia"/>
+	<element name="Oslo"/>
+	<element name="Boston-New England"/>
+	<element name="New York-New Jersey"/>
+	<element name="Pennsylvania"/>
+</variable>
 
 
-	<variable name="All-WinterSZ">			<!-- 7 -->
-		<element name="000 A Sea Zone"/>
-		<element name="000 B Sea Zone"/>
-		<element name="005 A Sea Zone"/>
-		<element name="002 Sea Zone"/>
-		<element name="120 Sea Zone"/>
-		<element name="121 A Sea Zone"/>
-		<element name="127 B Sea Zone"/>
-	</variable>
+<variable name="All-WinterTT">	<!-- xx -->
+	<element name="$All-WinterTT-forest$"/>		<!-- xx -->
+	<element name="$All-WinterTT-hills$"/>		<!-- x -->
+	<element name="$All-WinterTT-mountains$"/>	<!-- xx -->
+	<element name="$All-WinterTT-tundra$"/>		<!-- x -->
+	<element name="$All-WinterTT-urban$"/>		<!-- x -->
+</variable>
+
+
+<variable name="All-WinterSZ">			<!-- 7 -->
+	<element name="000 A Sea Zone"/>
+	<element name="000 B Sea Zone"/>
+	<element name="005 A Sea Zone"/>
+	<element name="002 Sea Zone"/>
+	<element name="120 Sea Zone"/>
+	<element name="121 A Sea Zone"/>
+	<element name="127 B Sea Zone"/>
+</variable>
 
 
 
 
-	<variable name="All-Axis">		<!-- 3 -->
-		<element name="Germany"/>
-		<element name="Italy"/>
-		<element name="Japan"/>
-	</variable>
+<variable name="All-Axis">		<!-- 3 -->
+	<element name="Germany"/>
+	<element name="Italy"/>
+	<element name="Japan"/>
+</variable>
 
-	<variable name="All-Allies">	<!-- 5 -->
-		<element name="Britain"/>
-		<element name="China"/>
-		<element name="Pacific-Allies"/>
-		<element name="USA"/>
-		<element name="USSR"/>
-	</variable>
+<variable name="All-Allies">	<!-- 5 -->
+	<element name="Britain"/>
+	<element name="China"/>
+	<element name="Pacific-Allies"/>
+	<element name="USA"/>
+	<element name="USSR"/>
+</variable>
 
-	<variable name="All-Players">	<!-- 8 -->
-		<element name="$All-Axis$"/>
-		<element name="$All-Allies$"/>
-	</variable>
+<variable name="All-Players">	<!-- 8 -->
+	<element name="$All-Axis$"/>
+	<element name="$All-Allies$"/>
+</variable>
 
-	<variable name="All-OpenBorderInvaders">	<!-- 4 -->
-		<element name="$All-Axis$"/>
-		<element name="USSR"/>
-	</variable>
+<variable name="All-OpenBorderInvaders">	<!-- 4 -->
+	<element name="$All-Axis$"/>
+	<element name="USSR"/>
+</variable>
 
 
 
 <!-- isLand -->
-	<variable name="All-Infantry--Motorized">	<!-- 3 -->
-		<element name="Inf-Conscript"/>
-		<element name="Inf-Trained"/>
-		<element name="Inf-Elite"/>
-	</variable>
+<variable name="All-Infantry--Motorized">	<!-- 3 -->
+	<element name="Inf-Conscript"/>
+	<element name="Inf-Trained"/>
+	<element name="Inf-Elite"/>
+</variable>
 
-	<variable name="All-Infantry">		<!-- 4 -->
-		<element name="$All-Infantry--Motorized$"/>
-		<element name="Inf-Motorized"/>
-	</variable>
+<variable name="All-Infantry">		<!-- 4 -->
+	<element name="$All-Infantry--Motorized$"/>
+	<element name="Inf-Motorized"/>
+</variable>
 
-	<variable name="All-Armor">			<!-- 4 -->
-		<element name="Armor-Inf"/>
-		<element name="Armor-Lgt"/>
-		<element name="Armor-Med"/>
-		<element name="Armor-Hvy"/>
-	</variable>
+<variable name="All-Armor">			<!-- 4 -->
+	<element name="Armor-Inf"/>
+	<element name="Armor-Lgt"/>
+	<element name="Armor-Med"/>
+	<element name="Armor-Hvy"/>
+</variable>
 
-	<variable name="All-Armor--Armor-Inf">	<!-- 3 -->
+<variable name="All-Armor--Armor-Inf">	<!-- 3 -->
 <!--		<element name="Armor-Inf"/>  -->
-		<element name="Armor-Lgt"/>
-		<element name="Armor-Med"/>
-		<element name="Armor-Hvy"/>
-	</variable>
+	<element name="Armor-Lgt"/>
+	<element name="Armor-Med"/>
+	<element name="Armor-Hvy"/>
+</variable>
 
-	<variable name="All-Move1Land">		<!-- 6 -->
-		<element name="$All-Infantry--Motorized$"/>	<!-- 3 -->
-		<element name="Artillery"/>
-		<element name="Anti-Tank"/>
-		<element name="Armor-Inf"/>
-	</variable>
-	
-	<variable name="All-Move2Land">		<!-- 5 -->
-		<element name="HQ-Army"/>
-		<element name="Inf-Motorized"/>
-		<element name="$All-Armor--Armor-Inf$"/>	<!-- 3 -->
-	</variable>
+<variable name="All-Move1Land">		<!-- 6 -->
+	<element name="$All-Infantry--Motorized$"/>	<!-- 3 -->
+	<element name="Artillery"/>
+	<element name="Anti-Tank"/>
+	<element name="Armor-Inf"/>
+</variable>
 
-	<variable name="All-HQ-Army-Command">	<!-- 10 -->
-		<element name="$All-Infantry$"/><!-- 4 -->
-		<element name="Artillery"/>
-		<element name="Anti-Tank"/>
-		<element name="$All-Armor$"/>	<!-- 4 -->
+<variable name="All-Move2Land">		<!-- 5 -->
+	<element name="HQ-Army"/>
+	<element name="Inf-Motorized"/>
+	<element name="$All-Armor--Armor-Inf$"/>	<!-- 3 -->
+</variable>
+
+<variable name="All-HQ-Army-Command">	<!-- 10 -->
+	<element name="$All-Infantry$"/><!-- 4 -->
+	<element name="Artillery"/>
+	<element name="Anti-Tank"/>
+	<element name="$All-Armor$"/>	<!-- 4 -->
 <!--		<element name="Bunker"/>	Only has Def
-		<element name="Base-Camp"/>		Only has Def
-		<element name="Lend-Lease-Depot"/>	0/0
-		<element name="Oil-Field"/>			0/0
+	<element name="Base-Camp"/>		Only has Def
+	<element name="Lend-Lease-Depot"/>	0/0
+	<element name="Oil-Field"/>			0/0
 -->
-	</variable>
+</variable>
 
 
 <!-- isSea -->
-	<variable name="All-Surface">		<!-- 7 -->
-		<element name="HQ-Fleet"/>
-		<element name="Convoy"/>
-		<element name="Destroyer"/>
-		<element name="Cruiser"/>
-		<element name="Battleship"/>
-		<element name="Carrier"/>
-		<element name="Carrier-Fleet"/>
-	</variable>
+<variable name="All-Surface">		<!-- 7 -->
+	<element name="HQ-Fleet"/>
+	<element name="Convoy"/>
+	<element name="Destroyer"/>
+	<element name="Cruiser"/>
+	<element name="Battleship"/>
+	<element name="Carrier"/>
+	<element name="Carrier-Fleet"/>
+</variable>
 
-	<variable name="All-HQ-Sea-Command">	<!-- 5 -->
-		<element name="Destroyer"/>
-		<element name="Cruiser"/>
-		<element name="Battleship"/>
-		<element name="Submarine"/>
-		<element name="Submarine-Adv"/>
+<variable name="All-HQ-Sea-Command">	<!-- 5 -->
+	<element name="Destroyer"/>
+	<element name="Cruiser"/>
+	<element name="Battleship"/>
+	<element name="Submarine"/>
+	<element name="Submarine-Adv"/>
 <!--		<element name="HQ-Fleet"/>		Not self
-		<element name="HQ-Submarine"/>		Not self
-		<element name="Convoy"/>			Only has Def
-		<element name="Carrier"/>			Only has Def
-		<element name="Carrier-Fleet"/>		Only has Def
-  -->
-	</variable>
+	<element name="HQ-Submarine"/>		Not self
+	<element name="Convoy"/>			Only has Def
+	<element name="Carrier"/>			Only has Def
+	<element name="Carrier-Fleet"/>		Only has Def
+-->
+</variable>
 
-	<variable name="All-Sea">			<!-- 10 -->
-		<element name="HQ-Submarine"/>
-		<element name="Submarine"/>
-		<element name="Submarine-Adv"/>
-		<element name="$All-Surface$"/>	<!-- 7 -->
-	</variable>
+<variable name="All-Submarine">			<!-- 10 -->
+	<element name="HQ-Submarine"/>
+	<element name="Submarine"/>
+	<element name="Submarine-Adv"/>
+</variable>
+
+<variable name="All-Sea">			<!-- 10 -->
+	<element name="$All-Submarine$"/> <!-- 3 -->
+	<element name="$All-Surface$"/>	<!-- 7 -->
+</variable>
 
 
 
 <!-- isAir -->
-	<variable name="All-Fighters">		<!-- 4, But not Kamikaze-Plane  -->
-		<element name="Fighter-Early"/>
-		<element name="Fighter"/>
-		<element name="Fighter-Jet"/>
-		<element name="Fighter-LongR"/>
-	</variable>
+<variable name="All-Fighters">		<!-- 4, But not Kamikaze-Plane  -->
+	<element name="Fighter-Early"/>
+	<element name="Fighter"/>
+	<element name="Fighter-Jet"/>
+	<element name="Fighter-LongR"/>
+</variable>
 
-	<variable name="All-Air-Targetable">	<!-- 10  -->
-		<element name="HQ-Air"/>
-		<element name="Kamikaze-Plane"/>
-		<element name="Air-Transport"/>
-		<element name="Bomber-Tac"/>
-		<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
+<variable name="All-Air-Targetable">	<!-- 10  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
 
-		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-		<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
-	</variable>
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
+</variable>
 
-	<variable name="All-Air">				<!-- 12  -->
-		<element name="HQ-Air"/>
-		<element name="Kamikaze-Plane"/>
-		<element name="Air-Transport"/>
-		<element name="Bomber-Tac"/>
-		<element name="Bomber"/>
-		<element name="Nuclear-Bomber"/>
-		<element name="V1-Rocket"/>
-		<element name="V2-Rocket"/>
-		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-	</variable>
+<variable name="All-Air">				<!-- 12  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>
+	<element name="Nuclear-Bomber"/>
+	<element name="V1-Rocket"/>
+	<element name="V2-Rocket"/>
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+</variable>
 
-	<variable name="All-HQ-Air-Command">	<!-- 6  -->
-		<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-		<element name="Bomber-Tac"/>
-		<element name="Bomber"/>
+<variable name="All-HQ-Air-Command">	<!-- 6  -->
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>
 <!--		<element name="Bomber-LongR"/>
-		<element name="HQ-Air"/>		Not self
-		<element name="Kamikaze-Plane"/>	Special
-		<element name="Air-Transport"/>		0/0
-		<element name="Nuclear-Bomber"/>	Special
-		<element name="V1-Rocket"/>			Unmanned & Only has Atk
-		<element name="V2-Rocket"/>			Unmanned & Only has Atk
- -->
-	</variable>
+	<element name="HQ-Air"/>		Not self
+	<element name="Kamikaze-Plane"/>	Special
+	<element name="Air-Transport"/>		0/0
+	<element name="Nuclear-Bomber"/>	Special
+	<element name="V1-Rocket"/>			Unmanned & Only has Atk
+	<element name="V2-Rocket"/>			Unmanned & Only has Atk
+-->
+</variable>
 
-	<variable name="SubmarineSZ">	<!-- 11+5 doubled 102, 104, 105, 108, 118 Random SZ for German submarines -->
-		<element name="091 A Sea Zone"/>
-		<element name="102 Sea Zone"/>
-		<element name="102 Sea Zone"/>
-		<element name="103 Sea Zone"/>
-		<element name="104 Sea Zone"/>
-		<element name="104 Sea Zone"/>
-		<element name="105 Sea Zone"/>
-		<element name="105 Sea Zone"/>
-		<element name="107 Sea Zone"/>
-		<element name="108 Sea Zone"/>
-		<element name="108 Sea Zone"/>
-		<element name="117 Sea Zone"/>
-		<element name="118 Sea Zone"/>
-		<element name="118 Sea Zone"/>
-		<element name="122 Sea Zone"/>
-		<element name="123 Sea Zone"/>
-	</variable>	
+<variable name="All-Air-Notvs-Subs">				<!-- 12  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+<!--		<element name="Bomber-Tac"/>  -->
+	<element name="Bomber"/>
+	<element name="Nuclear-Bomber"/>
+	<element name="V1-Rocket"/>
+	<element name="V2-Rocket"/>
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+</variable>
 
-	<variable name="KamikazeSZ">	<!-- 15 within 2 SZ of Japan -->
-		<element name="004 Sea Zone"/>
-		<element name="005 A Sea Zone"/>
-		<element name="005 B Sea Zone"/>
-		<element name="006 A Sea Zone"/>
-		<element name="006 B Sea Zone"/>
-		<element name="006 C Sea Zone"/>
-		<element name="007 C Sea Zone"/>
-		<element name="016 B Sea Zone"/>
-		<element name="017 A Sea Zone"/>
-		<element name="017 B Sea Zone"/>
-		<element name="018 Sea Zone"/>
-		<element name="019 A Sea Zone"/>
-		<element name="019 B Sea Zone"/>
-		<element name="020 Sea Zone"/>
-		<element name="021 B Sea Zone"/>
-	</variable>	
-	
+
+
+
+<variable name="SubmarineSZ">	<!-- 11+5 doubled 102, 104, 105, 108, 118 Random SZ for German submarines -->
+	<element name="091 A Sea Zone"/>
+	<element name="102 Sea Zone"/>
+	<element name="102 Sea Zone"/>
+	<element name="103 Sea Zone"/>
+	<element name="104 Sea Zone"/>
+	<element name="104 Sea Zone"/>
+	<element name="105 Sea Zone"/>
+	<element name="105 Sea Zone"/>
+	<element name="107 Sea Zone"/>
+	<element name="108 Sea Zone"/>
+	<element name="108 Sea Zone"/>
+	<element name="117 Sea Zone"/>
+	<element name="118 Sea Zone"/>
+	<element name="118 Sea Zone"/>
+	<element name="122 Sea Zone"/>
+	<element name="123 Sea Zone"/>
+</variable>	
+
+<variable name="KamikazeSZ">	<!-- 15 within 2 SZ of Japan -->
+	<element name="004 Sea Zone"/>
+	<element name="005 A Sea Zone"/>
+	<element name="005 B Sea Zone"/>
+	<element name="006 A Sea Zone"/>
+	<element name="006 B Sea Zone"/>
+	<element name="006 C Sea Zone"/>
+	<element name="007 C Sea Zone"/>
+	<element name="016 B Sea Zone"/>
+	<element name="017 A Sea Zone"/>
+	<element name="017 B Sea Zone"/>
+	<element name="018 Sea Zone"/>
+	<element name="019 A Sea Zone"/>
+	<element name="019 B Sea Zone"/>
+	<element name="020 Sea Zone"/>
+	<element name="021 B Sea Zone"/>
+</variable>	
+
 <!-- Go Convoy 4 Western Europe SZ 
 	<variable name="usaRecoverConvoySZ">
 		<element name="110 A Sea Zone"/>
@@ -439,37 +461,37 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 -->
 
 <!-- GO Victory -->
-	<variable name="Victory">		<!-- 29  -->
-		<element name="Baghdad"/>				<!-- Oil Field -->
-		<element name="Baku-Azerbaijan"/>		<!-- Oil Field -->
-		<element name="Balikpapan-S.Borneo"/>	<!-- Oil Field -->
-		<element name="Bangkok-Siam"/>					<!-- Capital -->
-		<element name="Benghazi-Cyrenaica"/>	<!-- Oil Field -->
-		<element name="Berlin-Cen.Germany"/>			<!-- Capital -->
-		<element name="Cairo-Egypt"/>			<!-- Suez Canal & Oil Field -->
-		<element name="Calcutta"/>						<!-- Capital -->
-		<element name="Cen.California"/>		<!-- Capital -->
-		<element name="Chungking"/>						<!-- Capital -->
-		<element name="Helsinki"/>						<!-- Capital -->
-		<element name="Honolulu-Pearl Harbor"/>			<!-- Capital -->
-		<element name="Leningrad"/>						<!-- Capital -->
-		<element name="London-S.England"/>				<!-- Capital -->
-		<element name="Manila-Luzon"/>					<!-- Capital -->
-		<element name="Medan-W.Sumatra"/>		<!-- Oil Field -->
-		<element name="Moscow-Cen.Russia"/>				<!-- Capital -->
-		<element name="New South Wales"/>				<!-- Capital -->
-		<element name="Panama"/>				<!-- Panama Canal -->
-		<element name="Paris-Cen.France"/>				<!-- Capital -->
-		<element name="Ploiesti-E.Romania"/>	<!-- Oil Field -->
-		<element name="Rome-Cen.Italy"/>				<!-- Capital -->
-		<element name="Shanghai-Kiangsu"/>				<!-- Capital -->
-		<element name="Stalingrad-Volga"/>				<!-- Capital -->
-		<element name="Tokyo"/>							<!-- Capital -->
-		<element name="Truk-Coraline Is."/>				<!-- Capital -->
-		<element name="Uzbekistan"/>			<!-- Oil Field -->
-		<element name="Warsaw-Cen.Poland"/>				<!-- Capital -->
-		<element name="Washington D.C."/>				<!-- Capital -->
-	</variable>
+<variable name="Victory">		<!-- 29  -->
+	<element name="Baghdad"/>				<!-- Oil Field -->
+	<element name="Baku-Azerbaijan"/>		<!-- Oil Field -->
+	<element name="Balikpapan-S.Borneo"/>	<!-- Oil Field -->
+	<element name="Bangkok-Siam"/>					<!-- Capital -->
+	<element name="Benghazi-Cyrenaica"/>	<!-- Oil Field -->
+	<element name="Berlin-Cen.Germany"/>			<!-- Capital -->
+	<element name="Cairo-Egypt"/>			<!-- Suez Canal & Oil Field -->
+	<element name="Calcutta"/>						<!-- Capital -->
+	<element name="Cen.California"/>		<!-- Capital -->
+	<element name="Chungking"/>						<!-- Capital -->
+	<element name="Helsinki"/>						<!-- Capital -->
+	<element name="Honolulu-Pearl Harbor"/>			<!-- Capital -->
+	<element name="Leningrad"/>						<!-- Capital -->
+	<element name="London-S.England"/>				<!-- Capital -->
+	<element name="Manila-Luzon"/>					<!-- Capital -->
+	<element name="Medan-W.Sumatra"/>		<!-- Oil Field -->
+	<element name="Moscow-Cen.Russia"/>				<!-- Capital -->
+	<element name="New South Wales"/>				<!-- Capital -->
+	<element name="Panama"/>				<!-- Panama Canal -->
+	<element name="Paris-Cen.France"/>				<!-- Capital -->
+	<element name="Ploiesti-E.Romania"/>	<!-- Oil Field -->
+	<element name="Rome-Cen.Italy"/>				<!-- Capital -->
+	<element name="Shanghai-Kiangsu"/>				<!-- Capital -->
+	<element name="Stalingrad-Volga"/>				<!-- Capital -->
+	<element name="Tokyo"/>							<!-- Capital -->
+	<element name="Truk-Coraline Is."/>				<!-- Capital -->
+	<element name="Uzbekistan"/>			<!-- Oil Field -->
+	<element name="Warsaw-Cen.Poland"/>				<!-- Capital -->
+	<element name="Washington D.C."/>				<!-- Capital -->
+</variable>
 
 </variableList>
 
@@ -3460,8 +3482,8 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<unit name="Industry-Hvy"/>
 	<unit name="Industry-Med"/>
 	<unit name="Industry-Lgt"/>
-	<unit name="Base-Camp"/>
-	<unit name="Factory"/>
+	<unit name="Base-Camp"/> 
+<!--	<unit name="Factory"/>  -->
 	<unit name="Oil-Field"/>
 	<unit name="Flag"/>
 	<unit name="Lend-Lease-Depot"/>
@@ -3680,11 +3702,11 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionRule name="buyConvoy">			<cost resource="PUs" quantity="10"/>	<result resourceOrUnit="Convoy" 		quantity="1"/>	</productionRule>
 	<productionRule name="buyDestroyer">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Destroyer" 		quantity="1"/>	</productionRule>
 	<productionRule name="buyDestroyer-LongL">	<cost resource="PUs" quantity="6"/>		<result resourceOrUnit="Destroyer" 		quantity="1"/>	</productionRule>
-	<productionRule name="buyCruiser">			<cost resource="PUs" quantity="8"/>		<result resourceOrUnit="Cruiser" 		quantity="1"/>	</productionRule>
-	<productionRule name="buyCruiser-LongL">	<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Cruiser" 		quantity="1"/>	</productionRule>
-	<productionRule name="buyBattleship">		<cost resource="PUs" quantity="18"/>	<result resourceOrUnit="Battleship" 	quantity="1"/>	</productionRule>
+	<productionRule name="buyCruiser">			<cost resource="PUs" quantity="7"/>		<result resourceOrUnit="Cruiser" 		quantity="1"/>	</productionRule>
+	<productionRule name="buyCruiser-LongL">	<cost resource="PUs" quantity="8"/>		<result resourceOrUnit="Cruiser" 		quantity="1"/>	</productionRule>
+	<productionRule name="buyBattleship">		<cost resource="PUs" quantity="15"/>	<result resourceOrUnit="Battleship" 	quantity="1"/>	</productionRule>
 	<productionRule name="buyCarrier">			<cost resource="PUs" quantity="14"/>	<result resourceOrUnit="Carrier" 		quantity="1"/>	</productionRule>
-	<productionRule name="buyCarrier-Fleet">	<cost resource="PUs" quantity="18"/>	<result resourceOrUnit="Carrier-Fleet" 	quantity="1"/>	</productionRule>
+	<productionRule name="buyCarrier-Fleet">	<cost resource="PUs" quantity="16"/>	<result resourceOrUnit="Carrier-Fleet" 	quantity="1"/>	</productionRule>
 	<productionRule name="buySubmarine">		<cost resource="PUs" quantity="6"/>		<result resourceOrUnit="Submarine" 		quantity="1"/>	</productionRule>
 	<productionRule name="buySubmarine-Adv">	<cost resource="PUs" quantity="7"/>		<result resourceOrUnit="Submarine-Adv"	quantity="1"/>	</productionRule>
 <!--	<productionRule name="buyCoast-Guard">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Coast-Guard" 	quantity="1"/>	</productionRule>
@@ -3709,7 +3731,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionRule name="buyIndustry-Med">		<cost resource="PUs" quantity="21"/>	<result resourceOrUnit="Industry-Med"	quantity="1"/>	</productionRule>
 	<productionRule name="buyIndustry-Lgt">		<cost resource="PUs" quantity="16"/>	<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</productionRule>
 	<productionRule name="buyBase-Camp">		<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</productionRule>
-	<productionRule name="buyFactory">			<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</productionRule>
+<!---	<productionRule name="buyFactory">			<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</productionRule>  -->
 
 	<productionRule name="buyFlag">				<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Flag"			quantity="1"/>	</productionRule>
 	<productionRule name="buyLend-Lease-Depot">	<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Lend-Lease-Depot" quantity="1"/></productionRule>
@@ -3720,7 +3742,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<repairRule name="repairIndustry-Med">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Industry-Med"	quantity="1"/>	</repairRule>
 	<repairRule name="repairIndustry-Lgt">		<cost resource="PUs" quantity="3"/>		<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</repairRule>
 	<repairRule name="repairBase-Camp">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</repairRule>
-	<repairRule name="repairFactory">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</repairRule>
+<!--	<repairRule name="repairFactory">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</repairRule>  -->
 
 
 	<repairFrontier name="repair">
@@ -3728,9 +3750,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<repairRules name="repairIndustry-Med"/>
 		<repairRules name="repairIndustry-Lgt"/>
 		<repairRules name="repairBase-Camp"/>
-		<repairRules name="repairFactory"/>
+<!--		<repairRules name="repairFactory"/>  -->
 	</repairFrontier>
-
 
 <!-- Unit Production Rules -->
 <!-- ============================================= UNIT PURCHASE RULES =============================================  -->		
@@ -3769,7 +3790,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3790,7 +3811,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3825,7 +3846,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3860,7 +3881,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -3898,7 +3919,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3923,7 +3944,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3956,7 +3977,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3989,7 +4010,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 	<productionFrontier name="production_USA_HQs">
@@ -4023,7 +4044,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4057,7 +4078,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -4090,7 +4111,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-		<frontierRules name="buyFactory"/>
+<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4135,7 +4156,9 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<techname name="Submarine-Adv."/>		<!-- Germany, Japan -->
 		<techname name="V1-Rocket."/>			<!-- Germany -->
 		<techname name="V2-Rocket."/>			<!-- Germany -->
-		<techname name="Air-Transport" 	tech="paratroopers"/>	<!-- Note the name change for display -->
+		<techname name="War-Bonds"		tech="warBonds"/>		<!-- all -->
+		<techname name="War-Bonds."		tech="warBonds"/>		<!-- all -->
+		<techname name="Air-Transport" 	tech="paratroopers"/>	<!-- Note the paratroopers name change for display -->
 		<techname name="Land-Transport" tech="mechanizedInfantry"/>
 	</technologies>
 
@@ -4146,6 +4169,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Carrier-Fleet."/>
 			<tech name="Fighter-Jet."/>
 			<tech name="Fighter-LongR."/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4153,6 +4178,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="China">
 		<category name="Technology Advances">	<!-- +2 -->
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4167,6 +4194,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Submarine-Adv."/>
 			<tech name="V1-Rocket."/>
 			<tech name="V2-Rocket."/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4175,6 +4204,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="Italy">
 		<category name="Technology Advances">	<!-- 1+2 -->
 			<tech name="Combined-Arms"/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4186,6 +4217,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Cruiser-LongL"/>
 			<tech name="Destroyer-LongL"/>
 			<tech name="Submarine-Adv."/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4193,6 +4226,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="Pacific-Allies">
 		<category name="Technology Advances">	<!-- +2 -->
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4207,6 +4242,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Fighter-Jet."/>
 			<tech name="Fighter-LongR."/>
 			<tech name="Nuclear-Bomber."/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4215,6 +4252,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="USSR">
 		<category name="Technology Advances">	<!-- 1+2 -->
 			<tech name="Armor-Hvy."/>
+			<tech name="War-Bonds"/>
+			<tech name="War-Bonds."/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4311,6 +4350,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<attachment foreach="$All-Players$" name="techAttachment" attachTo="@All-Players@" javaClass="TechAttachment" type="player">
 		<option name="mechanizedInfantry" value="true"/>
 		<option name="paratroopers" value="true"/>
+		<option name="warBonds" value="false"/>
 	</attachment>
 
 
@@ -5357,8 +5397,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="blockade" value="2"/>
 		<!-- The following are set by isSub -->
 		<option name="isFirstStrike" value="true"/>				<!-- Ambush attack -->
-		<option name="canNotTarget" value="$All-Air$"/>
-		<option name="canNotBeTargetedBy" value="$All-Air$"/>
+		<option name="canNotTarget" value="$All-Air$:$All-Submarine$"/>
+		<option name="canNotBeTargetedBy" value="$All-Air-Notvs-Subs$:$All-Submarine$"/>
 		<option name="canEvade" value="true"/>
 		<option name="canMoveThroughEnemies" value="true"/>
 		<option name="canBeMovedThroughByEnemies" value="true"/>
@@ -5819,8 +5859,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
  				<option name="blockade" value="2"/>
 	<!-- The following are set by isSub <option name="isSub" value="true"/> -->
 		<option name="isFirstStrike" value="true"/>				<!-- Ambush attack -->
-		<option name="canNotTarget" value="$All-Air$"/>
-		<option name="canNotBeTargetedBy" value="$All-Air$"/>
+		<option name="canNotTarget" value="$All-Air$:$All-Submarine$"/>
+		<option name="canNotBeTargetedBy" value="$All-Air-Notvs-Subs$:$All-Submarine$"/>
 		<option name="canEvade" value="true"/>
 		<option name="canMoveThroughEnemies" value="true"/>
 		<option name="canBeMovedThroughByEnemies" value="true"/>
@@ -5838,8 +5878,8 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="blockade" value="2"/>
 	<!-- The following are set by isSub <option name="isSub" value="true"/> -->
 		<option name="isFirstStrike" value="true"/>				<!-- Ambush attack -->
-		<option name="canNotTarget" value="$All-Air$"/>
-		<option name="canNotBeTargetedBy" value="$All-Air$"/>
+		<option name="canNotTarget" value="$All-Air$:$All-Submarine$"/>
+		<option name="canNotBeTargetedBy" value="$All-Air-Notvs-Subs$:$All-Submarine$"/>
 		<option name="canEvade" value="true"/>
 		<option name="canMoveThroughEnemies" value="true"/>
 		<option name="canBeMovedThroughByEnemies" value="true"/>
@@ -6298,37 +6338,37 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	</attachment>
 
 <!-- Factory -->
-	<attachment name="unitAttachment" attachTo="Factory" javaClass="UnitAttachment" type="unitType">
+<!--	<attachment name="unitAttachment" attachTo="Factory" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
 		<option name="canBeDamaged" value="true"/>
 			<option name="maxDamage" value="3"/>
 			<option name="maxOperationalDamage" value="2"/>
 			<option name="canDieFromReachingMaxDamage" value="true"/>
 			<option name="whenCapturedSustainsDamage" value="1"/>
-		<option name="isConstruction" value="true"/>			<!-- place anywhere owned -->
+		<option name="isConstruction" value="true"/>
 			<option name="constructionType" value="FactoryPU"/>
 			<option name="maxConstructionsPerTypePerTerr" value="3"/>
 			<option name="constructionsPerTerrPerTypePerTurn" value="1"/>
 			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="7"/>
-<!-- AA same for all Factory type units -->
-		<option name="isAAforCombatOnly" value="false"/>		<!-- false = it will defend against strategic bombing raids -->
-		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
-			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
-			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
+ AA same for all Factory type units
+		<option name="isAAforCombatOnly" value="false"/>
+		<option name="isAAforBombingThisUnitOnly" value="true"/>
+			<option name="offensiveAttackAA" value="2"/>
+			<option name="attackAA" value="2"/>
 				<option name="offensiveAttackAAmaxDieSides" value="6"/>
 				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
-					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
-			<option name="typeAA" value="AA-Industry"/>
+					<option name="maxAAattacks" value="-1"/>
+					<option name="maxRoundsAA" value="1"/>
+			<option name="typeAA" value="AA-Industry"/
 			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+			<option name="mayOverStackAA" value="false"/>
 		<option name="isAirBase" value="true"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 			<option name="requiresUnits" value="Industry-Med"/>
-		<option name="createsResourcesList" value="3:PUs"/>		<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="createsResourcesList" value="3:PUs"/>
 		<option name="tuv" value="9"/>
 	</attachment>
-
+-->
 
 <!-- =============================================  cost 1pu cant be bought, tuv for AI attraction  ============================================= -->
 <!-- Flag National owner flag -->
@@ -7085,8 +7125,7 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 	<attachment name="triggerAttachment_NationalTheme_China" attachTo="China" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_NationalTheme_China"/>
-		<option name="Purchase" value="Inf-Conscript" count="1"/>
-		<option name="Purchase" value="Inf-Trained" count="2"/>		<!-- free -->
+		<option name="Purchase" value="Inf-Trained" count="3"/>		<!-- free -->
 		<option name="when" value="before:ChinaPurchase"/>
 	</attachment>
 
@@ -7103,7 +7142,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="2"/>
+<!--		<option name="purchase" value="Factory" count="2"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:BritainPurchase"/>
 	</attachment>
@@ -7133,7 +7172,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_isAI_China"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="1"/>
+<!--		<option name="purchase" value="Factory" count="1"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="purchase" value="HQ-Army" count="1"/>			<!-- free as no Industry-Hvy -->
 		<option name="purchase" value="Fighter-Early" count="1"/>	<!-- free Foreign Fighters -->
@@ -7151,7 +7190,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="2"/>
+<!--		<option name="purchase" value="Factory" count="2"/> -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:GermanyPurchase"/>
 	</attachment>
@@ -7192,7 +7231,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="2"/>
+<!--		<option name="purchase" value="Factory" count="2"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:ItalyPurchase"/>
 	</attachment>
@@ -7208,7 +7247,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="2"/>
+<!--		<option name="purchase" value="Factory" count="2"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:JapanPurchase"/>
 	</attachment>
@@ -7234,7 +7273,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="1"/>
+<!--		<option name="purchase" value="Factory" count="1"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:Pacific-AlliesPurchase"/>
 	</attachment>
@@ -7251,7 +7290,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="3"/>
+<!--		<option name="purchase" value="Factory" count="3"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
@@ -7337,7 +7376,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Industry-Hvy" count="1"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
 		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Factory" count="2"/>
+<!--		<option name="purchase" value="Factory" count="2"/>  -->
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:USSRPurchase"/>
 	</attachment>
@@ -7360,6 +7399,35 @@ foreach does NOT appear to work with changeOwnership
 
 <!-- ======================================= GO TRIGGER =======================================  -->
 <!-- ======================================= GO TECH =======================================  -->
+
+<!-- When Game Property War Bonds bonus to all AI Allies is True and AI Allies is true give WarBonds tech -->
+<!-- When Game Property War Bonds bonus to all AI Axis   is True and AI Axis   is true give WarBonds tech -->
+<attachment name="conditionAttachment_Game_Property_War_Bonds_bonus_to_all_AI_Allies" attachTo="Germany" javaClass="RulesAttachment" type="player">
+	<option name="gameProperty" value="War Bonds bonus to all AI Allies"/>
+</attachment>
+
+<attachment name="conditionAttachment_Game_Property_War_Bonds_bonus_to_all_AI_Axis" attachTo="Germany" javaClass="RulesAttachment" type="player">
+	<option name="gameProperty" value="War Bonds bonus to all AI Axis"/>
+</attachment>
+
+<attachment foreach="$All-Allies$" name="triggerAttachment_@All-Allies@_WarBonds" attachTo="@All-Allies@" javaClass="TriggerAttachment" type="player">
+	<option name="conditions" value="conditionAttachment_Game_Property_War_Bonds_bonus_to_all_AI_Allies"/>
+	<option name="conditions" value="conditionAttachment_isAI_@All-Allies@"/>
+	<option name="tech" value="warBonds"/>
+	<option name="players" value="@All-Allies@"/>
+	<option name="uses" value="1"/>
+</attachment>
+
+<attachment foreach="$All-Axis$" name="triggerAttachment_@All-Axis@_WarBonds" attachTo="@All-Axis@" javaClass="TriggerAttachment" type="player">
+	<option name="conditions" value="conditionAttachment_Game_Property_War_Bonds_bonus_to_all_AI_Axis"/>
+	<option name="conditions" value="conditionAttachment_isAI_@All-Axis@"/>
+	<option name="tech" value="warBonds"/>
+	<option name="players" value="@All-Axis@"/>
+	<option name="uses" value="1"/>
+</attachment>
+
+
+
 
 <!-- ======================================= Britain ======================================= -->
 
@@ -8439,6 +8507,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 </attachment>
 
 <!-- reset Factory -3 -->
+<!--
 <attachment name="triggerAttachment_Reset_PUs5" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_Always_True"/>
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
@@ -8453,7 +8522,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA0EndTurn"/>
 		<option name="when" value="before:Pacific-Allies0EndTurn"/>
 </attachment>
-
+-->
 
 <!-- reset Oil-Field:Lend-Lease-Depot -1 -->
 <attachment name="triggerAttachment_Reset_PUs1" attachTo="Germany" javaClass="TriggerAttachment" type="player">
@@ -8528,7 +8597,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 
 		<option name="placementLimit" value="owned:Bunker" count="2"/>
 		<option name="placementLimit" value="owned:Industry-Hvy:Industry-Med:Industry-Lgt:Base-Camp" count="1"/>
-		<option name="placementLimit" value="owned:Factory" count="2"/>
+<!--		<option name="placementLimit" value="owned:Factory" count="2"/>  -->
 
 <!-- ======================================= GO Stack Unit ======================================= -->
 <!-- Limit Air & Sea units to 10 OWNED units of each type per SZ/TT.  Limit Land units to 20 OWNED units of each type per TT 
@@ -9761,6 +9830,7 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Tsinghai" 				unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Tsinghai" 				unitType="Bunker" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Shensi" 					unitType="Bunker" 			quantity="2" owner="China"/>
+	<unitPlacement territory="Shensi" 					unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Chengdu-Szechwan" 		unitType="Bunker" 			quantity="2" owner="China"/>
 
 
@@ -11218,6 +11288,9 @@ Fighters adjacent to the production SZ CANNOT be moved to new carriers  == Land 
 	<property name="Neutral Flyover Allowed"	value="false" editable="false">		<boolean/>	</property>
 
 <!-- =======================================  Custom RELATED Go Beast Go Winter ======================================= -->
+
+	<property name="War Bonds bonus to all AI Allies"	value="false" editable="true">	<boolean/>	</property>
+	<property name="War Bonds bonus to all AI Axis"		value="false" editable="true">	<boolean/>	</property>
 
 	<property name="Use Events: Winter Weather"		value="false" editable="true">	<boolean/>	</property>
 
