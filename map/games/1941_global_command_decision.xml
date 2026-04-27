@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.240"/>
+	<info name="1941 Global Command Decision" version="1.250"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v255
+HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
+Frontier HQ at the end
+production_Pacific-Allies-Hvy
+production_USA_HQs
+production_USSR_HQs
+
 v250
 Sea Zone PUs now shown on map
 Sea Zone PU x190 positioning to left of the Convoy/owner flag
@@ -17,16 +24,6 @@ Kamikaze canNotTarget Destroyers removed as it does target Destroyers
 War Bonds with 1 Tech, now 4d4, was 2x Techs with 1d6 each
 
 Removed <option name="attackAAmaxDieSides" value="6"/> remove x30 as not needed
-
-
-
-v245
-HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
-Frontier HQ at the end
-production_Pacific-Allies-Hvy
-production_USA_HQs
-production_USSR_HQs
-
 
 
 v240
