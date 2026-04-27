@@ -6,10 +6,33 @@
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v250
+Sea Zone PUs now shown on map
+Sea Zone PU x190 positioning to left of the Convoy/owner flag
+
+Kamikaze Plane can only placed with Industry-Hvy, so only Japan, did include Industry-Med
+Kamikaze unitsNotAllowed to fly over 28 East Asia land territories to encourage AI to use them verses ships, uses a terrain effect called "no-asia"
+Kamikaze canNotTarget Destroyers removed as it does target Destroyers
+
+War Bonds with 1 Tech, now 4d4, was 2x Techs with 1d6 each
+
+Removed <option name="attackAAmaxDieSides" value="6"/> remove x30 as not needed
+
+
+
+v245
+HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
+Frontier HQ at the end
+production_Pacific-Allies-Hvy
+production_USA_HQs
+production_USSR_HQs
+
+
+
 v240
-Cruiser        7pu was 8
-Battleship    15pu was 18
-Carrier-Fleet 16pu was 18 
+* Cruiser        7pu was 8
+* Battleship    15pu was 18
+* Carrier-Fleet 16pu was 18 
 
 * Submarines cannot target Submarines
 * Chinese Themed reinforcements Inf-Trained x3, was Inf-Conscript x1 & Inf-Trained x2
@@ -20,16 +43,6 @@ War Bonds bonus to all AI Allies
 War Bonds bonus to all AI Axis
 If you are a veteran player and like playing Axis then for a harder game tick **War Bonds bonus to all AI Allies**, this will give **2d6pu** to each of the 5 Allied nations/turn
 * Removed Factory added last version :roll:, these unbalanced the AI too in favour of the Allies.  (code commented out)
-
-v235
-* Armor-Inf, Armor-Hvy Battleship, Carrier, Carrier-Fleet all cost 2pu for Upkeep/turn, was 1pu
-* New Infrastructure called Factory add 3pu/turn/Factory can stack upto 2 per TT with Industry-Med or Industry-Hvy
-This is to simulate increases in production as the war progressed, as they cost 9pu, that gives ROI after 3 turns.
-* Manual p6-7 been updated with above
-
-Suggested stable 2.7 version
-use https://github.com/triplea-game/triplea/releases/tag/2.7.15025
-also needs View> LockMap> untick (must be unticked to center)
 
 TODO
 Fighter-Early 5pu was 6
@@ -1308,7 +1321,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<territory name="129 Sea Zone" water="true"/>
 
 <!-- Territory Connections -->
-	<!-- <connection t1="106 Sea Zone" t2="Toronto-S.Ontario"/>  -->
 	<connection t1="000 A Sea Zone" t2="000 B Sea Zone"/>
 	<connection t1="000 A Sea Zone" t2="002 Sea Zone"/>
 	<connection t1="000 A Sea Zone" t2="003 A Sea Zone"/>
@@ -1657,7 +1669,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<connection t1="044 B Sea Zone" t2="Tanimbar Is."/>
 	<connection t1="045 A Sea Zone" t2="045 B Sea Zone"/>
 	<connection t1="045 A Sea Zone" t2="046 A Sea Zone"/>
-	<connection t1="045 A Sea Zone" t2="Dutch New Guinea"/>	<!-- reconnected -->
+	<connection t1="045 A Sea Zone" t2="Dutch New Guinea"/>
 	<connection t1="045 A Sea Zone" t2="Vogelkop Pen."/>
 	<connection t1="045 B Sea Zone" t2="044 A Sea Zone"/>
 	<connection t1="045 B Sea Zone" t2="045 C Sea Zone"/>
@@ -3515,6 +3527,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 		<territoryEffect name="mountains"/>
 		<territoryEffect name="tundra"/>
 		<territoryEffect name="urban"/>
+		<territoryEffect name="no-asia"/>
 <!-- Go Winter -->
 		<territoryEffect name="winter"/>
 	</territoryEffectList>
@@ -3587,12 +3600,12 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 
 <!-- Go Winter  winterp = Allied -->
-		<step name="winterp0EndTurnNoPU" 	delegate="endTurnNoPU" 	player="winterp"/>
+		<step name="winterp1EndTurnNoPU" 	delegate="endTurnNoPU" 	player="winterp"/>
 
 
 
 <!-- Politics phase is used only for givesBackOriginalTerritories, the players do NOT interact with it  -->
-		<step name="Germany0EndTurn" 		delegate="endTurn" 			player="Germany"/>
+		<step name="Germany1EndTurn" 		delegate="endTurn" 			player="Germany"/>
 		<step name="GermanyCombatMove" 		delegate="move" 			player="Germany">	<!-- note no / -->
 			<stepProperty name="resetUnitStateAtStart" value="true"/>						<!-- Allows Subs to move after being randomly placed -->
 		</step>
@@ -3600,70 +3613,70 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="GermanyNonCombatMove" 	delegate="move" 		player="Germany" 	display="Non Combat Move"/>
 		<step name="GermanyPurchase" 		delegate="purchase" 	player="Germany"/>
 		<step name="GermanyPlace" 			delegate="place" 		player="Germany"/>
-		<step name="Germany1EndTurn" 		delegate="endTurnNoPU" 	player="Germany"/>
+		<step name="Germany0EndTurn" 		delegate="endTurnNoPU" 	player="Germany"/>
 		<step name="GermanyPolitics" 		delegate="politics" 	player="Germany"/>
 
-		<step name="USSR0EndTurn"	 		delegate="endTurn" 			player="USSR"/>
+		<step name="USSR1EndTurn"	 		delegate="endTurn" 			player="USSR"/>
 		<step name="USSRCombatMove" 		delegate="move" 			player="USSR"/>
 		<step name="USSRBattle" 			delegate="battle" 			player="USSR"/>
 		<step name="USSRNonCombatMove" 		delegate="move" 			player="USSR"		display="Non Combat Move"/>
 		<step name="USSRPurchase" 			delegate="purchase" 		player="USSR"/>
 		<step name="USSRPlace" 				delegate="place" 			player="USSR"/>
-		<step name="USSR1EndTurn"			delegate="endTurnNoPU" 		player="USSR"/>
+		<step name="USSR0EndTurn"			delegate="endTurnNoPU" 		player="USSR"/>
 		<step name="USSRPolitics" 			delegate="politics" 		player="USSR"/>
 	
-		<step name="Italy0EndTurn" 			delegate="endTurn" 			player="Italy"/>
+		<step name="Italy1EndTurn" 			delegate="endTurn" 			player="Italy"/>
 		<step name="ItalyCombatMove" 		delegate="move" 			player="Italy"/>
 		<step name="ItalyBattle" 			delegate="battle" 			player="Italy"/>
 		<step name="ItalyNonCombatMove" 	delegate="move" 			player="Italy"		display="Non Combat Move"/>
 		<step name="ItalyPurchase" 			delegate="purchase" 		player="Italy"/>
 		<step name="ItalyPlace" 			delegate="place" 			player="Italy"/>
-		<step name="Italy1EndTurn"			delegate="endTurnNoPU" 		player="Italy"/>
+		<step name="Italy0EndTurn"			delegate="endTurnNoPU" 		player="Italy"/>
 		<step name="ItalyPolitics" 			delegate="politics" 		player="Italy"/>
 
-		<step name="Britain0EndTurn" 		delegate="endTurn" 			player="Britain"/>
+		<step name="Britain1EndTurn" 		delegate="endTurn" 			player="Britain"/>
 		<step name="BritainCombatMove" 		delegate="move" 			player="Britain"/>
 		<step name="BritainBattle" 			delegate="battle" 			player="Britain"/>
 		<step name="BritainNonCombatMove"	delegate="move" 			player="Britain"	display="Non Combat Move"/>
 		<step name="BritainPurchase" 		delegate="purchase" 		player="Britain"/>
 		<step name="BritainPlace" 			delegate="place" 			player="Britain"/>
-		<step name="Britain1EndTurn"		delegate="endTurnNoPU" 		player="Britain"/>
+		<step name="Britain0EndTurn"		delegate="endTurnNoPU" 		player="Britain"/>
 		<step name="BritainPolitics" 		delegate="politics" 		player="Britain"/>
 
-		<step name="Japan0EndTurn" 			delegate="endTurn" 			player="Japan"/>
+		<step name="Japan1EndTurn" 			delegate="endTurn" 			player="Japan"/>
 		<step name="JapanCombatMove" 		delegate="move" 			player="Japan"/>
 		<step name="JapanBattle" 			delegate="battle" 			player="Japan"/>
 		<step name="JapanNonCombatMove" 	delegate="move" 			player="Japan"		display="Non Combat Move"/>
 		<step name="JapanPurchase" 			delegate="purchase" 		player="Japan"/>
 		<step name="JapanPlace" 			delegate="place" 			player="Japan"/>
-		<step name="Japan1EndTurn"			delegate="endTurnNoPU" 		player="Japan"/>
+		<step name="Japan0EndTurn"			delegate="endTurnNoPU" 		player="Japan"/>
 		<step name="JapanPolitics" 			delegate="politics" 		player="Japan"/>
 
-		<step name="USA0EndTurn" 			delegate="endTurn" 			player="USA"/>
+		<step name="USA1EndTurn" 			delegate="endTurn" 			player="USA"/>
 		<step name="USACombatMove" 			delegate="move" 			player="USA"/>
 		<step name="USABattle" 				delegate="battle" 			player="USA"/>
 		<step name="USANonCombatMove" 		delegate="move" 			player="USA"		display="Non Combat Move"/>
 		<step name="USAPurchase" 			delegate="purchase" 		player="USA"/>
 		<step name="USAPlace" 				delegate="place" 			player="USA"/>
-		<step name="USA1EndTurn"			delegate="endTurnNoPU" 		player="USA"/>
+		<step name="USA0EndTurn"			delegate="endTurnNoPU" 		player="USA"/>
 		<step name="USAPolitics" 			delegate="politics" 		player="USA"/>
 
-		<step name="Pacific-Allies0EndTurn" 	delegate="endTurn" 		player="Pacific-Allies"/>
+		<step name="Pacific-Allies1EndTurn" 	delegate="endTurn" 		player="Pacific-Allies"/>
 		<step name="Pacific-AlliesCombatMove" 	delegate="move" 		player="Pacific-Allies"/>
 		<step name="Pacific-AlliesBattle" 		delegate="battle" 		player="Pacific-Allies"/>
 		<step name="Pacific-AlliesNonCombatMove" delegate="move" 		player="Pacific-Allies" display="Non Combat Move"/>
 		<step name="Pacific-AlliesPurchase" 	delegate="purchase" 	player="Pacific-Allies"/>
 		<step name="Pacific-AlliesPlace" 		delegate="place" 		player="Pacific-Allies"/>
-		<step name="Pacific-Allies1EndTurn"		delegate="endTurnNoPU" 	player="Pacific-Allies"/>
+		<step name="Pacific-Allies0EndTurn"		delegate="endTurnNoPU" 	player="Pacific-Allies"/>
 		<step name="Pacific-AlliesPolitics" 	delegate="politics" 	player="Pacific-Allies"/>
 
-		<step name="China0EndTurn"			delegate="endTurn" 			player="China"/>
+		<step name="China1EndTurn"			delegate="endTurn" 			player="China"/>
 		<step name="ChinaCombatMove" 		delegate="move" 			player="China"/>
 		<step name="ChinaBattle"			delegate="battle" 			player="China"/>
 		<step name="ChinaNonCombatMove" 	delegate="move" 			player="China"		display="Non Combat Move"/>
 		<step name="ChinaPurchase"			delegate="purchase" 		player="China"/>
 		<step name="ChinaPlace" 			delegate="place" 			player="China"/>
-		<step name="China1EndTurn"			delegate="endTurnNoPU" 		player="China"/>
+		<step name="China0EndTurn"			delegate="endTurnNoPU" 		player="China"/>
 		<step name="ChinaPolitics" 			delegate="politics" 		player="China"/>
 
 <!-- Go Winter  winterp = Allied -->
@@ -4156,8 +4169,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<techname name="Submarine-Adv."/>		<!-- Germany, Japan -->
 		<techname name="V1-Rocket."/>			<!-- Germany -->
 		<techname name="V2-Rocket."/>			<!-- Germany -->
-		<techname name="War-Bonds"		tech="warBonds"/>		<!-- all -->
-		<techname name="War-Bonds."		tech="warBonds"/>		<!-- all -->
+		<techname name="warBonds"/>			<!-- all -->
 		<techname name="Air-Transport" 	tech="paratroopers"/>	<!-- Note the paratroopers name change for display -->
 		<techname name="Land-Transport" tech="mechanizedInfantry"/>
 	</technologies>
@@ -4169,8 +4181,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Carrier-Fleet."/>
 			<tech name="Fighter-Jet."/>
 			<tech name="Fighter-LongR."/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4178,8 +4189,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="China">
 		<category name="Technology Advances">	<!-- +2 -->
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4194,8 +4204,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Submarine-Adv."/>
 			<tech name="V1-Rocket."/>
 			<tech name="V2-Rocket."/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4204,8 +4213,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="Italy">
 		<category name="Technology Advances">	<!-- 1+2 -->
 			<tech name="Combined-Arms"/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4217,8 +4225,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Cruiser-LongL"/>
 			<tech name="Destroyer-LongL"/>
 			<tech name="Submarine-Adv."/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4226,8 +4233,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 	<playerTech player="Pacific-Allies">
 		<category name="Technology Advances">	<!-- +2 -->
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4242,8 +4248,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 			<tech name="Fighter-Jet."/>
 			<tech name="Fighter-LongR."/>
 			<tech name="Nuclear-Bomber."/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4252,8 +4257,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerTech player="USSR">
 		<category name="Technology Advances">	<!-- 1+2 -->
 			<tech name="Armor-Hvy."/>
-			<tech name="War-Bonds"/>
-			<tech name="War-Bonds."/>
+			<tech name="warBonds"/>
 			<tech name="Air-Transport"/>
 			<tech name="Land-Transport"/>
 		</category>
@@ -4572,7 +4576,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Amazonas" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ambon" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Pacific-Allies"/></attachment>
 <attachment name="territoryAttachment" attachTo="Amur" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Anadyr" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Anadyr" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Anchorage" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Andalusia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Andaman Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4599,7 +4603,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Baku-Azerbaijan" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>													<option name="capital" value="USSR"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Bali-Sunda Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Balikpapan-S.Borneo" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Pacific-Allies"/>	<option name="victoryCity" value="1"/></attachment>
-<attachment name="territoryAttachment" attachTo="Bangkok-Siam" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Japan"/>	<option name="victoryCity" value="1"/></attachment>
+<attachment name="territoryAttachment" attachTo="Bangkok-Siam" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	<option name="capital" value="Japan"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Barat Daya Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Basra" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Batavia-W.Java" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4645,7 +4649,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Cairo-Egypt" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Britain"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Calais-Picardy" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Calcutta" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="marsh"/>	<option name="capital" value="Britain"/>	<option name="victoryCity" value="1"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Cambodia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Cambodia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Cameroon" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Canary Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Cape Colony" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4684,7 +4688,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Crimea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Croatia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Cyprus" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Da Nang-Annam" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Da Nang-Annam" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Dagestan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Dakar" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Dakota" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="USA"/></attachment>
@@ -4732,7 +4736,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Galicia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Gibraltar" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="Gilan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Gizhiga" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Gizhiga" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Gold Coast" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Gotland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Gran Chaco" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4743,7 +4747,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Guatemala" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Gujarat" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Haditha-Rutbah" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Haichow-Lunghai" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Haichow-Lunghai" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Haikou-Hainan" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hail" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Hailar-Hsingan" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
@@ -4752,7 +4756,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Halmahera-Maluku Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Hamadan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hamburg-Lower Saxony" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Hanoi-Tonkin" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Hanoi-Tonkin" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Harbin" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Havana-Cuba" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hawaiian Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4762,7 +4766,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Hiroshima" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hokkaido" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Honduras" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Hong Kong-Kwangtung" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="Pacific-Allies"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Hong Kong-Kwangtung" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="territoryEffect" value="no-asia"/>	<option name="capital" value="Pacific-Allies"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Honolulu-Pearl Harbor" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="USA"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Hopei" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Hunan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4785,7 +4789,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Jutland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														<option name="capital" value="Germany"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kabul" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kalahari" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Kamchatka" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Kamchatka" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kanchow" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kandahar" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kansas-Oklahoma" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
@@ -4798,14 +4802,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Kentucky-Tennessee" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kenya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kerman" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Khabarovsk" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Khabarovsk" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Khanty-Mansiysk" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kharga-Western Desert" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kharkiv" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Khartoum-Sudan" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kherson" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Khorasan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Kiangsi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Kiangsi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kiev-Cen.Ukraine" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kilwa" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="King Salmon-Aleut Pen." javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4817,9 +4821,9 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Konduz" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Konigsberg-E.Prussia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Konya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Koryak" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Koryak" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kosice-Munkacs" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Kra-Buri" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Kra-Buri" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Krakow-Lublin" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Krasnodar" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Krasnoyarsk" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4828,7 +4832,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Kursk-Vorozneh" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kuwait" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kuybysev" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Kwangsi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Kwangsi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kweichow" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kyoto-Osaka" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Kyrgyzstan-Tajikistan" javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4859,10 +4863,10 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Madeira Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Madras" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Madrid-Cen.Spain" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Magadan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Magadan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Majorca" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Makassar-S.Celebs" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Malaya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Malaya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Maldives" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Malta" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Manado-N.Celebs" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4898,14 +4902,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Moscow-Cen.Russia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="USSR"/>	<option name="victoryCity" value="1"/></attachment>
 <attachment name="territoryAttachment" attachTo="Mosul-Kirkuk" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>													<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="Mozhaysk-Kaluga" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Mukden-Port Arthur" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Mukden-Port Arthur" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Murmansk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Muscat" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="N.Burma" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Britain"/></attachment>
 <attachment name="territoryAttachment" attachTo="N.California"			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="N.England" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="N.Ireland" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="N.Korea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="N.Korea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="N.Mozambique"			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="N.New Zealand" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="N.Nigeria" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -4916,7 +4920,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="N.Transylvania" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Nafud" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Nagpur" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Nanking" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Nanking" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Naples-S.Italy" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Narvik" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Navarre" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -4969,7 +4973,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Paraguay" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Paris-Cen.France" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Germany"/>	<option name="victoryCity" value="1"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Patagonia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Peking-Tientsin" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Peking-Tientsin" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Peleliu-Palau Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Peleponnese" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Pennsylvania" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
@@ -4985,7 +4989,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Port Moresby-Papua" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Portland-Oregon" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Portuguese Guinea" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Primorsky" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Primorsky" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Provence-Marseille" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Prypiat" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Pskov" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -5004,7 +5008,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Ryazan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Rzeszow" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Rzhev" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="S. Korea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="S. Korea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		<option name="territoryEffect" value="no-asia"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="S.Australia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="S.California"			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="S.Hijaz" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -5013,7 +5017,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="S.Rhodesia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="S.Sakhalin" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="S.Transylvania" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Saigon-Cochinchina" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Saigon-Cochinchina" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="marsh"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Saipan-Mariana Is." 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="capital" value="Japan"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sakha" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Samoan Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -5028,8 +5032,8 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Scotland" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Seattle-Washington" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Seychelles" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Shanghai-Kiangsu" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>													<option name="capital" value="China"/>	<option name="victoryCity" value="1"/>	</attachment>
-<attachment name="territoryAttachment" attachTo="Shangtung" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Shanghai-Kiangsu" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>			<option name="territoryEffect" value="no-asia"/>	<option name="capital" value="China"/>	<option name="victoryCity" value="1"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Shangtung" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>			</attachment>
 <attachment name="territoryAttachment" attachTo="Shensi" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="capital" value="China"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Shetland Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Shikoku" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
@@ -5040,7 +5044,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Silesia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sinai" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="desert"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Sinaloa-Guadalajara" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Singapore-Malacca" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Singapore-Malacca" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Sinkiang" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sistan-Baluchestan" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sitka" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -5105,7 +5109,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Tyumen" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Ubangi Sheri" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Udon Thani" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Uelen" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Uelen" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="tundra"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Uganda" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ulaanbaatar" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Upper Egypt" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -5124,7 +5128,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Vilna" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Virginia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="7"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Vitebsk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Vladivostok" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Vladivostok" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														<option name="territoryEffect" value="no-asia"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vogelkop Pen."			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Vologda" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Vyborg" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -5224,6 +5228,15 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="noBlitz" value="$All-Move2Land$"/>
 	</attachment>
 
+<!-- no-asia block Kamikaze-Plane flying over asia to encourage AI to use vs ships -->
+	<attachment name="territoryEffectAttachment" attachTo="no-asia" javaClass="TerritoryEffectAttachment" type="territoryEffect">
+		<option name="unitsNotAllowed"	value="Kamikaze-Plane"/>
+	</attachment>
+
+
+
+
+
 <!-- Go Winter -->
 	<attachment name="territoryEffectAttachment" attachTo="winter" javaClass="TerritoryEffectAttachment" type="territoryEffect">
 		<option name="combatOffenseEffect" value="1:$All-Air$"/>
@@ -5317,8 +5330,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="3"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="3"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5345,8 +5356,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5374,13 +5383,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="2"/>
 			<option name="attackAA" value="2"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5438,8 +5445,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5466,8 +5471,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5495,8 +5498,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5523,8 +5524,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5548,8 +5547,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5575,8 +5572,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5602,8 +5597,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5627,8 +5620,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5653,8 +5644,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5703,13 +5692,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="false"/>
 			<option name="offensiveAttackAA" value="1"/>			<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="1"/>						<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 		
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5729,13 +5716,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5758,13 +5743,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="2"/>
 			<option name="attackAA" value="2"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5788,13 +5771,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="4"/>
 			<option name="attackAA" value="4"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5813,13 +5794,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="2"/>
 			<option name="attackAA" value="2"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5838,13 +5817,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="2"/>
 			<option name="attackAA" value="2"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="1"/>
-					<option name="maxRoundsAA" value="2"/>
-			<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Flak"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+			<option name="maxAAattacks" value="1"/>
+			<option name="maxRoundsAA" value="2"/>
+				<option name="mayOverStackAA" value="true"/>
+				<option name="typeAA" value="Flak"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 
 		<option name="createsResourcesList" value="-2:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
@@ -5933,8 +5910,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5964,8 +5939,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="3"/>
 			<option name="attackAA" value="3"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5994,8 +5967,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="3"/>
 			<option name="attackAA" value="3"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -6024,8 +5995,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="3"/>
 			<option name="attackAA" value="4"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -6040,19 +6009,17 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	<attachment name="unitAttachment" attachTo="Kamikaze-Plane" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
 		<option name="defense" value="3"/>
-			<option name="canNotTarget" value="$All-Move1Land$:$All-Move2Land$:$All-Air$:Destroyer"/>	<!-- leaving only sea units to attack, not Destroyer -->
+			<option name="canNotTarget" value="$All-Move1Land$:$All-Move2Land$:$All-Air$"/>	<!-- leaving only sea units to attack -->
 		<option name="movement" value="3"/>
 			<option name="isAir" value="true"/>
 				<option name="carrierCost" value="1"/>
 			<option name="canScramble" value="true"/>
 				<option name="maxScrambleDistance" value="1"/>
-				<option name="isKamikaze" value="true"/>
+			<option name="isKamikaze" value="true"/>
 				<option name="isSuicideOnAttack" value="true"/>
 			<option name="canAirBattle" value="false"/>
-
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
-			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
 <!-- Bomber-Tac -->
@@ -6074,13 +6041,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
-		<option name="typeAA" value="Dog Fight"/>
-		<option name="targetsAA" value="$All-Air-Targetable$"/>
+				<option name="typeAA" value="Dog Fight"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 			<option name="requiresUnits" value="Industry-Med"/>
@@ -6104,8 +6069,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
 			<option name="attackAA" value="1"/>
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="-1"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -6137,9 +6100,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- use AA to represent Nuclear Blast -->
 		<option name="isAAforCombatOnly" value="true"/>					<!-- use AA for normal combat only -->
 			<option name="offensiveAttackAA" value="6"/>				<!-- 6=auto hit, sets the value the AA will attack at -->
-			<option name="attackAA" value="0"/>						 <!-- 0=auto miss, misnomer, this applies to defense -->
-			<option name="attackAAmaxDieSides" value="6"/>
-			<option name="offensiveAttackAAmaxDieSides" value="6"/>
+			<option name="attackAA" value="0"/>						 	<!-- 0=auto miss, misnomer, this applies to defense -->
 			<option name="maxAAattacks" value="10"/>					<!-- # of attack rolls -->
 			<option name="maxRoundsAA" value="1"/>						<!-- # of rounds -->
 				<option name="mayOverStackAA" value="true"/>
@@ -6221,16 +6182,14 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
 			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
-					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
-			<option name="typeAA" value="AA-Industry"/>
-			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+			<option name="maxAAattacks" value="-1"/>			<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
+			<option name="maxRoundsAA" value="1"/>				<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
+				<option name="typeAA" value="AA-Industry"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
+				<option name="mayOverStackAA" value="false"/>	<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>					<!-- canScramble  -->
-		<option name="createsResourcesList" value="9:PUs"/>		<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="createsResourcesList" value="9:PUs"/>		<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="givesMovement" value="1:$All-Move2Land$"/>
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
@@ -6254,16 +6213,14 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
 			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
-					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
-			<option name="typeAA" value="AA-Industry"/>
-			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+			<option name="maxAAattacks" value="-1"/>			<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
+			<option name="maxRoundsAA" value="1"/>				<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
+				<option name="typeAA" value="AA-Industry"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
+				<option name="mayOverStackAA" value="false"/>	<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>
-		<option name="createsResourcesList" value="7:PUs"/>		<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="createsResourcesList" value="7:PUs"/>		<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="givesMovement" value="1:$All-Move2Land$"/>
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
@@ -6287,16 +6244,14 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
 			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
-					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
-			<option name="typeAA" value="AA-Industry"/>
-			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+			<option name="maxAAattacks" value="-1"/>			<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
+			<option name="maxRoundsAA" value="1"/>				<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
+				<option name="typeAA" value="AA-Industry"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
+				<option name="mayOverStackAA" value="false"/>	<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>
-		<option name="createsResourcesList" value="5:PUs"/>		<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="createsResourcesList" value="5:PUs"/>		<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="givesMovement" value="1:$All-Move2Land$"/>
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
@@ -6326,49 +6281,16 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="isAAforBombingThisUnitOnly" value="true"/><!-- true = can only be used during SBR attack -->
 			<option name="offensiveAttackAA" value="2"/>		<!-- sets the value the AA will attack at -->
 			<option name="attackAA" value="2"/>					<!-- misnomer, this applies to defense -->
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>	<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
-					<option name="maxRoundsAA" value="1"/>		<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
-			<option name="typeAA" value="AA-Industry"/>
-			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>		<!-- As isFactory so cannot stack, was true -->
+			<option name="maxAAattacks" value="-1"/>			<!-- -1 = Infinite Number of attacks = number of air units attacking, was 2, can be 0 for 0 Attacks -->
+			<option name="maxRoundsAA" value="1"/>				<!-- As isAAforCombatOnly is false, so will only fire ONCE during SBR attacks, was -1 -->
+				<option name="typeAA" value="AA-Industry"/>
+				<option name="targetsAA" value="$All-Air-Targetable$"/>
+				<option name="mayOverStackAA" value="false"/>	<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>
 	</attachment>
 
-<!-- Factory -->
-<!--	<attachment name="unitAttachment" attachTo="Factory" javaClass="UnitAttachment" type="unitType">
-		<option name="isInfrastructure" value="true"/>
-		<option name="canBeDamaged" value="true"/>
-			<option name="maxDamage" value="3"/>
-			<option name="maxOperationalDamage" value="2"/>
-			<option name="canDieFromReachingMaxDamage" value="true"/>
-			<option name="whenCapturedSustainsDamage" value="1"/>
-		<option name="isConstruction" value="true"/>
-			<option name="constructionType" value="FactoryPU"/>
-			<option name="maxConstructionsPerTypePerTerr" value="3"/>
-			<option name="constructionsPerTerrPerTypePerTurn" value="1"/>
-			<option name="canOnlyBePlacedInTerritoryValuedAtX" value="7"/>
- AA same for all Factory type units
-		<option name="isAAforCombatOnly" value="false"/>
-		<option name="isAAforBombingThisUnitOnly" value="true"/>
-			<option name="offensiveAttackAA" value="2"/>
-			<option name="attackAA" value="2"/>
-				<option name="offensiveAttackAAmaxDieSides" value="6"/>
-				<option name="attackAAmaxDieSides" value="6"/>
-					<option name="maxAAattacks" value="-1"/>
-					<option name="maxRoundsAA" value="1"/>
-			<option name="typeAA" value="AA-Industry"/
-			<option name="targetsAA" value="$All-Air-Targetable$"/>
-			<option name="mayOverStackAA" value="false"/>
-		<option name="isAirBase" value="true"/>
-			<option name="requiresUnits" value="Industry-Hvy"/>
-			<option name="requiresUnits" value="Industry-Med"/>
-		<option name="createsResourcesList" value="3:PUs"/>
-		<option name="tuv" value="9"/>
-	</attachment>
--->
+
 
 <!-- =============================================  cost 1pu cant be bought, tuv for AI attraction  ============================================= -->
 <!-- Flag National owner flag -->
@@ -6380,7 +6302,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- Oil-Field Reserves -->
 	<attachment name="unitAttachment" attachTo="Oil-Field" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
-		<option name="createsResourcesList" value="1:PUs"/>	<!-- linked to GO 0ENDTURN RESET PU TO 0 -->
+		<option name="createsResourcesList" value="1:PUs"/>	<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="tuv" value="5"/>
 	</attachment>
 
@@ -6629,6 +6551,35 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="players" value="$All-Players$"/>
 	</attachment>
 
+<!-- @@@@@ HQ-Army <5 on map HQ-Air HQ-Fleet HQ-Submarine  -->
+    <attachment foreach="$All-Players$" name="conditionAttachment_HQ-Army01234_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
+        <option name="directPresenceTerritories" value="map" count="1"/>
+        <option name="unitPresence" value="HQ-Army" count="5"/>
+		<option name="invert" value="true"/>
+    </attachment>
+	<attachment foreach="$All-Players$" name="triggerAttachment_HQ-Army01234_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_HQ-Army01234_@All-Players@"/>
+            <option name="productionRule" value="production_@All-Players@:buyHQ-Army"/>
+		<option name="when" value="before:@All-Players@Purchase"/>
+	</attachment>
+
+<!-- HQ-Army =5 on map -->
+    <attachment foreach="$All-Players$" name="conditionAttachment_HQ-Army5_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
+        <option name="directPresenceTerritories" value="map" count="1"/>
+        <option name="unitPresence" value="HQ-Army" count="5"/>
+    </attachment>
+	<attachment foreach="$All-Players$" name="triggerAttachment_Leader-L3-@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_HQ-Army5_@All-Players@"/>
+            <option name="productionRule" value="production_@All-Players@:-buyHQ-Army"/>
+		<option name="when" value="before:@All-Players@Purchase"/>
+	</attachment>
+
+
+
+
+
+
+
 <!-- ======================================= GO changeOwnership =======================================  -->	
 <!-- Late41 Germany & Italy invades USSR and automaticially takes over these USSR TT -->
 <!-- important for orginal owner -->
@@ -6688,7 +6639,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Caracas-Venezuela:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Port Au Prince-Haiti:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Dominican:Neutrals:USA:true"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 	<attachment foreach="$All-Players$" name="conditionAttachment_Notify__USA-Brazil_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="2"/>
@@ -6719,7 +6670,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Sinaloa-Guadalajara:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Veracruz:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Yucatan:Neutrals:USA:true"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 	<attachment foreach="$All-Players$" name="conditionAttachment_Notify__USA-Mexico_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="3"/>
@@ -6747,7 +6698,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="changeOwnership" value="Guatemala:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Honduras:Neutrals:USA:true"/>
 		<option name="changeOwnership" value="Nicaragua:Neutrals:USA:true"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 	<attachment foreach="$All-Players$" name="conditionAttachment_Notify__USA-GulfofMexico_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="4"/>
@@ -6849,14 +6800,14 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Archangelsk_Britain_Lend-Lease-Depot"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="-8"/>
-		<option name="when" value="after:Britain0EndTurn"/>		<!-- MUST be after Britain0EndTurn otherwise have 0pu before Britain0EndTurn -->
+		<option name="when" value="after:Britain1EndTurn"/>		<!-- MUST be after Britain1EndTurn otherwise have 0pu before Britain1EndTurn -->
 	</attachment>
 <!-- Grants PUs to USSR -->
 	<attachment name="triggerAttachment_Archangelsk_USSR_Lend-Lease-Depot" attachTo="USSR" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Archangelsk_Britain_Lend-Lease-Depot"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="8"/>
-		<option name="when" value="after:Britain0EndTurn"/>
+		<option name="when" value="after:Britain1EndTurn"/>
 	</attachment>
 
 
@@ -6875,7 +6826,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Baku_Persian_Corridor"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="-9"/>
-		<option name="when" value="after:Britain0EndTurn"/>
+		<option name="when" value="after:Britain1EndTurn"/>
 	</attachment>
 <!-- Grants PUs to USSR -->
 	<attachment name="triggerAttachment_Baku_USSR_Lend-Lease-Depot" attachTo="USSR" javaClass="TriggerAttachment" type="player">
@@ -6883,7 +6834,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Baku_Persian_Corridor"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="9"/>
-		<option name="when" value="after:Britain0EndTurn"/>
+		<option name="when" value="after:Britain1EndTurn"/>
 	</attachment>
 <!-- Remove Persian Corridor if any are false for each nation units -->
 	<attachment name="triggerAttachment_Baku_USSR_Lend-Lease-Depot_Remove" attachTo="USSR" javaClass="TriggerAttachment" type="player">
@@ -6894,7 +6845,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
 		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>  -->
 		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>
-		<option name="when" value="before:USSR0EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
 	</attachment>
 	<attachment name="triggerAttachment_Baku_Britain_Lend-Lease-Depot_Remove" attachTo="Britain" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Baku_Britain_Lend-Lease-Depot:conditionAttachment_Baku_Persian_Corridor"/>
@@ -6904,7 +6855,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
 		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>
 <!--		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>  -->
-		<option name="when" value="before:USSR0EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
 	</attachment>
 
 
@@ -6923,7 +6874,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Burma_Road"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="-20"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 <!-- Grants PUs to China -->
 	<attachment name="triggerAttachment_Yunnan_China_Lend-Lease-Depot" attachTo="China" javaClass="TriggerAttachment" type="player">
@@ -6931,7 +6882,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Burma_Road"/>
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="20"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 <!-- Remove Burma Road if either are false for each nation units -->
 	<attachment name="triggerAttachment_Yunnan_China_Lend-Lease-Depot_Remove" attachTo="China" javaClass="TriggerAttachment" type="player">
@@ -6939,14 +6890,14 @@ foreach does NOT appear to work with changeOwnership
 		<option name="invert" value="true"/>
 <!--		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>  -->
 		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>
-		<option name="when" value="before:USA0EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
 	</attachment>
 	<attachment name="triggerAttachment_Yunnan_Britain_Lend-Lease-Depot_Remove" attachTo="Britain" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Yunnan_USA_Lend-Lease-Depot:conditionAttachment_Burma_Road"/>
 		<option name="invert" value="true"/>
 		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>
 <!--		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>  -->
-		<option name="when" value="before:USA0EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
 	</attachment>
 
 
@@ -6966,7 +6917,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Japan_USSR_NAP"/>	<!-- If NAP then give PU -->
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="-16"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 <!-- Grants PUs to USSR -->
 	<attachment name="triggerAttachment_Vladivostok_USSR_Lend-Lease-Depot" attachTo="USSR" javaClass="TriggerAttachment" type="player">
@@ -6974,7 +6925,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Japan_USSR_NAP"/>	<!-- If NAP then give PU -->
 		<option name="resource" value="PUs"/>
 		<option name="resourceCount" value="16"/>
-		<option name="when" value="after:USA0EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
 	</attachment>
 
 <!-- ======================================= GO National Theme  =======================================  -->
@@ -7009,7 +6960,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Ham_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Ham"/>
@@ -7017,7 +6968,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>		<!-- increased chance because of increase in production -->
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 
 <!-- Meckleburg Subs & HQ-Submarine -->
@@ -7033,7 +6984,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Mec_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Mec"/>
@@ -7042,7 +6993,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 
 <!-- Pomerania Subs -->
@@ -7057,7 +7008,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Pom_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Pom"/>
@@ -7065,7 +7016,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 
 <!-- Konigsberg-E.Prussia Subs -->
@@ -7080,7 +7031,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:10"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 <attachment foreach="$SubmarineSZ$" name="triggerAttachment_Germany-2Adv-Kon_@SubmarineSZ@" attachTo="Germany" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_NationalTheme_Germany-2-Kon"/>
@@ -7088,7 +7039,7 @@ foreach does NOT appear to work with changeOwnership
 	<option name="placement" value="@SubmarineSZ@:Submarine-Adv" count="1"/>
 	<option name="players" value="Germany"/>
 	<option name="chance" value="1:9"/>
-	<option name="when" value="after:Germany0EndTurn"/>
+	<option name="when" value="after:Germany1EndTurn"/>
 </attachment>
 <!-- END Player & AI these subs are free, but must have a Industry-Hvy in specific territory -->
 
@@ -7439,7 +7390,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="tech" value="Combined-Arms"/>
 		<option name="tech" value="Bomber-LongR"/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 <!-- Tech Research requires 1+ Industry-Hvy on the map -->
@@ -7566,7 +7517,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Always_True"/>
 		<option name="tech" value="Combined-Arms"/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 <!-- Tech Research requires 1+ Industry-Hvy on the map -->
@@ -7813,7 +7764,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Always_True"/>
 		<option name="tech" value="Combined-Arms"/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 
@@ -7832,7 +7783,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="tech" value="Destroyer-LongL"/>
 		<option name="tech" value="Submarine-Adv."/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 
@@ -7992,7 +7943,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="tech" value="Combined-Arms"/>
 		<option name="tech" value="Bomber-LongR"/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/>	<!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 
@@ -8003,7 +7954,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Always_True"/>
 		<option name="tech" value="Carrier-Fleet."/>
 		<option name="uses" value="1"/>
-		<option name="when" value="after:Germany0EndTurn"/> <!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
+		<option name="when" value="after:Germany1EndTurn"/> <!-- use Germany so it will show Immediately, Tech will be granted w/o special delegates -->
 	</attachment>
 
 <!-- requires 1+ Industry-Hvy to trigger Tech -->
@@ -8305,7 +8256,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-forest$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-forest"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- forest Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_forest" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8313,7 +8264,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-forest$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-forest:winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 <!-- hills Clear Winter Snow -->
@@ -8322,7 +8273,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-hills$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- hills Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_hills" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8330,7 +8281,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-hills$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 <!-- mountains Clear Winter Snow -->
@@ -8339,7 +8290,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-mountains$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-mountains"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- mountains Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_mountains" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8347,7 +8298,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-mountains$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-mountains:winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 <!-- tundra Clear Winter Snow -->
@@ -8356,7 +8307,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-tundra$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-tundra"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- tundra Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_tundra" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8364,7 +8315,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-tundra$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-tundra:winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 <!-- urban Clear Winter Snow -->
@@ -8373,7 +8324,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-urban$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-urban"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- urban Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_urban" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8381,7 +8332,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterTT-urban$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-urban:winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 
@@ -8391,7 +8342,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterSZ$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- SeaZone Make Winter Snow -->
 <attachment name="triggerAttachment_Make_Arctic_Winter_SeaZone" attachTo="winterp" javaClass="TriggerAttachment" type="player">
@@ -8399,7 +8350,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="territories" value="$All-WinterSZ$"/>
 	<option name="territoryAttachmentName" value="TerritoryAttachment" count="territoryAttachment"/>
 	<option name="territoryProperty" value="territoryEffect" count="-reset-winter"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 
@@ -8413,13 +8364,13 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 <attachment foreach="$All-WinterTT$" name="triggerAttachment_Arctic_WinterTT_Add_Units_@All-WinterTT@" attachTo="winterp" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_Arctic_Winter"/>
 	<option name="placement" value="@All-WinterTT@:WinterLand" count="1"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 <!-- In all WinterSZ add WinterSea -->
 <attachment foreach="$All-WinterSZ$" name="triggerAttachment_Arctic_WinterSZ_Add_Units_@All-WinterSZ@" attachTo="winterp" javaClass="TriggerAttachment" type="player">
 	<option name="conditions" value="conditionAttachment_Arctic_Winter"/>
 	<option name="placement" value="@All-WinterSZ@:WinterSea" count="1"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>
 
 
@@ -8428,7 +8379,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 	<option name="conditions" value="conditionAttachment_Arctic_Spring"/>
 	<option name="removeUnits" value="all:WinterLand" count="1"/>
 	<option name="removeUnits" value="all:WinterSea" count="1"/>
-	<option name="when" value="after:winterp0EndTurnNoPU"/>
+	<option name="when" value="after:winterp1EndTurnNoPU"/>
 </attachment>   
 <!-- ======================================= GO Winter END =======================================  -->
 
@@ -8437,7 +8388,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 
 
 
-<!-- ============================================= GO 0ENDTURN RESET PU TO 0 =============================================  -->
+<!-- ============================================= GO 1EndTurn RESET PU TO 0 =============================================  -->
 <!-- As PU is collected at the start of the turn, by default it is also collected at the end, the end PU must be canceled, see below -->
 
 <!-- conditionAttachment_Always_True" attachTo="Germany is already set, see GO Trigger  -->
@@ -8448,14 +8399,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="$All-Air$:$All-Sea$:$All-Move1Land$:$All-Move2Land$:Bunker"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset--1:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Hvy -9 -->
@@ -8464,14 +8415,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="Industry-Hvy"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-9:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Med -7 -->
@@ -8480,14 +8431,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="Industry-Med"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-7:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Lgt -5 -->
@@ -8496,14 +8447,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="Industry-Lgt"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-5:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 
 <!-- reset Factory -3 -->
@@ -8513,14 +8464,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="Factory"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-3:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 -->
 
@@ -8530,14 +8481,14 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="Oil-Field"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-1:PUs"/>
-		<option name="when" value="before:Germany0EndTurn"/>
-		<option name="when" value="before:USSR0EndTurn"/>
-		<option name="when" value="before:China0EndTurn"/>
-		<option name="when" value="before:Italy0EndTurn"/>
-		<option name="when" value="before:Britain0EndTurn"/>
-		<option name="when" value="before:Japan0EndTurn"/>
-		<option name="when" value="before:USA0EndTurn"/>
-		<option name="when" value="before:Pacific-Allies0EndTurn"/>
+		<option name="when" value="before:Germany1EndTurn"/>
+		<option name="when" value="before:USSR1EndTurn"/>
+		<option name="when" value="before:China1EndTurn"/>
+		<option name="when" value="before:Italy1EndTurn"/>
+		<option name="when" value="before:Britain1EndTurn"/>
+		<option name="when" value="before:Japan1EndTurn"/>
+		<option name="when" value="before:USA1EndTurn"/>
+		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 </attachment>
 
 <!-- Only 1 trigger is needed to set ALL to 0 after endTurn lets the AI player know that maintenance has been paid-->
@@ -8546,16 +8497,16 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
 		<option name="unitType" value="$All-Air$:$All-Sea$:$All-Move1Land$:$All-Move2Land$:Bunker:Industry-Hvy:Industry-Med:Industry-Lgt:Oil-Field:Lend-Lease-Depot"/>
 		<option name="unitProperty" value="createsResourcesList" count="-reset-0:PUs"/>
-		<option name="when" value="after:Germany0EndTurn"/>
-		<option name="when" value="after:USSR0EndTurn"/>
-		<option name="when" value="after:China0EndTurn"/>
-		<option name="when" value="after:Italy0EndTurn"/>
-		<option name="when" value="after:Britain0EndTurn"/>
-		<option name="when" value="after:Japan0EndTurn"/>
-		<option name="when" value="after:USA0EndTurn"/>
-		<option name="when" value="after:Pacific-Allies0EndTurn"/>
+		<option name="when" value="after:Germany1EndTurn"/>
+		<option name="when" value="after:USSR1EndTurn"/>
+		<option name="when" value="after:China1EndTurn"/>
+		<option name="when" value="after:Italy1EndTurn"/>
+		<option name="when" value="after:Britain1EndTurn"/>
+		<option name="when" value="after:Japan1EndTurn"/>
+		<option name="when" value="after:USA1EndTurn"/>
+		<option name="when" value="after:Pacific-Allies1EndTurn"/>
 </attachment>	
-<!-- ============================================= END GO 0ENDTURN RESET PU TO 0 =============================================  -->
+<!-- ============================================= END GO 1EndTurn RESET PU TO 0 =============================================  -->
 
 
 <!-- ======================================= GO TECH =======================================  -->
@@ -8575,6 +8526,11 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="movementBonus" value="2:Bomber"/>
 	</attachment>	
 	
+	<attachment name="techAbilityAttachment" attachTo="warBonds" javaClass="TechAbilityAttachment" type="technology">
+		<option name="warBondDiceNumber" value="4"/>
+		<option name="warBondDiceSides" value="4"/>
+	</attachment>
+
 	
 	
 <!-- ======================================= END GO TECH =======================================  -->
@@ -8623,9 +8579,9 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="movementLimit"  value="owned:Fighter-Jet" count="10"/>	<option name="movementLimit"  value="allied:Fighter-Jet" count="15"/>
 		<option name="placementLimit" value="owned:Fighter-Jet" count="10"/>	<option name="placementLimit" value="allied:Fighter-Jet" count="15"/>
 
-		<option name="attackingLimit" value="owned:Kamikaze-Plane" count="10"/>	<option name="attackingLimit" value="allied:Kamikaze-Plane" count="15"/>
-		<option name="movementLimit"  value="owned:Kamikaze-Plane" count="10"/>	<option name="movementLimit"  value="allied:Kamikaze-Plane" count="15"/>
-		<option name="placementLimit" value="owned:Kamikaze-Plane" count="10"/>	<option name="placementLimit" value="allied:Kamikaze-Plane" count="15"/>
+		<option name="attackingLimit" value="owned:Kamikaze-Plane" count="10"/>
+		<option name="movementLimit"  value="owned:Kamikaze-Plane" count="10"/>
+		<option name="placementLimit" value="owned:Kamikaze-Plane" count="10"/>
 
 		<option name="movementLimit"  value="owned:Bomber-Tac" count="10"/> 	<option name="movementLimit"  value="allied:Bomber-Tac" count="15"/>
 		<option name="attackingLimit" value="owned:Bomber-Tac" count="10"/> 	<option name="attackingLimit" value="allied:Bomber-Tac" count="15"/>
@@ -11187,7 +11143,7 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
 
 
 <!-- Subs -->
-	<!-- air units cannot attack subs -->
+	<!-- air units cannot attack subs without isDestroyer -->
 	<property name="Air Attack Sub Restricted" value="true" editable="false">			<boolean/>	</property>
 
 	<!-- Submarines stop transports from doing amphibious assault unless there is at least 1 owned warship in the sea zone. 
