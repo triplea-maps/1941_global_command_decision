@@ -1,12 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.250"/>
+	<info name="1941 Global Command Decision" version="1.255"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
 v255
+Stacking of Artillery & Anti-Tank, Armor-Lgt & Med 10s, Armor-Inf & Armor-Hvy 5s
+To summerise stacking Infantry 20s, non-Infantry(& Aircraft & Ships) 10s, except 2 Hit units (Armor-Hvy & Carriers) 5s
+
+HQ rings, now have a faction color ring, especially helpful for Fleet-HQ, thanks Oztea on Reddit & Black_Elk
+
+TODO
 HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
 Frontier HQ at the end
 production_Pacific-Allies-Hvy
@@ -21,7 +27,7 @@ Kamikaze Plane can only placed with Industry-Hvy, so only Japan, did include Ind
 Kamikaze unitsNotAllowed to fly over 28 East Asia land territories to encourage AI to use them verses ships, uses a terrain effect called "no-asia"
 Kamikaze canNotTarget Destroyers removed as it does target Destroyers
 
-War Bonds with 1 Tech, now 4d4, was 2x Techs with 1d6 each
+War Bonds now with 1 Tech, now 4d4, was 2x Techs with 1d6 each
 
 Removed <option name="attackAAmaxDieSides" value="6"/> remove x30 as not needed
 
@@ -509,7 +515,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 <map>
 	<!-- Territory Definitions 8 capitals & 598 Land & 190 SZ = 796 -->
 
-<!-- these 8 capitals will have centering focus on active player's capital at the start of their turn -->
+<!-- these 8 capitals will have centering focus on active player's capital at the start of their turn MUST have View> Lock map UNTICKED -->
 	<territory name="Berlin-Cen.Germany"/>
 	<territory name="Chungking"/>
 	<territory name="London-S.England"/>
@@ -8617,29 +8623,29 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="movementLimit"  value="owned:Inf-Motorized" count="20"/>	<option name="movementLimit"  value="allied:Inf-Motorized" count="30"/>
 		<option name="placementLimit" value="owned:Inf-Motorized" count="20"/>	<option name="placementLimit" value="allied:Inf-Motorized" count="30"/>
 
-		<option name="attackingLimit" value="owned:Armor-Lgt" count="20"/>  	<option name="attackingLimit" value="allied:Armor-Lgt" count="30"/>
-		<option name="movementLimit"  value="owned:Armor-Lgt" count="20"/>  	<option name="movementLimit"  value="allied:Armor-Lgt" count="30"/>
-		<option name="placementLimit" value="owned:Armor-Lgt" count="20"/>  	<option name="placementLimit" value="allied:Armor-Lgt" count="30"/>
+		<option name="attackingLimit" value="owned:Armor-Lgt" count="10"/>  	<option name="attackingLimit" value="allied:Armor-Lgt" count="30"/>
+		<option name="movementLimit"  value="owned:Armor-Lgt" count="10"/>  	<option name="movementLimit"  value="allied:Armor-Lgt" count="30"/>
+		<option name="placementLimit" value="owned:Armor-Lgt" count="10"/>  	<option name="placementLimit" value="allied:Armor-Lgt" count="30"/>
 
-		<option name="attackingLimit" value="owned:Armor-Med" count="20"/>  	<option name="attackingLimit" value="allied:Armor-Med" count="30"/>
-		<option name="movementLimit"  value="owned:Armor-Med" count="20"/>  	<option name="movementLimit"  value="allied:Armor-Med" count="30"/>
-		<option name="placementLimit" value="owned:Armor-Med" count="20"/>  	<option name="placementLimit" value="allied:Armor-Med" count="30"/>
+		<option name="attackingLimit" value="owned:Armor-Med" count="10"/>  	<option name="attackingLimit" value="allied:Armor-Med" count="30"/>
+		<option name="movementLimit"  value="owned:Armor-Med" count="10"/>  	<option name="movementLimit"  value="allied:Armor-Med" count="30"/>
+		<option name="placementLimit" value="owned:Armor-Med" count="10"/>  	<option name="placementLimit" value="allied:Armor-Med" count="30"/>
 <!-- Land 2 hit -->
-		<option name="attackingLimit" value="owned:Armor-Inf" count="10"/>  	<option name="attackingLimit" value="allied:Armor-Inf" count="15"/>
-		<option name="movementLimit"  value="owned:Armor-Inf" count="10"/>  	<option name="movementLimit"  value="allied:Armor-Inf" count="15"/>
-		<option name="placementLimit" value="owned:Armor-Inf" count="10"/>  	<option name="placementLimit" value="allied:Armor-Inf" count="15"/>
+		<option name="attackingLimit" value="owned:Armor-Inf" count="5"/>  		<option name="attackingLimit" value="allied:Armor-Inf" count="15"/>
+		<option name="movementLimit"  value="owned:Armor-Inf" count="5"/>  		<option name="movementLimit"  value="allied:Armor-Inf" count="15"/>
+		<option name="placementLimit" value="owned:Armor-Inf" count="5"/>  		<option name="placementLimit" value="allied:Armor-Inf" count="15"/>
 <!-- Land 2 hit -->
-		<option name="attackingLimit" value="owned:Armor-Hvy" count="10"/>  	<option name="attackingLimit" value="allied:Armor-Hvy" count="15"/>
-		<option name="movementLimit"  value="owned:Armor-Hvy" count="10"/>  	<option name="movementLimit"  value="allied:Armor-Hvy" count="15"/>
-		<option name="placementLimit" value="owned:Armor-Hvy" count="10"/>  	<option name="placementLimit" value="allied:Armor-Hvy" count="15"/>
+		<option name="attackingLimit" value="owned:Armor-Hvy" count="5"/>  		<option name="attackingLimit" value="allied:Armor-Hvy" count="15"/>
+		<option name="movementLimit"  value="owned:Armor-Hvy" count="5"/>  		<option name="movementLimit"  value="allied:Armor-Hvy" count="15"/>
+		<option name="placementLimit" value="owned:Armor-Hvy" count="5"/>  		<option name="placementLimit" value="allied:Armor-Hvy" count="15"/>
 
-		<option name="attackingLimit" value="owned:Artillery" count="20"/>  	<option name="attackingLimit" value="allied:Artillery" count="30"/>
-		<option name="movementLimit"  value="owned:Artillery" count="20"/>  	<option name="movementLimit"  value="allied:Artillery" count="30"/>
-		<option name="placementLimit" value="owned:Artillery" count="20"/>  	<option name="placementLimit" value="allied:Artillery" count="30"/>
+		<option name="attackingLimit" value="owned:Artillery" count="10"/>  	<option name="attackingLimit" value="allied:Artillery" count="30"/>
+		<option name="movementLimit"  value="owned:Artillery" count="10"/>  	<option name="movementLimit"  value="allied:Artillery" count="30"/>
+		<option name="placementLimit" value="owned:Artillery" count="10"/>  	<option name="placementLimit" value="allied:Artillery" count="30"/>
 
-		<option name="attackingLimit" value="owned:Anti-Tank" count="20"/>  	<option name="attackingLimit" value="allied:Anti-Tank" count="30"/>
-		<option name="movementLimit"  value="owned:Anti-Tank" count="20"/>  	<option name="movementLimit"  value="allied:Anti-Tank" count="30"/>
-		<option name="placementLimit" value="owned:Anti-Tank" count="20"/>  	<option name="placementLimit" value="allied:Anti-Tank" count="30"/>
+		<option name="attackingLimit" value="owned:Anti-Tank" count="10"/>  	<option name="attackingLimit" value="allied:Anti-Tank" count="30"/>
+		<option name="movementLimit"  value="owned:Anti-Tank" count="10"/>  	<option name="movementLimit"  value="allied:Anti-Tank" count="30"/>
+		<option name="placementLimit" value="owned:Anti-Tank" count="10"/>  	<option name="placementLimit" value="allied:Anti-Tank" count="30"/>
 
 <!-- Sea @@@ ??? -->
 		<option name="attackingLimit" value="owned:Convoy" count="10"/>  		<option name="attackingLimit" value="allied:Convoy" count="20"/>
@@ -9909,8 +9915,8 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Estonia"			 		unitType="Inf-Trained" 		quantity="3" owner="Germany"/>
 
 	<unitPlacement territory="Grodno" 					unitType="Inf-Motorized" 	quantity="7" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 	unitType="Armor-Lgt" 		quantity="3" owner="Germany"/>
-	<unitPlacement territory="Grodno" 				 	unitType="Armor-Med" 		quantity="11" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 	unitType="Armor-Lgt" 		quantity="4" owner="Germany"/>
+	<unitPlacement territory="Grodno" 				 	unitType="Armor-Med" 		quantity="10" owner="Germany"/>
 	<unitPlacement territory="Grodno" 				 	unitType="Bomber-Tac" 		quantity="7" owner="Germany"/>
 	<unitPlacement territory="Grodno" 				 	unitType="Fighter" 			quantity="2" owner="Germany"/>
 
@@ -9943,9 +9949,9 @@ Less shuffling than above, but still not Player friendly
 	<unitPlacement territory="Lithuania"	 	 	  	unitType="Inf-Trained" 		quantity="1" owner="Germany"/>
 
 	<unitPlacement territory="Mogilev" 					unitType="HQ-Army" 			quantity="1" owner="Germany"/>
-	<unitPlacement territory="Mogilev" 				 	unitType="Armor-Med" 		quantity="12" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 				 	unitType="Armor-Med" 		quantity="10" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			 		unitType="Anti-Tank" 		quantity="6" owner="Germany"/>
-	<unitPlacement territory="Mogilev" 			 		unitType="Armor-Lgt" 		quantity="1" owner="Germany"/>
+	<unitPlacement territory="Mogilev" 			 		unitType="Armor-Lgt" 		quantity="4" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			 		unitType="Inf-Motorized" 	quantity="7" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			 		unitType="Inf-Trained" 		quantity="19" owner="Germany"/>
 	<unitPlacement territory="Mogilev" 			  		unitType="Artillery" 		quantity="7" owner="Germany"/>
