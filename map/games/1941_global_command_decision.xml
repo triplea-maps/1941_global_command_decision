@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.260"/>
+	<info name="1941 Global Command Decision" version="1.265"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+v265
+* Thanks to the genius that is @wc_sumpton the Factory Placement is now turned on when its needed then off when its not. :)
+* This probably returns the AI game play as before, but we shall see  
+
+
+
 v260
 * The **AI players** have been given another boost and should be tougher, but are they? (Thanks to @wc_sumpton, again)
 * A noticeable change in German AI play is that it defends Paris better than previous versons, notice any other AI changes? 
@@ -8719,11 +8725,30 @@ Less shuffling than above, but still not Player friendly
 	</attachment>
 
 
+
+<!-- ======================================= GO Trigger for rulesAttachment ======================================= -->
+
+<!-- pAT placementAnyTerritory ON/true before Place then OFF/false -->
+<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Reset_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+	<option name="conditions" value="conditionAttachment_Always_True"/>
+	<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
+	<option name="playerProperty" value="placementAnyTerritory" count="false"/>
+	<option name="when" value="before:@All-Players@Purchase"/>
+</attachment>
+<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Set_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+	<option name="conditions" value="conditionAttachment_Always_True"/>
+	<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
+	<option name="playerProperty" value="placementAnyTerritory" count="true"/>
+	<option name="when" value="before:@All-Players@Place"/>
+</attachment>
+
 <!-- ======================================= GO rulesAttachment ======================================= -->
 
 <!-- @@@@@ Only One rulesAttachment per Player Rule is allowed -->
-
-<!-- placementAnyTerritory makes the AI place Factories given by isAI/xml, also appears to aid the AI in defending Paris much better -->
+<!--
+<property name="Place in Any Territory" value="true" editable="false">		is probably required
+placementAnyTerritory makes the AI place Factories given by isAI/xml, also appears to aid the AI in defending Paris much better 
+-->
 <attachment foreach="$All-Players$" name="rulesAttachment" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
 	<option name="placementAnyTerritory" value="true"/>
 <!--	<option name="placementAnySeaZone" value="true"/>  -->
