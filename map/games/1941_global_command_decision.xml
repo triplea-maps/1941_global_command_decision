@@ -1,33 +1,31 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.265"/>
+	<info name="1941 Global Command Decision" version="1.270"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!--
+/ Turkey TT
+/ units
+TT increase PU by Objective, increase Industry-Hvy2 PU replaces Industry-Hvy
+
+
+
+v270
+Bunker 4pu, was 5, helps the AI buy more
+Turkey will now defend as a nation, if attacked, was as each separate territory
+
+
+
 v265
 * Thanks to the genius that is @wc_sumpton the Factory Placement is now turned on when its needed then off when its not. :)
 * This probably returns the AI game play as before, but we shall see  
 
-
-
-v260
-* The **AI players** have been given another boost and should be tougher, but are they? (Thanks to @wc_sumpton, again)
-* A noticeable change in German AI play is that it defends Paris better than previous versons, notice any other AI changes? 
-* Spain will now defend as a nation, was as each seperate territory
-
-v255
-Stacking of Artillery & Anti-Tank, Armor-Lgt & Med 10s, Armor Inf & Hvy 5s /
-HQ rings thanks Oztea on Reddit & Black_Elk, 
-
-
 TODO
-Spain  - Asturias Lgt,  Madrid=Camp
-<option name="movementRestrictionTerritories" value="Andalusia:Aragon-Catalonia:Asturias:Castille-Leon:Extramadura:Madrid-Cen.Spain:Majorca:Navarre:Valencia"/>
-<option name='movementRestrictionType' value='allowed'/>
+<5 on map HQ-Air HQ-Fleet HQ-Submarine
+techAbilityAttachment  "productionBonus" = Factory production
 
-Turkey - Trebizond=Lgt, Trebizond=Camp
 
 HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
 Frontier HQ at the end
@@ -54,14 +52,12 @@ https://forums.triplea-game.org/topic/1808/hard-ai-vs-fast-ai/9
 
 Mountain fly over?
 
-
+=============================
 Tool-Tips have improved, now better color coded;
 * Red	 - Combat additions
 * Orange - Warning or notification, usually to say what can be targeted or not
 * Blue   - Suppression (-1) off enemy attack or defence
 * Green  - Movement or transport
-
-=============================
 
 GDP USA > Germany > UK~USSR > Japan > Italy
 TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
@@ -259,7 +255,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 
 <variable name="All-Neutrals">	<!-- 2 -->
 	<element name="Spain"/>
-<!--	<element name="Turkey"/>  -->
+	<element name="Turkey"/>
 </variable>
 
 <variable name="All-Players">	<!-- 8 -->
@@ -467,14 +463,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<element name="021 B Sea Zone"/>
 </variable>	
 
-<!-- Go Convoy 4 Western Europe SZ 
-	<variable name="usaRecoverConvoySZ">
-		<element name="110 A Sea Zone"/>
-		<element name="105 Sea Zone"/>
-		<element name="091 A Sea Zone"/>
-		<element name="092 Sea Zone"/>
-	</variable>	
--->
+
 
 <!-- GO Victory -->
 <variable name="Victory">		<!-- 29  -->
@@ -3425,6 +3414,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<player name="Pacific-Allies"	optional="true" 	canBeDisabled="true" 	defaultType="AI" 	isHidden="false"/>
 	<player name="China"			optional="true" 	canBeDisabled="true" 	defaultType="AI" 	isHidden="false"/>
 	<player name="Spain"			optional="false" 	canBeDisabled="false" 	defaultType="AI" 	isHidden="false"/>
+	<player name="Turkey"			optional="false" 	canBeDisabled="false" 	defaultType="AI" 	isHidden="false"/>
 	
 	<player name="Neutrals" 		optional="true" 	canBeDisabled="false"	defaultType="AI" 	isHidden="true"/>
 
@@ -3691,6 +3681,14 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<step name="SpainPlace" 			delegate="place" 			player="Spain"/>
 		<step name="Spain0EndTurn"			delegate="endTurnNoPU" 		player="Spain"/>
 
+		<step name="Turkey1EndTurn"			delegate="endTurn" 			player="Turkey"/>
+		<step name="TurkeyCombatMove" 		delegate="move" 			player="Turkey"/>
+		<step name="TurkeyBattle"			delegate="battle" 			player="Turkey"/>
+		<step name="TurkeyNonCombatMove" 	delegate="move" 			player="Turkey"		display="Non Combat Move"/>
+		<step name="TurkeyPurchase"			delegate="purchase" 		player="Turkey"/>
+		<step name="TurkeyPlace" 			delegate="place" 			player="Turkey"/>
+		<step name="Turkey0EndTurn"			delegate="endTurnNoPU" 		player="Turkey"/>
+
 
 <!-- Go Winter  winterp = Allied -->
 		<step name="endRoundStep" 			delegate="endRound" 		display="Round Complete"/>
@@ -3721,8 +3719,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionRule name="buyArtillery">		<cost resource="PUs" quantity="6"/>		<result resourceOrUnit="Artillery" 		quantity="1"/>	</productionRule>
 	<productionRule name="buyAnti-Tank">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Anti-Tank" 		quantity="1"/>	</productionRule>
 
-	<productionRule name="buyBunker">			<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Bunker" 		quantity="1"/>	</productionRule>
-	<productionRule name="buyOil-Field">		<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Oil-Field" 		quantity="1"/>	</productionRule>
+	<productionRule name="buyBunker">			<cost resource="PUs" quantity="4"/>		<result resourceOrUnit="Bunker" 		quantity="1"/>	</productionRule>
 
 <!-- isSea -->
 	<productionRule name="buyConvoy">			<cost resource="PUs" quantity="10"/>	<result resourceOrUnit="Convoy" 		quantity="1"/>	</productionRule>
@@ -3757,10 +3754,11 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<productionRule name="buyIndustry-Med">		<cost resource="PUs" quantity="21"/>	<result resourceOrUnit="Industry-Med"	quantity="1"/>	</productionRule>
 	<productionRule name="buyIndustry-Lgt">		<cost resource="PUs" quantity="16"/>	<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</productionRule>
 	<productionRule name="buyBase-Camp">		<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</productionRule>
-<!---	<productionRule name="buyFactory">			<cost resource="PUs" quantity="9"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</productionRule>  -->
-
+<!-- cannot be bought
 	<productionRule name="buyFlag">				<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Flag"			quantity="1"/>	</productionRule>
 	<productionRule name="buyLend-Lease-Depot">	<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Lend-Lease-Depot" quantity="1"/></productionRule>
+	<productionRule name="buyOil-Fieldt">		<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Oil-Field" 		quantity="1"/></productionRule>
+-->
 
 <!-- Repair rules -->
 <!-- if you use ww2v3 style Industry-Hvy damage, you need repair rules -->
@@ -3768,7 +3766,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<repairRule name="repairIndustry-Med">		<cost resource="PUs" quantity="5"/>		<result resourceOrUnit="Industry-Med"	quantity="1"/>	</repairRule>
 	<repairRule name="repairIndustry-Lgt">		<cost resource="PUs" quantity="3"/>		<result resourceOrUnit="Industry-Lgt"	quantity="1"/>	</repairRule>
 	<repairRule name="repairBase-Camp">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Base-Camp"		quantity="1"/>	</repairRule>
-<!--	<repairRule name="repairFactory">			<cost resource="PUs" quantity="1"/>		<result resourceOrUnit="Factory"		quantity="1"/>	</repairRule>  -->
 
 
 	<repairFrontier name="repair">
@@ -3776,7 +3773,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<repairRules name="repairIndustry-Med"/>
 		<repairRules name="repairIndustry-Lgt"/>
 		<repairRules name="repairBase-Camp"/>
-<!--		<repairRules name="repairFactory"/>  -->
 	</repairFrontier>
 
 <!-- Unit Production Rules -->
@@ -3816,7 +3812,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3837,7 +3832,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3872,7 +3866,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3907,7 +3900,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -3945,7 +3937,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -3970,7 +3961,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4003,7 +3993,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4018,7 +4007,19 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
+	</productionFrontier>
+
+<!-- Turkey -->
+	<productionFrontier name="production_Turkey">
+		<frontierRules name="buyHQ-Army"/>
+		<frontierRules name="buyInf-Trained"/>
+		<frontierRules name="buyArmor-Lgt"/>
+		<frontierRules name="buyArtillery"/>
+		<frontierRules name="buyBunker"/>
+		<frontierRules name="buyFighter-Early"/>
+
+		<frontierRules name="buyIndustry-Lgt"/>
+		<frontierRules name="buyBase-Camp"/>
 	</productionFrontier>
 
 <!-- USA -->
@@ -4050,7 +4051,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 	<productionFrontier name="production_USA_HQs">
@@ -4084,7 +4084,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4118,7 +4117,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 <!--		<frontierRules name="buyCarrier"/>  -->
 	</productionFrontier>
 
@@ -4151,7 +4149,6 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 		<frontierRules name="buyIndustry-Med"/>
 		<frontierRules name="buyIndustry-Lgt"/>
 		<frontierRules name="buyBase-Camp"/>
-<!--		<frontierRules name="buyFactory"/>  -->
 	</productionFrontier>
 
 
@@ -4162,6 +4159,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerProduction player="Japan" 			frontier="production_Japan"/>
 	<playerProduction player="Pacific-Allies" 	frontier="production_Pacific-Allies"/>
 	<playerProduction player="Spain" 			frontier="production_Spain"/>
+	<playerProduction player="Turkey" 			frontier="production_Turkey"/>
 	<playerProduction player="USA" 				frontier="production_USA"/>
 	<playerProduction player="USSR" 			frontier="production_USSR"/>
 
@@ -4173,6 +4171,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 	<playerRepair player="Japan" 			frontier="repair"/>
 	<playerRepair player="Pacific-Allies" 	frontier="repair"/>
 	<playerRepair player="Spain" 			frontier="repair"/>
+	<playerRepair player="Turkey" 			frontier="repair"/>
 	<playerRepair player="USA" 				frontier="repair"/>
 	<playerRepair player="USSR" 			frontier="repair"/>
 
@@ -4583,7 +4582,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="129 Sea Zone" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="blockadeZone" value="true"/>	</attachment>
 
 <attachment name="territoryAttachment" attachTo="Acapulco-Chiapas" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Adana" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
+<attachment name="territoryAttachment" attachTo="Adana" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Addis Ababa" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Aden-Yemen" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Agana-Guam" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4612,7 +4611,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Angola" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Anhwei" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ankara" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Antalya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Antalya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Aragon-Catalonia" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Archangelsk" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="USSR"/></attachment>
 <attachment name="territoryAttachment" attachTo="Arizona-New Mexico" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="desert"/>	<option name="capital" value="USA"/></attachment>
@@ -4729,7 +4728,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Darfur" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Deir ez Zor" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Demyansk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Diyarbakir" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Diyarbakir" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Dodecanese Is." 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Dominican" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Dovao-Mindonao" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4745,7 +4744,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="El Salvador" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Ellice Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Eritrea" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Erzurum" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Erzurum" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Estonia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Evenkia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Extramadura" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
@@ -4804,7 +4803,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Idaho" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Irkutsk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Isfahan" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Istanbul" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="urban"/>		</attachment>
+<attachment name="territoryAttachment" attachTo="Istanbul" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>	<option name="territoryEffect" value="urban"/>	<option name="capital" value="Turkey"/></attachment>
 <attachment name="territoryAttachment" attachTo="Istria" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Italian Somaliland" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Ivory Coast" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -4849,7 +4848,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Komi" 					javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Konduz" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Konigsberg-E.Prussia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="9"/>	<option name="territoryEffect" value="urban"/>		</attachment>
-<attachment name="territoryAttachment" attachTo="Konya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Konya" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Koryak" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>													<option name="territoryEffect" value="no-asia"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Kosice-Munkacs" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Kra-Buri" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>	<option name="territoryEffect" value="no-asia"/>	</attachment>
@@ -5081,7 +5080,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Slovakia" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="2"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Slovenia-N.Croatia" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Smolensk" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Smyrna" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Smyrna" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Society Is." 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="forest"/>		</attachment>
 <attachment name="territoryAttachment" attachTo="Socotra" 				javaClass="TerritoryAttachment" type="territory">	<option name="production" value="0"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Sofia-W.Bulgaria" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="forest"/>		</attachment>
@@ -5123,7 +5122,7 @@ Politics phase, so that givesBackOriginalTerritories works, but the players do N
 <attachment name="territoryAttachment" attachTo="Toulouse-Occitania" 	javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Transdanubia" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Transvaal" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
-<attachment name="territoryAttachment" attachTo="Trebizond" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
+<attachment name="territoryAttachment" attachTo="Trebizond" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="5"/>														</attachment>
 <attachment name="territoryAttachment" attachTo="Troms-Finnmark" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>	<option name="territoryEffect" value="mountains"/>	</attachment>
 <attachment name="territoryAttachment" attachTo="Trondheim" 			javaClass="TerritoryAttachment" type="territory">	<option name="production" value="3"/>	<option name="territoryEffect" value="mountains"/>	<option name="capital" value="Germany"/></attachment>
 <attachment name="territoryAttachment" attachTo="Trucial Coast" 		javaClass="TerritoryAttachment" type="territory">	<option name="production" value="1"/>														</attachment>
@@ -5261,8 +5260,6 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	<attachment name="territoryEffectAttachment" attachTo="no-asia" javaClass="TerritoryEffectAttachment" type="territoryEffect">
 		<option name="unitsNotAllowed"	value="Kamikaze-Plane"/>
 	</attachment>
-
-
 
 
 
@@ -6597,13 +6594,11 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
         <option name="directPresenceTerritories" value="map" count="1"/>
         <option name="unitPresence" value="HQ-Army" count="5"/>
     </attachment>
-	<attachment foreach="$All-Players$" name="triggerAttachment_Leader-L3-@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+	<attachment foreach="$All-Players$" name="triggerAttachment_HQ-Army5_All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_HQ-Army5_@All-Players@"/>
             <option name="productionRule" value="production_@All-Players@:-buyHQ-Army"/>
 		<option name="when" value="before:@All-Players@Purchase"/>
 	</attachment>
-
-
 
 
 
@@ -6714,7 +6709,9 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 
 <!-- ======================================= GO changeOwnership USA-GULF OF MEXICO joined allies/USA  = T4 =======================================  -->
-
+<!--
+foreach does NOT appear to work with changeOwnership
+-->
 	<attachment name="conditionAttachment_NationalTheme_USA-GulfofMexico" attachTo="USA" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="4"/>
 	</attachment>
@@ -6740,32 +6737,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="when" value="before:@All-Players@CombatMove"/>
 	</attachment>
 
-<!--
-foreach does NOT appear to work with changeOwnership
--->
 
-<!-- ======================================= GO Convoy - recover USA Convoy in 4 Sea Zones =======================================  -->
-<!--
-	<attachment name="conditionAttachment_USA_Convoy_Recover" attachTo="USA" javaClass="RulesAttachment" type="player">
-		<option name="rounds" value="1"/>
-		<option name="rounds" value="8:10:12:14:16:18:20:22:24:26:28:30:32:34:36:38:40"/>
-	</attachment>
-	<attachment foreach="$usaRecoverConvoySZ$" name="conditionAttachment_USA_Convoy_10_@usaRecoverConvoySZ@" attachTo="USA" javaClass="RulesAttachment" type="player">
- 	<option name="directPresenceTerritories" value="@usaRecoverConvoySZ@"/>
-	<option name="unitPresence" value="Convoy" count="10"/>
-	</attachment>
-
-
-	<attachment  foreach="$usaRecoverConvoySZ$" name="triggerAttachment_USA-AI_Convoy_Recover_@usaRecoverConvoySZ@" attachTo="USA" javaClass="TriggerAttachment" type="player">
-		<option name="conditions" value="conditionAttachment_isAI_USA"/>
-		<option name="conditions" value="conditionAttachment_USA_Convoy_Recover"/>
-		<option name="conditions" value="conditionAttachment_USA_Convoy_10_@usaRecoverConvoySZ@"/>
-		<option name="removeUnits" value="@usaRecoverConvoySZ@:Convoy" count="5"/>
-		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="50"/>
-		<option name="when" value="before:USAPurchase"/>
-	</attachment>
--->
 
 
 
@@ -6869,10 +6841,6 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="triggerAttachment_Baku_USSR_Lend-Lease-Depot_Remove" attachTo="USSR" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Baku_Britain_Lend-Lease-Depot:conditionAttachment_Baku_Persian_Corridor"/>
 		<option name="invert" value="true"/>
-<!--		<option name="removeUnits" value="Fars:Lend-Lease-Depot" count="1"/>
-		<option name="removeUnits" value="Hamadan:Lend-Lease-Depot" count="1"/>
-		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
-		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>  -->
 		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>
 		<option name="when" value="before:USSR1EndTurn"/>
 	</attachment>
@@ -6883,7 +6851,6 @@ foreach does NOT appear to work with changeOwnership
 		<option name="removeUnits" value="Hamadan:Lend-Lease-Depot" count="1"/>
 		<option name="removeUnits" value="Tehran:Lend-Lease-Depot" count="1"/>
 		<option name="removeUnits" value="Gilan:Lend-Lease-Depot" count="1"/>
-<!--		<option name="removeUnits" value="Baku-Azerbaijan:Lend-Lease-Depot" count="99"/>  -->
 		<option name="when" value="before:USSR1EndTurn"/>
 	</attachment>
 
@@ -6917,7 +6884,6 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="triggerAttachment_Yunnan_China_Lend-Lease-Depot_Remove" attachTo="China" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Yunnan_USA_Lend-Lease-Depot:conditionAttachment_Burma_Road"/>
 		<option name="invert" value="true"/>
-<!--		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>  -->
 		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>
 		<option name="when" value="before:USA1EndTurn"/>
 	</attachment>
@@ -6925,7 +6891,6 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_Yunnan_USA_Lend-Lease-Depot:conditionAttachment_Burma_Road"/>
 		<option name="invert" value="true"/>
 		<option name="removeUnits" value="N.Burma:Lend-Lease-Depot" count="1"/>
-<!--		<option name="removeUnits" value="Yunnan:Lend-Lease-Depot" count="99"/>  -->
 		<option name="when" value="before:USA1EndTurn"/>
 	</attachment>
 
@@ -7083,7 +7048,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Artillery" count="2"/>
 		<option name="purchase" value="Anti-Tank" count="1"/>
 <!--		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="-11"/>	-->				<!-- -4 -4 -6 -5  -->
+		<option name="resourceCount" value="-29"/>	-->				<!-- -4-4-4-6-6-5  -->
 		<option name="when" value="before:USSRPurchase"/>
 	</attachment>
 
@@ -7363,6 +7328,7 @@ foreach does NOT appear to work with changeOwnership
 										<!-- format: "player1:player2:oldRelation:newRelation -->					
 		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Neutrals:Open-Border:Closed-Border"/>
 		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Spain:Open-Border:Closed-Border"/>
+		<option name="relationshipChange" value="@All-OpenBorderInvaders@:Turkey:Open-Border:Closed-Border"/>
 		<option name="chance" value="4:6"/>	<!-- 2in3 chance of Closed-Border 1in3 of Open-Border=Attack -->
 		<option name="when" value="before:@All-OpenBorderInvaders@Tech"/>
 	</attachment>
@@ -8242,6 +8208,7 @@ foreach does NOT appear to work with changeOwnership
 <!-- ======================================= Go Winter =======================================  -->
 <!--
 	<option name="turns" value="1:5:9:13:17:21:25:29:33:37:41:45:49:53:57:61:65:69:73:77:81:85:89:93:97:101"/>
+	<option name="turns" value="2:6:10:14:18:22:26:30:34:38:42:46:50:54:58:62:66:70:74:78:82:86:90:94:98:102"/>
 	<option name="turns" value="3:7:11:15:19:23:27:31:35:39:43:47:51:55:59:63:67:71:75:79:83:87:91:95:99"/>
 	<option name="turns" value="4:8:12:16:20:24:28:32:36:40:44:48:52:56:60:64:68:72:76:80:84:88:92:96:100"/>
 -->
@@ -8431,6 +8398,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA1EndTurn"/>
 		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 		<option name="when" value="before:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Hvy -9 -->
@@ -8448,6 +8416,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA1EndTurn"/>
 		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 		<option name="when" value="before:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Med -7 -->
@@ -8465,6 +8434,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA1EndTurn"/>
 		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 		<option name="when" value="before:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>
 
 <!-- reset Industry-Lgt -5 -->
@@ -8482,26 +8452,10 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA1EndTurn"/>
 		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 		<option name="when" value="before:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>
 
-<!-- reset Factory -3 -->
-<!--
-<attachment name="triggerAttachment_Reset_PUs5" attachTo="Germany" javaClass="TriggerAttachment" type="player">
-	<option name="conditions" value="conditionAttachment_Always_True"/>
-		<option name="unitAttachmentName" value="UnitAttachment" count="unitAttachment"/>
-		<option name="unitType" value="Factory"/>
-		<option name="unitProperty" value="createsResourcesList" count="-reset-3:PUs"/>
-		<option name="when" value="before:Germany1EndTurn"/>
-		<option name="when" value="before:USSR1EndTurn"/>
-		<option name="when" value="before:China1EndTurn"/>
-		<option name="when" value="before:Italy1EndTurn"/>
-		<option name="when" value="before:Britain1EndTurn"/>
-		<option name="when" value="before:Japan1EndTurn"/>
-		<option name="when" value="before:USA1EndTurn"/>
-		<option name="when" value="before:Pacific-Allies1EndTurn"/>
-		<option name="when" value="before:Spain1EndTurn"/>
-</attachment>
--->
+
 
 <!-- reset Oil-Field:Lend-Lease-Depot -1 -->
 <attachment name="triggerAttachment_Reset_PUs1" attachTo="Germany" javaClass="TriggerAttachment" type="player">
@@ -8518,6 +8472,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="before:USA1EndTurn"/>
 		<option name="when" value="before:Pacific-Allies1EndTurn"/>
 		<option name="when" value="before:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>
 
 <!-- Only 1 trigger is needed to set ALL to 0 after endTurn lets the AI player know that maintenance has been paid-->
@@ -8535,6 +8490,7 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="when" value="after:USA1EndTurn"/>
 		<option name="when" value="after:Pacific-Allies1EndTurn"/>
 		<option name="when" value="after:Spain1EndTurn"/>
+		<option name="when" value="before:Turkey1EndTurn"/>
 </attachment>	
 <!-- ============================================= END GO 1EndTurn RESET PU TO 0 =============================================  -->
 
@@ -8561,8 +8517,8 @@ Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snow
 		<option name="warBondDiceSides" value="4"/>
 	</attachment>
 
-	
-	
+
+
 <!-- ======================================= END GO TECH =======================================  -->
 
 <!-- ======================================= GO POLITICS ATTACHMENTS ======================================= -->
@@ -8729,18 +8685,18 @@ Less shuffling than above, but still not Player friendly
 <!-- ======================================= GO Trigger for rulesAttachment ======================================= -->
 
 <!-- pAT placementAnyTerritory ON/true before Place then OFF/false -->
-<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Reset_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
-	<option name="conditions" value="conditionAttachment_Always_True"/>
-	<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
-	<option name="playerProperty" value="placementAnyTerritory" count="false"/>
-	<option name="when" value="before:@All-Players@Purchase"/>
-</attachment>
-<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Set_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
-	<option name="conditions" value="conditionAttachment_Always_True"/>
-	<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
-	<option name="playerProperty" value="placementAnyTerritory" count="true"/>
-	<option name="when" value="before:@All-Players@Place"/>
-</attachment>
+	<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Reset_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Always_True"/>
+		<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
+		<option name="playerProperty" value="placementAnyTerritory" count="false"/>
+		<option name="when" value="before:@All-Players@Purchase"/>
+	</attachment>
+	<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Set_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_Always_True"/>
+		<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
+		<option name="playerProperty" value="placementAnyTerritory" count="true"/>
+		<option name="when" value="before:@All-Players@Place"/>
+	</attachment>
 
 <!-- ======================================= GO rulesAttachment ======================================= -->
 
@@ -8749,17 +8705,26 @@ Less shuffling than above, but still not Player friendly
 <property name="Place in Any Territory" value="true" editable="false">		is probably required
 placementAnyTerritory makes the AI place Factories given by isAI/xml, also appears to aid the AI in defending Paris much better 
 -->
-<attachment foreach="$All-Players$" name="rulesAttachment" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
-	<option name="placementAnyTerritory" value="true"/>
-<!--	<option name="placementAnySeaZone" value="true"/>  -->
-</attachment>
+	<attachment foreach="$All-Players$" name="rulesAttachment" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
+		<option name="placementAnyTerritory" value="true"/>
+	<!--	<option name="placementAnySeaZone" value="true"/>  -->
+	</attachment>
 
 <!-- see Properties= Movement By Territory Restricted=true  -->
 <!-- movementRestriction allowed limits movement to listed Territories  -->
-<attachment name="rulesAttachment" attachTo="Spain" javaClass="RulesAttachment" type="player">
-	<option name="movementRestrictionTerritories" value="Andalusia:Aragon-Catalonia:Asturias:Castille-Leon:Extramadura:Madrid-Cen.Spain:Majorca:Navarre:Valencia"/>
-	<option name="movementRestrictionType" value="allowed"/>
-</attachment>
+	<attachment name="rulesAttachment" attachTo="Spain" javaClass="RulesAttachment" type="player">
+		<option name="movementRestrictionTerritories" value="Andalusia:Aragon-Catalonia:Asturias:Castille-Leon:Extramadura:Madrid-Cen.Spain:Majorca:Navarre:Valencia"/>
+		<option name="movementRestrictionType" value="allowed"/>
+	</attachment>
+
+	<attachment name="rulesAttachment" attachTo="Turkey" javaClass="RulesAttachment" type="player">
+		<option name="movementRestrictionTerritories" value="129 Sea Zone:Adana:Ankara:Antalya:Diyarbakir:Erzurum:Istanbul:Konya:Smyrna:Trebizond"/>
+		<option name="movementRestrictionType" value="allowed"/>
+	</attachment>
+
+
+
+
 
 
 </attachmentList>
@@ -8959,10 +8924,14 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="127 A Sea Zone" 	owner="USSR"/>
 	<territoryOwner territory="127 B Sea Zone" 	owner="USSR"/>
 	<territoryOwner territory="128 Sea Zone" 	owner="USSR"/>
-	<territoryOwner territory="129 Sea Zone" 	owner="Neutrals"/>
+	<territoryOwner territory="129 Sea Zone" 	owner="Turkey"/>
+
+
+129 Sea Zone:Adana:Ankara:Antalya:Diyarbakir:Erzurum:Istanbul:Konya:Smyrna:Trebizond
+
 
 	<territoryOwner territory="Acapulco-Chiapas" 		owner="Neutrals"/>		<!-- Mexico -->
-	<territoryOwner territory="Adana" 	 	 	 		owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Adana" 	 	 	 		owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Addis Ababa" 	 		owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Aden-Yemen" 	 	 		owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Agana-Guam" 	 	 		owner="USA"/>			<!-- -->
@@ -8990,8 +8959,8 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Andaman Is." 	 		owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Angola" 	 	 	 		owner="Neutrals"/>		<!-- -->
 	<territoryOwner territory="Anhwei" 	 	 	 		owner="China"/>			<!-- -->
-	<territoryOwner territory="Ankara" 	 	 	 		owner="Neutrals"/>		<!-- -->
-	<territoryOwner territory="Antalya" 	 	 		owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Ankara" 	 	 	 		owner="Turkey"/>		<!-- -->
+	<territoryOwner territory="Antalya" 	 	 		owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Aragon-Catalonia" 		owner="Spain"/>		<!-- Spain -->
 	<territoryOwner territory="Archangelsk" 	 		owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Arizona-New Mexico" 		owner="USA"/>			<!-- -->
@@ -9108,7 +9077,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Darfur" 	 	 	 		owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Deir ez Zor" 	 		owner="Britain"/>		<!-- Syria France Germany -->
 	<territoryOwner territory="Demyansk" 	 	 		owner="USSR"/>			<!-- -->
-	<territoryOwner territory="Diyarbakir" 	 	 		owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Diyarbakir" 	 	 		owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Dodecanese Is." 	 		owner="Italy"/>			<!-- Greece -->
 	<territoryOwner territory="Dominican"				owner="Neutrals"/>		<!-- -->
 	<territoryOwner territory="Dovao-Mindonao" 	 		owner="USA"/>			<!-- -->
@@ -9124,7 +9093,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="El Salvador" 	 		owner="Neutrals"/>		<!-- -->
 	<territoryOwner territory="Ellice Is." 	 	 		owner="Pacific-Allies"/><!-- -->
 	<territoryOwner territory="Eritrea" 	 	 		owner="Britain"/>		<!-- -->
-	<territoryOwner territory="Erzurum" 	 	 		owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Erzurum" 	 	 		owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Estonia" 	 	 		owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Evenkia" 	 	 		owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Extramadura" 	 		owner="Spain"/>		<!-- Spain -->
@@ -9182,7 +9151,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Idaho" 	 	 	 		owner="USA"/>			<!-- -->
 	<territoryOwner territory="Irkutsk" 	 	 		owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Isfahan" 	 	 		owner="Britain"/>		<!-- -->
-	<territoryOwner territory="Istanbul" 	 	 		owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Istanbul" 	 	 		owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Istria" 	 	 	 		owner="Italy"/>			<!-- -->
 	<territoryOwner territory="Italian Somaliland" 		owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Ivory Coast" 	 		owner="Germany"/>		<!-- -->
@@ -9227,7 +9196,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Komi" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Konduz" 	 	 	 	 	owner="Neutrals"/>		<!-- -->
 	<territoryOwner territory="Konigsberg-E.Prussia" 	owner="Germany"/>		<!-- -->
-	<territoryOwner territory="Konya" 	 	 	 	 	owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Konya" 	 	 	 	 	owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Koryak" 	 	 	 	 	owner="USSR"/>			<!-- -->
 	<territoryOwner territory="Kosice-Munkacs" 	 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Kra-Buri" 	 	 	 	owner="Japan"/>			<!-- -->
@@ -9458,7 +9427,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Slovakia" 	 	 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Slovenia-N.Croatia" 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Smolensk" 	 	 	 	owner="USSR"/>			<!-- -->
-	<territoryOwner territory="Smyrna" 	 	 	 	 	owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Smyrna" 	 	 	 	 	owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Society Is." 	 	 	owner="Pacific-Allies"/><!-- -->
 	<territoryOwner territory="Socotra" 	 	 	 	owner="Britain"/>		<!-- -->
 	<territoryOwner territory="Sofia-W.Bulgaria" 	 	owner="Germany"/>		<!-- -->
@@ -9498,7 +9467,7 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="Toulouse-Occitania" 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Transdanubia" 	 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Transvaal" 	 	 	 	owner="Britain"/>		<!-- -->
-	<territoryOwner territory="Trebizond" 	 	 	 	owner="Neutrals"/>		<!-- -->
+	<territoryOwner territory="Trebizond" 	 	 	 	owner="Turkey"/>		<!-- -->
 	<territoryOwner territory="Troms-Finnmark" 	 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Trondheim" 	 	 	 	owner="Germany"/>		<!-- -->
 	<territoryOwner territory="Trucial Coast" 	 	 	owner="Britain"/>		<!-- -->
@@ -10846,43 +10815,48 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 
 <!-- ======================================= Neutrals Turkey ======================================= -->
 <!-- Turkey -->
-	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="129 Sea Zone" 	 	 	unitType="Convoy"			quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Adana" 	 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Ankara" 	 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Antalya" 	 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Bunker" 			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Diyarbakir" 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Bunker" 			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Armor-Lgt"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Fighter-Early"	quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Erzurum" 	 	 	 		unitType="HQ-Army"			quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Bunker" 			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Artillery"		quantity="5" owner="Turkey"/>
+	<unitPlacement territory="Erzurum" 	 	 	 	 	unitType="Inf-Trained"		quantity="10" owner="Turkey"/>
 
-	<unitPlacement territory="Konya" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Konya"  	 	 	 	 	unitType="Artillery"		quantity="1" owner="Neutrals"/>
-	<unitPlacement territory="Konya"  	 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Neutrals"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Base-Camp" 		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="HQ-Army"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Bunker" 			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Artillery"		quantity="5" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Armor-Lgt"		quantity="3" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Fighter-Early"	quantity="3" owner="Turkey"/>
+	<unitPlacement territory="Istanbul" 	 	 	 	unitType="Inf-Trained"		quantity="10" owner="Turkey"/>
 
-	<unitPlacement territory="Smyrna" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Smyrna"  	 	 	 	 	unitType="Artillery"		quantity="3" owner="Neutrals"/>
-	<unitPlacement territory="Smyrna"  	 	 	 	 	unitType="Inf-Trained"		quantity="6" owner="Neutrals"/>
+	<unitPlacement territory="Konya" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
 
-	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Bunker"			quantity="2" owner="Neutrals"/>
-	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Artillery"		quantity="1" owner="Neutrals"/>
-	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Neutrals"/>
+	<unitPlacement territory="Smyrna" 	 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Smyrna"  	 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Smyrna"  	 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
+
+	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Industry-Lgt"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Trebizond"	 	 	 	unitType="HQ-Army"			quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Bunker"			quantity="2" owner="Turkey"/>
+	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Artillery"		quantity="1" owner="Turkey"/>
+	<unitPlacement territory="Trebizond" 	 	 	 	unitType="Inf-Trained"		quantity="2" owner="Turkey"/>
 
 
 <!-- ======================================= Neutrals Sahara ======================================= -->
@@ -11010,6 +10984,7 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 	<relationship type="War" 			player1="Germany" 			player2="USA"			roundValue="1"/>
 	<relationship type="Open-Border"	player1="Germany" 			player2="Neutrals" 		roundValue="1"/>
 	<relationship type="Open-Border"	player1="Germany" 			player2="Spain" 		roundValue="1"/>
+	<relationship type="Open-Border"	player1="Germany" 			player2="Turkey" 		roundValue="1"/>
 	<relationship type="winterr"		player1="Germany" 			player2="winterp"		roundValue="1"/>
 
 	<relationship type="Allied" 		player1="Italy" 			player2="Japan" 		roundValue="1"/>
@@ -11020,6 +10995,7 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 	<relationship type="War" 			player1="Italy" 			player2="USA" 			roundValue="1"/>
 	<relationship type="Open-Border"	player1="Italy" 			player2="Neutrals" 		roundValue="1"/>
 	<relationship type="Open-Border"	player1="Italy" 			player2="Spain" 		roundValue="1"/>
+	<relationship type="Open-Border"	player1="Italy" 			player2="Turkey" 		roundValue="1"/>
 	<relationship type="winterr"		player1="Italy" 			player2="winterp"		roundValue="1"/>
 
 	<relationship type="Closed-Border" 	player1="Japan" 			player2="USSR" 			roundValue="1"/>
@@ -11029,6 +11005,7 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 	<relationship type="War" 			player1="Japan" 			player2="USA" 			roundValue="1"/>
 	<relationship type="Open-Border"	player1="Japan" 			player2="Neutrals" 	 	roundValue="1"/>
 	<relationship type="Open-Border"	player1="Japan" 			player2="Spain" 	 	roundValue="1"/>
+	<relationship type="Open-Border"	player1="Japan" 			player2="Turkey" 	 	roundValue="1"/>
 	<relationship type="winterr"		player1="Japan" 			player2="winterp"		roundValue="1"/>
 
 	<relationship type="Allied-USSR" 	player1="USSR" 				player2="Britain" 		roundValue="1"/>
@@ -11037,6 +11014,7 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 	<relationship type="Allied-USSR" 	player1="USSR" 				player2="USA" 			roundValue="1"/>
 	<relationship type="Open-Border"	player1="USSR" 				player2="Neutrals" 	 	roundValue="1"/>
 	<relationship type="Open-Border"	player1="USSR" 				player2="Spain" 	 	roundValue="1"/>
+	<relationship type="Open-Border"	player1="USSR" 				player2="Turkey" 	 	roundValue="1"/>
 	<relationship type="winterr"		player1="USSR" 				player2="winterp"		roundValue="1"/>
 
 	<relationship type="Allied" 		player1="Britain" 			player2="Pacific-Allies" roundValue="1"/>
@@ -11044,30 +11022,35 @@ Allied-USSR   Allies cannot enter USSR and gives back TT to USSR
 	<relationship type="Allied" 		player1="Britain" 			player2="USA" 			roundValue="1"/>
 	<relationship type="Closed-Border"	player1="Britain" 			player2="Neutrals" 		roundValue="1"/>
 	<relationship type="Closed-Border"	player1="Britain" 			player2="Spain" 		roundValue="1"/>
+	<relationship type="Closed-Border"	player1="Britain" 			player2="Turkey" 		roundValue="1"/>
 	<relationship type="winterr"		player1="Britain" 			player2="winterp"		roundValue="1"/>
 
 	<relationship type="Allied" 		player1="Pacific-Allies" 	player2="China" 		roundValue="1"/>
 	<relationship type="Allied" 		player1="Pacific-Allies" 	player2="USA" 			roundValue="1"/>
 	<relationship type="Closed-Border"	player1="Pacific-Allies" 	player2="Neutrals" 	 	roundValue="1"/>
 	<relationship type="Closed-Border"	player1="Pacific-Allies" 	player2="Spain" 	 	roundValue="1"/>
+	<relationship type="Closed-Border"	player1="Pacific-Allies" 	player2="Turkey" 	 	roundValue="1"/>
 	<relationship type="winterr"		player1="Pacific-Allies" 	player2="winterp"		roundValue="1"/>
 
 	<relationship type="Allied" 		player1="China" 			player2="USA" 			roundValue="1"/>
 	<relationship type="Closed-Border"	player1="China" 			player2="Neutrals" 		roundValue="1"/>
 	<relationship type="Closed-Border"	player1="China" 			player2="Spain" 		roundValue="1"/>
+	<relationship type="Closed-Border"	player1="China" 			player2="Turkey" 		roundValue="1"/>
 	<relationship type="winterr"		player1="China" 			player2="winterp"		roundValue="1"/>
 
 	<relationship type="Closed-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="1"/>
 	<relationship type="Closed-Border"	player1="USA" 				player2="Spain" 	 	roundValue="1"/>
+	<relationship type="Closed-Border"	player1="USA" 				player2="Turkey" 	 	roundValue="1"/>
 	<relationship type="winterr"		player1="USA"				player2="winterp"		roundValue="1"/>
 
 	<relationship type="winterr"		player1="winterp" 			player2="Neutrals"		roundValue="1"/>
 	<relationship type="winterr"		player1="winterp" 			player2="Spain"			roundValue="1"/>
+	<relationship type="winterr"		player1="winterp" 			player2="Turkey"		roundValue="1"/>
 
 	<relationship type="Closed-Border"	player1="Spain" 			player2="Neutrals"		roundValue="1"/>
+	<relationship type="Closed-Border"	player1="Turkey" 			player2="Neutrals"		roundValue="1"/>
 
-
-
+	<relationship type="Closed-Border"	player1="Spain" 			player2="Turkey"		roundValue="1"/>
 
 <!--	<relationship type="Closed-Border"	player1="USA" 				player2="Neutrals" 	 	roundValue="5"/> --><!-- does not work -->
 </relationshipInitialize>

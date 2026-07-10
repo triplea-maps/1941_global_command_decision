@@ -187,7 +187,7 @@
 127 A Sea Zone  (7468,332) 
 127 B Sea Zone  (8750,232) 
 128 Sea Zone  (8114,2875) 
-129 Sea Zone  (6733,3337) 
+129 Sea Zone  (6780,3308) 
 Acapulco-Chiapas  (541,3912) 
 Adana  (7151,3443) 
 Addis Ababa  (7078,5422) 
