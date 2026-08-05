@@ -9024,8 +9024,6 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<territoryOwner territory="129 Sea Zone" 	owner="Turkey"/>
 
 
-129 Sea Zone:Adana:Ankara:Antalya:Diyarbakir:Erzurum:Istanbul:Konya:Smyrna:Trebizond
-
 
 	<territoryOwner territory="Acapulco-Chiapas" 		owner="Neutrals"/>		<!-- Mexico -->
 	<territoryOwner territory="Adana" 	 	 	 		owner="Turkey"/>		<!-- -->
