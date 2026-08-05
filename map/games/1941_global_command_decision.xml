@@ -1,26 +1,47 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.270"/>
+	<info name="1941 Global Command Decision" version="1.275"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
-<!--
-/ Turkey TT
-/ units
-TT increase PU by Objective, increase Industry-Hvy2 PU replaces Industry-Hvy
+<!-- TODO
+
+
+v275
+Currently the Non Aggession Pact between USSR and Japan starts to fail arounf Turn 15, only because its Turn 15, this is illogical.
+
+So to improve on it, this applies to Players & AI
+The USSR and Japan have a Non Aggression Pact that prevents both sides from attacking each other.
+* When Japan or allies owns Chungking/Industry-Med there will be skirmishes on the Japan-USSR border
+* When Japan or allies owns Chungking/Industry-Med & Urumchi-Kansu/Industry-Lgt it will declare war on USSR
+* When USSR retakes 3 of its lost territories held before Operation Barbarossa there will be skirmishes on the Japan-USSR border
+* When USSR retakes 5 of its lost territories held before Operation Barbarossa it will declare war on Japan
+
+Gemrnay & Italy will now have a harder time vs USSR, as USSR will be focusing on their attacks and not distracted by Japan to the south.
+
+Japan AI needs help to play better
+* When Japan or allies owns Chungking/Industry-Med, for each turn up to 9 times it will **purchase** 3x Destroyers, 1x Cruiser, 1x Convoy
+* When Japan or allies owns Urumchi-Kansu/Industry-Lgt, for each turn up to 9 times it will **purchase** 3x Destroyers, 1x Cruiser
+* Having achieved some of its primary objectives Japan can divert resources to ships.
+
+China Player & AI
+* As Japan and USSR will not go to war around turn 15 and Japan was conquering China too easily/quickly.
+* China has a small free increase of a Bunker per turn, this simulates its massive population digging in and resisting its invaders
+
+
+USA AI needs help to play better
+* Turns 2,4,8,12,16,20,24 AI **purchases** 2x Fighter, Bomber-Tac, Carrier-Fleet, 2x Cruiser, Battleship and places in 010 B Sea Zone
+* This is a small increase of a Cruiser & Battleship and it makes the USA AI more aggressive when using Fast-AI
+
+This is big, I think I finally understand Sea Zone ownership and PU production
+* Each Sea Zone generates 1-2pu per turn for the **original** owner only, just like Convoy Centers. Enemy occupation denies the original owner of the PU income.  The current owner has its national flag in the Sea Zone.
 
 
 
 v270
 Bunker 4pu, was 5, helps the AI buy more
 Turkey will now defend as a nation, if attacked, was as each separate territory
-
-
-
-v265
-* Thanks to the genius that is @wc_sumpton the Factory Placement is now turned on when its needed then off when its not. :)
-* This probably returns the AI game play as before, but we shall see  
 
 TODO
 <5 on map HQ-Air HQ-Fleet HQ-Submarine
@@ -236,9 +257,33 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<element name="127 B Sea Zone"/>
 </variable>
 
-
-
-
+<variable name="All-NAP-TT">			<!-- 22 -->
+	<element name="Bessarabia"/>
+	<element name="Bialystok"/>
+	<element name="Brest"/>
+	<element name="Estonia"/>
+	<element name="Grodno"/>
+	<element name="Kherson"/>
+	<element name="Kiev-Cen.Ukraine"/>
+	<element name="Latgale"/>
+	<element name="Latvia"/>
+	<element name="Lithuania"/>
+	<element name="Lviv"/>
+	<element name="Minsk"/>
+	<element name="Mogilev"/>
+	<element name="Moldavia"/>
+	<element name="Odesa-Mykoliav"/>
+	<element name="Pinsk"/>
+	<element name="Prypiat"/>
+	<element name="Pskov"/>
+	<element name="Rzeszow"/>
+	<element name="Vilna"/>
+	<element name="Vitebsk"/>
+	<element name="Vyborg"/>
+</variable>
+	
+	
+	
 <variable name="All-Axis">		<!-- 3 -->
 	<element name="Germany"/>
 	<element name="Italy"/>
@@ -6578,6 +6623,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	</attachment>
 
 <!-- @@@@@ HQ-Army <5 on map HQ-Air HQ-Fleet HQ-Submarine  -->
+<!--
     <attachment foreach="$All-Players$" name="conditionAttachment_HQ-Army01234_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
         <option name="directPresenceTerritories" value="map" count="1"/>
         <option name="unitPresence" value="HQ-Army" count="5"/>
@@ -6588,8 +6634,9 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
             <option name="productionRule" value="production_@All-Players@:buyHQ-Army"/>
 		<option name="when" value="before:@All-Players@Purchase"/>
 	</attachment>
-
+-->
 <!-- HQ-Army =5 on map -->
+<!--
     <attachment foreach="$All-Players$" name="conditionAttachment_HQ-Army5_@All-Players@" attachTo="@All-Players@" javaClass="RulesAttachment" type="player">
         <option name="directPresenceTerritories" value="map" count="1"/>
         <option name="unitPresence" value="HQ-Army" count="5"/>
@@ -6599,7 +6646,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
             <option name="productionRule" value="production_@All-Players@:-buyHQ-Army"/>
 		<option name="when" value="before:@All-Players@Purchase"/>
 	</attachment>
-
+-->
 
 
 
@@ -6738,48 +6785,94 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 
 
+<!-- ======================================= GO NAP Non Aggession Pact Japan & USSR=======================================  -->
 
-
-
-
-<!-- ======================================= GO NAP None Aggession Pact Japan & Russia =======================================  -->
-<!-- T1-11 NAP, T12-13 Notify All-Players Border skirmishes, T14+  war -->
-
-<!-- T1-11 NAP &  T12-13 NAP skirmishes -->
-	<attachment name="conditionAttachment_Japan_USSR_Skirmish" attachTo="USSR" javaClass="RulesAttachment" type="player">
-		<option name="rounds" value="12-13"/>	<!-- current 12-13 -->
+<!-- Japan owns Chungking/Industry-Med & Notify Skirmish with USSR strained NAP -->
+	<attachment name="conditionAttachment_NationalTheme_Japan_AI_owns_Chungking" attachTo="Japan" javaClass="RulesAttachment" type="player">
+		<option name="alliedPresenceTerritories" value="Chungking" count="1"/>
 	</attachment>
-	<attachment  foreach="$All-Players$" name="triggerAttachment_Japan_USSR_Skirmish" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
-		<option name="conditions" value="conditionAttachment_Japan_USSR_Skirmish"/>
+	<attachment name="triggerAttachment_NationalTheme_Japan_AI_owns_Chungking" attachTo="Japan" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_Japan_AI_owns_Chungking"/>
+		<option name="conditions" value="conditionAttachment_isAI_Japan"/>
+		<option name="purchase" value="Destroyer" count="3"/>
+		<option name="purchase" value="Cruiser" count="1"/>
+		<option name="purchase" value="Convoy" count="1"/>
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-36"/>	<!-- 6+6+6+8+10  -->
+		<option name="when" value="before:JapanPurchase"/>
+		<option name="uses" value="9"/>
+	</attachment>
+	<attachment  foreach="$All-Players$" name="triggerAttachment_Japan_USSR_Skirmish_@All-Players@" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_Japan_AI_owns_Chungking"/>
 		<option name="notification" value="Notify_Japan_USSR_Skirmish"/>
 		<option name="players" value="@All-Players@"/>
 		<option name="when" value="before:@All-Players@CombatMove"/>
+		<option name="uses" value="2"/>
 	</attachment>
 
-<!-- 1:3 chance Closed-Border to War, this is deliberately ahistoricial -->
-	<attachment name="conditionAttachment_Japan_USSR_NAP_T14" attachTo="USSR" javaClass="RulesAttachment" type="player">
-		<option name="rounds" value="14-+"/>	<!-- current 14, was 13-+ -->
+<!-- Japan/allied owns Urumchi-Kansu Industry-Lgt -->
+	<attachment name="conditionAttachment_NationalTheme_Japan_AI_owns_Urumchi-Kansu" attachTo="Japan" javaClass="RulesAttachment" type="player">
+		<option name="alliedPresenceTerritories" value="Urumchi-Kansu" count="1"/>
 	</attachment>
-	<attachment name="conditionAttachment_Japan_USSR_Closed-Border" attachTo="USSR" javaClass="RulesAttachment" type="player">
-		<option name="relationship" value="Japan:USSR:Closed-Border"/>
+	<attachment name="triggerAttachment_NationalTheme_Japan_AI_owns_Urumchi-Kansu" attachTo="Japan" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_Japan_AI_owns_Urumchi-Kansu"/>
+		<option name="conditions" value="conditionAttachment_isAI_Japan"/>
+		<option name="purchase" value="Destroyer" count="3"/>
+		<option name="purchase" value="Cruiser" count="1"/>
+			<option name="resource" value="PUs"/>
+			<option name="resourceCount" value="-26"/>	<!-- 6+6+6+8  -->
+		<option name="when" value="before:JapanPurchase"/>
+		<option name="uses" value="9"/>
 	</attachment>
-	<attachment  name="triggerAttachment_Japan_USSR_NAP_T14" attachTo="USSR" javaClass="TriggerAttachment" type="player">
-		<option name="conditions" value="conditionAttachment_Japan_USSR_NAP_T14"/>
-		<option name="conditions" value="conditionAttachment_Japan_USSR_Closed-Border"/>
+
+<!-- Japan/allied owns China well their 2 factorys & Declares War with USSR breaking NAP applies to Player & AI -->
+	<attachment name="triggerAttachment_NationalTheme_Japan_AI_owns_China" attachTo="Japan" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_NationalTheme_Japan_AI_owns_Chungking"/>
+		<option name="conditions" value="conditionAttachment_NationalTheme_Japan_AI_owns_Urumchi-Kansu"/>
+	<!--	<option name="conditions" value="conditionAttachment_isAI_Japan"/>  -->
 		<option name="relationshipChange" value="Japan:USSR:Closed-Border:War"/>
-		<option name="chance" value="1:3"/>
-		<option name="when" value="before:USSRCombatMove"/>
+		<option name="when" value="before:JapanCombatMove"/>
 	</attachment>
-
-<!-- T13+ Notify All-Players of Japan_USSR_War -->
-	<attachment name="conditionAttachment_Japan_USSR_War" attachTo="USSR" javaClass="RulesAttachment" type="player">
+	<attachment name="conditionAttachment_Japan_USSR_War" attachTo="Japan" javaClass="RulesAttachment" type="player">
 		<option name="relationship" value="Japan:USSR:War"/>
-		<option name="rounds" value="14-+"/>	<!-- current 14, was 13-+  -->
 	</attachment>
 	<attachment  foreach="$All-Players$" name="triggerAttachment_Japan_USSR_War" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Japan_USSR_War"/>
 		<option name="notification" value="Notify_Japan_USSR_War"/>
 		<option name="players" value="$All-Players$"/>
+		<option name="when" value="before:@All-Players@CombatMove"/>
+		<option name="uses" value="1"/>
+	</attachment>
+
+
+
+<!-- ======================================= GO NAP Non Aggession Pact USSR & Japan =======================================  -->
+<!-- There are 22 TT when USSR has retaken/owns X = border skirmishes, but only from round 5+ -->
+	<attachment name="conditionAttachment_USSR_Japan_Skirmish" attachTo="USSR" javaClass="RulesAttachment" type="player">
+		<option name="directOwnershipTerritories" value="$All-NAP-TT$" count="3"/>
+	</attachment>
+	<attachment name="conditionAttachment_USSR_T5" attachTo="USSR" javaClass="RulesAttachment" type="player">
+		<option name="rounds" value="5-+"/>
+	</attachment>
+	<attachment  foreach="$All-Players$" name="triggerAttachment_USSR_Japan_Skirmish" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_USSR_Japan_Skirmish"/>
+		<option name="conditions" value="conditionAttachment_USSR_T5"/>
+		<option name="notification" value="Notify_Japan_USSR_Skirmish"/>
+		<option name="players" value="@All-Players@"/>
+		<option name="when" value="before:@All-Players@CombatMove"/>
+		<option name="uses" value="2"/>
+	</attachment>
+
+<!-- There are 22 TT when USSR has retaken/owns X+2 = Notify All-Players of USSR_Japan_War applies to Player & AI, but only from round 5+  -->
+	<attachment name="conditionAttachment_USSR_Japan_War" attachTo="USSR" javaClass="RulesAttachment" type="player">
+		<option name="directOwnershipTerritories" value="$All-NAP-TT$" count="5"/>
+	</attachment>
+	<attachment  foreach="$All-Players$" name="triggerAttachment_USSR_Japan_War" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
+		<option name="conditions" value="conditionAttachment_USSR_Japan_War"/>
+		<option name="conditions" value="conditionAttachment_USSR_T5"/>
+		<option name="notification" value="Notify_Japan_USSR_War"/>
+		<option name="players" value="$All-Players$"/>
+		<option name="relationshipChange" value="Japan:USSR:Closed-Border:War"/>
 		<option name="when" value="before:@All-Players@CombatMove"/>
 		<option name="uses" value="1"/>
 	</attachment>
@@ -7047,8 +7140,6 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Inf-Trained" count="3"/>		<!-- free Guard Infantry -->
 		<option name="purchase" value="Artillery" count="2"/>
 		<option name="purchase" value="Anti-Tank" count="1"/>
-<!--		<option name="resource" value="PUs"/>
-		<option name="resourceCount" value="-29"/>	-->				<!-- -4-4-4-6-6-5  -->
 		<option name="when" value="before:USSRPurchase"/>
 	</attachment>
 
@@ -7071,6 +7162,7 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="triggerAttachment_NationalTheme_China" attachTo="China" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_NationalTheme_China"/>
 		<option name="Purchase" value="Inf-Trained" count="3"/>		<!-- free -->
+		<option name="Purchase" value="Bunker" count="1"/>			<!-- free -->
 		<option name="when" value="before:ChinaPurchase"/>
 	</attachment>
 
@@ -7116,14 +7208,14 @@ foreach does NOT appear to work with changeOwnership
 		<option name="conditions" value="conditionAttachment_NationalTheme_China-AI"/>
 		<option name="conditions" value="conditionAttachment_isAI_China"/>
 		<option name="purchase" value="Industry-Med" count="1"/>
-		<option name="purchase" value="Industry-Lgt" count="2"/>
-		<option name="purchase" value="Bunker" count="2"/>
+		<option name="purchase" value="Industry-Lgt" count="1"/>
+		<option name="purchase" value="Base-Camp" count="1"/>
 		<option name="purchase" value="HQ-Army" count="1"/>			<!-- free as no Industry-Hvy -->
 		<option name="purchase" value="Fighter-Early" count="1"/>	<!-- free Foreign Fighters -->
 		<option name="when" value="before:ChinaPurchase"/>
 	</attachment>
 
-
+<!-- ======================================= Germany GO AI  =======================================  -->
 <!-- Germany GO AI isAI -->
 	<attachment name="conditionAttachment_NationalTheme_Germany-AI" attachTo="Germany" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="2:8:16:24:32:40"/>
@@ -7178,7 +7270,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="when" value="before:ItalyPurchase"/>
 	</attachment>
 
-
+<!-- ======================================= Japan GO AI  =======================================  -->
 <!-- Japan GO AI isAI -->
 	<attachment name="conditionAttachment_NationalTheme_Japan-AI" attachTo="Japan" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="2:8:16:24:32:40"/>
@@ -7204,6 +7296,8 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 
 
+
+<!-- ======================================= Pacific-Allies GO AI  =======================================  -->
 <!-- Pacific-Allies GO AI isAI -->
 	<attachment name="conditionAttachment_NationalTheme_Pacific-Allies-AI" attachTo="Pacific-Allies" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="2:8:16:24:32:40"/>
@@ -7254,6 +7348,7 @@ foreach does NOT appear to work with changeOwnership
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
 
+
 <!-- USA GO AI isAI Destroyer -->
 <!-- Seattle-Washington Med -->
 	<attachment name="conditionAttachment_NationalTheme_USA-AI_DestW" attachTo="USA" javaClass="RulesAttachment" type="player">
@@ -7264,9 +7359,11 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="triggerAttachment_NationalTheme_USA-AI_DestW" attachTo="USA" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_DestW"/>
 		<option name="conditions" value="conditionAttachment_isAI_USA"/>
-		<option name="placement" value="010 B Sea Zone:Destroyer" count="2"/>	<!-- West Coast -->
+		<option name="placement" value="001 A Sea Zone:Destroyer" count="1"/>	<!-- West Coast -->
+		<option name="placement" value="010 A Sea Zone:Destroyer" count="1"/>	<!-- West Coast -->
+		<option name="placement" value="010 B Sea Zone:Destroyer" count="1"/>	<!-- West Coast -->
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-10"/>
+			<option name="resourceCount" value="-15"/>
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
 <!-- Washington D.C. Hvy -->
@@ -7290,17 +7387,18 @@ foreach does NOT appear to work with changeOwnership
 	<attachment name="conditionAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="RulesAttachment" type="player">
 		<option name="directPresenceTerritories" value="Cen.California" count="1"/>
 		<option name="unitPresence" value="Industry-Hvy" count="1"/>
-		<option name="rounds" value="2:4:8:16:20:24"/>	<!-- diff -->
+		<option name="rounds" value="2:4:8:12:16:20:24"/>	<!-- diff -->
 	</attachment>
 	<attachment name="triggerAttachment_NationalTheme_USA-AI_Fleet" attachTo="USA" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_NationalTheme_USA-AI_Fleet"/>
 		<option name="conditions" value="conditionAttachment_isAI_USA"/>
 		<option name="placement" value="010 B Sea Zone:Fighter" count="2"/>				<!-- West Coast -->
-		<option name="placement" value="010 B Sea Zone:Bomber-Tac" count="1"/>				<!-- West Coast -->
+		<option name="placement" value="010 B Sea Zone:Bomber-Tac" count="1"/>
 		<option name="placement" value="010 B Sea Zone:Carrier-Fleet" count="1"/>
-		<option name="placement" value="010 B Sea Zone:Cruiser" count="1"/>
+		<option name="placement" value="010 B Sea Zone:Cruiser" count="2"/>
+		<option name="placement" value="010 B Sea Zone:Battleship" count="1"/>
 			<option name="resource" value="PUs"/>
-			<option name="resourceCount" value="-45"/>	 <!-- 7+7+8 +16 +7  -->
+			<option name="resourceCount" value="-67"/>	 <!-- 7+7+8 +16 +7+7  +15  -->
 		<option name="when" value="before:USAPurchase"/>
 	</attachment>
 
@@ -7318,7 +7416,6 @@ foreach does NOT appear to work with changeOwnership
 		<option name="purchase" value="Bunker" count="2"/>
 		<option name="when" value="before:USSRPurchase"/>
 	</attachment>
-
 
 
 <!--  AI Axis & USSR use Closed-Border		G0 AI isAI -->
@@ -7953,7 +8050,7 @@ foreach does NOT appear to work with changeOwnership
 	</attachment>
 
 
-<!-- ======================================= Tech USA 3x HQs ======================================= -->
+<!-- ======================================= Tech USA 3x HQ-Army HQ-Fleet HQ-Air ======================================= -->
 <!-- USA 3x HQ types T5 -->
 	<attachment name="conditionAttachment_USA_Research_HQs" attachTo="USA" javaClass="RulesAttachment" type="player">
 		<option name="rounds" value="5"/>
@@ -9819,12 +9916,14 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<unitPlacement territory="Sinkiang" 				unitType="HQ-Army" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Sinkiang" 				unitType="Inf-Trained" 		quantity="1" owner="China"/>
 
+	<unitPlacement territory="Chengdu-Szechwan" 		unitType="Base-Camp" 		quantity="1" owner="China"/>
+	<unitPlacement territory="Chengdu-Szechwan" 		unitType="Bunker" 			quantity="2" owner="China"/>
+	<unitPlacement territory="Shensi" 					unitType="Base-Camp" 		quantity="1" owner="China"/>
+	<unitPlacement territory="Shensi" 					unitType="Bunker" 			quantity="2" owner="China"/>
+	<unitPlacement territory="Sikang" 					unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Sikang" 					unitType="Bunker" 			quantity="1" owner="China"/>
 	<unitPlacement territory="Tsinghai" 				unitType="Base-Camp" 		quantity="1" owner="China"/>
 	<unitPlacement territory="Tsinghai" 				unitType="Bunker" 			quantity="1" owner="China"/>
-	<unitPlacement territory="Shensi" 					unitType="Bunker" 			quantity="2" owner="China"/>
-	<unitPlacement territory="Shensi" 					unitType="Base-Camp" 		quantity="1" owner="China"/>
-	<unitPlacement territory="Chengdu-Szechwan" 		unitType="Bunker" 			quantity="2" owner="China"/>
 
 
 <!-- ======================================== Germany ======================================== -->
@@ -11207,7 +11306,10 @@ and any defending interceptors fire at 2, while the bombers fire at 1.  The batt
 	<!-- NEW Alagaësia General Zod says This needs to be false since combat boats are also 
 	transports Or can add "isCombatTransport" value="true" to the unit attachment -->
 	<property name="Ignore Transport In Movement" 		value="false" editable="false">	<boolean/>	</property>
-
+<!-- if TRUE
+Causes transport casualties to be taken last.  Unescorted transports will die automatically in combat
+This prevents transports from being used as cannon fodder
+Disallows transports from having attack/defense capabilities, must have Atk=0 & Def=0  -->
 	<property name="Transport Casualties Restricted" 	value="false" editable="false">	<boolean/>	</property>
 <!-- @@@ Restricts an isLandTransport to unloading into a single Territory -->
 	<property name="Transport Restricted Unload" 		value="false" editable="false">	<boolean/>	</property>

@@ -54,7 +54,7 @@
 033 B Sea Zone  (12833,5050) 
 034 A Sea Zone  (12369,5450) 
 034 B Sea Zone  (12558,5105) 
-035 A Sea Zone  (11979,4650) 
+035 A Sea Zone  (11961,4650) 
 035 B Sea Zone  (12016,5106) 
 036 A Sea Zone  (11041,4796) 
 036 B Sea Zone  (10833,4526) 
