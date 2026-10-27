@@ -1,12 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE game SYSTEM "game.dtd">
 <game>
-	<info name="1941 Global Command Decision" version="1.275"/>
+	<info name="1941 Global Command Decision" version="1.280"/>
 	<loader javaClass="games.strategy.triplea.TripleA"/>
 	<triplea minimumVersion="2.7.14848"/>
 	<diceSides value="6"/>
 <!-- TODO
 
+Change to 6 turn years, instead of 4 turn years, affects Tech & Winter, as games last 21ish rounds
+Reduce Industry PU output by -2pu
+
+
+v280
+/ * Tooltip correction Kamikaze-Plane This desperate tactic will only become available when the Home Islands are under threat! (Thanks to @cybergroover)
+/ * De-stack USSR Armor-Inf into 5s, might improve USSR AI play  (Thanks to @captain0)
+/ * Germany AI should defend Paris better with fewer units, freeing up units for the attack on USSR
 
 v275
 Currently the Non Aggession Pact between USSR and Japan starts to fail arounf Turn 15, only because its Turn 15, this is illogical.
@@ -20,33 +28,11 @@ The USSR and Japan have a Non Aggression Pact that prevents both sides from atta
 
 Gemrnay & Italy will now have a harder time vs USSR, as USSR will be focusing on their attacks and not distracted by Japan to the south.
 
-Japan AI needs help to play better
-* When Japan or allies owns Chungking/Industry-Med, for each turn up to 9 times it will **purchase** 3x Destroyers, 1x Cruiser, 1x Convoy
-* When Japan or allies owns Urumchi-Kansu/Industry-Lgt, for each turn up to 9 times it will **purchase** 3x Destroyers, 1x Cruiser
-* Having achieved some of its primary objectives Japan can divert resources to ships.
 
-China Player & AI
-* As Japan and USSR will not go to war around turn 15 and Japan was conquering China too easily/quickly.
-* China has a small free increase of a Bunker per turn, this simulates its massive population digging in and resisting its invaders
-
-
-USA AI needs help to play better
-* Turns 2,4,8,12,16,20,24 AI **purchases** 2x Fighter, Bomber-Tac, Carrier-Fleet, 2x Cruiser, Battleship and places in 010 B Sea Zone
-* This is a small increase of a Cruiser & Battleship and it makes the USA AI more aggressive when using Fast-AI
-
-This is big, I think I finally understand Sea Zone ownership and PU production
-* Each Sea Zone generates 1-2pu per turn for the **original** owner only, just like Convoy Centers. Enemy occupation denies the original owner of the PU income.  The current owner has its national flag in the Sea Zone.
-
-
-
-v270
-Bunker 4pu, was 5, helps the AI buy more
-Turkey will now defend as a nation, if attacked, was as each separate territory
 
 TODO
 <5 on map HQ-Air HQ-Fleet HQ-Submarine
 techAbilityAttachment  "productionBonus" = Factory production
-
 
 HQs purchase logic - Land=5, Sea=3, Air=1, Sub=5 dont show
 Frontier HQ at the end
@@ -86,10 +72,11 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 					1942-3Q = Turn 4	1943-3Q = Turn 8	1944-3Q = Turn 12   1945-3Q = Turn 16
 1941-4Q = Turn 1	1942-4Q = Turn 5	1943-4Q = Turn 9	1944-4Q = Turn 13   1945-4Q = Turn 17
 
-======================================= 1941 Command Decision Black Elk (Graphics) & TheDog (Code) =======================================
+======================================= 1941 Command Decision Black Elk (Graphics, Testing) & TheDog (Code, Testing) =======================================
 -->
 
 <variableList>
+<!-- ======================================= TT / SZ ======================================= -->
 
 <!-- Go Winter -->
 <!-- forest -->
@@ -281,195 +268,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<element name="Vitebsk"/>
 	<element name="Vyborg"/>
 </variable>
-	
-	
-	
-<variable name="All-Axis">		<!-- 3 -->
-	<element name="Germany"/>
-	<element name="Italy"/>
-	<element name="Japan"/>
-</variable>
-
-<variable name="All-Allies">	<!-- 5 -->
-	<element name="Britain"/>
-	<element name="China"/>
-	<element name="Pacific-Allies"/>
-	<element name="USA"/>
-	<element name="USSR"/>
-</variable>
-
-<variable name="All-Neutrals">	<!-- 2 -->
-	<element name="Spain"/>
-	<element name="Turkey"/>
-</variable>
-
-<variable name="All-Players">	<!-- 8 -->
-	<element name="$All-Axis$"/>
-	<element name="$All-Allies$"/>
-</variable>
-
-<variable name="All-Players-Neutrals">	<!-- 9 -->
-	<element name="$All-Axis$"/>
-	<element name="$All-Allies$"/>
-	<element name="$All-Neutrals$"/>
-</variable>
-
-<variable name="All-OpenBorderInvaders">	<!-- 4 -->
-	<element name="$All-Axis$"/>
-	<element name="USSR"/>
-</variable>
-
-
-
-<!-- isLand -->
-<variable name="All-Infantry--Motorized">	<!-- 3 -->
-	<element name="Inf-Conscript"/>
-	<element name="Inf-Trained"/>
-	<element name="Inf-Elite"/>
-</variable>
-
-<variable name="All-Infantry">		<!-- 4 -->
-	<element name="$All-Infantry--Motorized$"/>
-	<element name="Inf-Motorized"/>
-</variable>
-
-<variable name="All-Armor">			<!-- 4 -->
-	<element name="Armor-Inf"/>
-	<element name="Armor-Lgt"/>
-	<element name="Armor-Med"/>
-	<element name="Armor-Hvy"/>
-</variable>
-
-<variable name="All-Armor--Armor-Inf">	<!-- 3 -->
-<!--		<element name="Armor-Inf"/>  -->
-	<element name="Armor-Lgt"/>
-	<element name="Armor-Med"/>
-	<element name="Armor-Hvy"/>
-</variable>
-
-<variable name="All-Move1Land">		<!-- 6 -->
-	<element name="$All-Infantry--Motorized$"/>	<!-- 3 -->
-	<element name="Artillery"/>
-	<element name="Anti-Tank"/>
-	<element name="Armor-Inf"/>
-</variable>
-
-<variable name="All-Move2Land">		<!-- 5 -->
-	<element name="HQ-Army"/>
-	<element name="Inf-Motorized"/>
-	<element name="$All-Armor--Armor-Inf$"/>	<!-- 3 -->
-</variable>
-
-<variable name="All-HQ-Army-Command">	<!-- 10 -->
-	<element name="$All-Infantry$"/><!-- 4 -->
-	<element name="Artillery"/>
-	<element name="Anti-Tank"/>
-	<element name="$All-Armor$"/>	<!-- 4 -->
-<!--		<element name="Bunker"/>	Only has Def
-	<element name="Base-Camp"/>		Only has Def
-	<element name="Lend-Lease-Depot"/>	0/0
-	<element name="Oil-Field"/>			0/0
--->
-</variable>
-
-
-<!-- isSea -->
-<variable name="All-Surface">		<!-- 7 -->
-	<element name="HQ-Fleet"/>
-	<element name="Convoy"/>
-	<element name="Destroyer"/>
-	<element name="Cruiser"/>
-	<element name="Battleship"/>
-	<element name="Carrier"/>
-	<element name="Carrier-Fleet"/>
-</variable>
-
-<variable name="All-HQ-Sea-Command">	<!-- 5 -->
-	<element name="Destroyer"/>
-	<element name="Cruiser"/>
-	<element name="Battleship"/>
-	<element name="Submarine"/>
-	<element name="Submarine-Adv"/>
-<!--		<element name="HQ-Fleet"/>		Not self
-	<element name="HQ-Submarine"/>		Not self
-	<element name="Convoy"/>			Only has Def
-	<element name="Carrier"/>			Only has Def
-	<element name="Carrier-Fleet"/>		Only has Def
--->
-</variable>
-
-<variable name="All-Submarine">			<!-- 10 -->
-	<element name="HQ-Submarine"/>
-	<element name="Submarine"/>
-	<element name="Submarine-Adv"/>
-</variable>
-
-<variable name="All-Sea">			<!-- 10 -->
-	<element name="$All-Submarine$"/> <!-- 3 -->
-	<element name="$All-Surface$"/>	<!-- 7 -->
-</variable>
-
-
-
-<!-- isAir -->
-<variable name="All-Fighters">		<!-- 4, But not Kamikaze-Plane  -->
-	<element name="Fighter-Early"/>
-	<element name="Fighter"/>
-	<element name="Fighter-Jet"/>
-	<element name="Fighter-LongR"/>
-</variable>
-
-<variable name="All-Air-Targetable">	<!-- 10  -->
-	<element name="HQ-Air"/>
-	<element name="Kamikaze-Plane"/>
-	<element name="Air-Transport"/>
-	<element name="Bomber-Tac"/>
-	<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
-
-	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-	<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
-</variable>
-
-<variable name="All-Air">				<!-- 12  -->
-	<element name="HQ-Air"/>
-	<element name="Kamikaze-Plane"/>
-	<element name="Air-Transport"/>
-	<element name="Bomber-Tac"/>
-	<element name="Bomber"/>
-	<element name="Nuclear-Bomber"/>
-	<element name="V1-Rocket"/>
-	<element name="V2-Rocket"/>
-	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-</variable>
-
-<variable name="All-HQ-Air-Command">	<!-- 6  -->
-	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-	<element name="Bomber-Tac"/>
-	<element name="Bomber"/>
-<!--		<element name="Bomber-LongR"/>
-	<element name="HQ-Air"/>		Not self
-	<element name="Kamikaze-Plane"/>	Special
-	<element name="Air-Transport"/>		0/0
-	<element name="Nuclear-Bomber"/>	Special
-	<element name="V1-Rocket"/>			Unmanned & Only has Atk
-	<element name="V2-Rocket"/>			Unmanned & Only has Atk
--->
-</variable>
-
-<variable name="All-Air-Notvs-Subs">				<!-- 12  -->
-	<element name="HQ-Air"/>
-	<element name="Kamikaze-Plane"/>
-	<element name="Air-Transport"/>
-<!--		<element name="Bomber-Tac"/>  -->
-	<element name="Bomber"/>
-	<element name="Nuclear-Bomber"/>
-	<element name="V1-Rocket"/>
-	<element name="V2-Rocket"/>
-	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
-</variable>
-
-
-
 
 <variable name="SubmarineSZ">	<!-- 11+5 doubled 102, 104, 105, 108, 118 Random SZ for German submarines -->
 	<element name="091 A Sea Zone"/>
@@ -508,8 +306,6 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<element name="021 B Sea Zone"/>
 </variable>	
 
-
-
 <!-- GO Victory -->
 <variable name="Victory">		<!-- 29  -->
 	<element name="Baghdad"/>				<!-- Oil Field -->
@@ -541,6 +337,191 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<element name="Uzbekistan"/>			<!-- Oil Field -->
 	<element name="Warsaw-Cen.Poland"/>				<!-- Capital -->
 	<element name="Washington D.C."/>				<!-- Capital -->
+</variable>
+
+
+<!-- ======================================= Units ======================================= -->
+
+<!-- isAir -->
+<variable name="All-Fighters">		<!-- 4, But not Kamikaze-Plane  -->
+	<element name="Fighter-Early"/>
+	<element name="Fighter"/>
+	<element name="Fighter-Jet"/>
+	<element name="Fighter-LongR"/>
+</variable>
+
+<variable name="All-HQ-Air-Command">	<!-- 6  -->
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>
+<!--		<element name="Bomber-LongR"/>
+	<element name="HQ-Air"/>			Not self
+	<element name="Kamikaze-Plane"/>	Special
+	<element name="Air-Transport"/>		0/0
+	<element name="Nuclear-Bomber"/>	Special
+	<element name="V1-Rocket"/>			Unmanned & Only has Atk
+	<element name="V2-Rocket"/>			Unmanned & Only has Atk
+-->
+</variable>
+
+<variable name="All-Air-Targetable">	<!-- 10  -->
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>			<!-- not Nuclear-Bomber as flys too high -->
+	<element name="V1-Rocket"/>			<!-- not V2 as flys too fast -->
+</variable>
+
+<variable name="All-Air-Notvs-Subs">	<!-- 11  -->
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+<!--		<element name="Bomber-Tac"/>  -->
+	<element name="Bomber"/>
+	<element name="Nuclear-Bomber"/>
+	<element name="V1-Rocket"/>
+	<element name="V2-Rocket"/>
+</variable>
+
+<variable name="All-Air">				<!-- 12  -->
+	<element name="$All-Fighters$"/>	<!-- 4, But not Kamikaze-Plane  -->
+	<element name="HQ-Air"/>
+	<element name="Kamikaze-Plane"/>
+	<element name="Air-Transport"/>
+	<element name="Bomber-Tac"/>
+	<element name="Bomber"/>
+	<element name="Nuclear-Bomber"/>
+	<element name="V1-Rocket"/>
+	<element name="V2-Rocket"/>
+</variable>
+
+
+<!-- isLand -->
+<variable name="All-Infantry--Motorized">	<!-- 3 -->
+	<element name="Inf-Conscript"/>
+	<element name="Inf-Trained"/>
+	<element name="Inf-Elite"/>
+</variable>
+
+<variable name="All-Infantry">			<!-- 4 -->
+	<element name="$All-Infantry--Motorized$"/>
+	<element name="Inf-Motorized"/>
+</variable>
+
+<variable name="All-Armor--Armor-Inf">	<!-- 3 -->
+	<element name="Armor-Lgt"/>
+	<element name="Armor-Med"/>
+	<element name="Armor-Hvy"/>
+</variable>
+
+<variable name="All-Armor">				<!-- 4 -->
+	<element name="$All-Armor--Armor-Inf$"/>
+	<element name="Armor-Inf"/>
+</variable>
+
+<variable name="All-Move1Land">			<!-- 6 -->
+	<element name="$All-Infantry--Motorized$"/>	<!-- 3 -->
+	<element name="Artillery"/>
+	<element name="Anti-Tank"/>
+	<element name="Armor-Inf"/>
+</variable>
+
+<variable name="All-Move2Land">				<!-- 5 -->
+	<element name="$All-Armor--Armor-Inf$"/><!-- 3 -->
+	<element name="HQ-Army"/>
+	<element name="Inf-Motorized"/>
+</variable>
+
+<variable name="All-HQ-Army-Command">	<!-- 10 -->
+	<element name="$All-Infantry$"/>	<!-- 4 -->
+	<element name="$All-Armor$"/>		<!-- 4 -->
+	<element name="Artillery"/>
+	<element name="Anti-Tank"/>
+<!--
+	<element name="Bunker"/>			Only has Def
+	<element name="Base-Camp"/>			Only has Def
+	<element name="Lend-Lease-Depot"/>	0/0
+	<element name="Oil-Field"/>			0/0
+-->
+</variable>
+
+
+<!-- isSea -->
+<variable name="All-Surface">		<!-- 7 -->
+	<element name="HQ-Fleet"/>
+	<element name="Convoy"/>
+	<element name="Destroyer"/>
+	<element name="Cruiser"/>
+	<element name="Battleship"/>
+	<element name="Carrier"/>
+	<element name="Carrier-Fleet"/>
+</variable>
+
+<variable name="All-HQ-Sea-Command">	<!-- 5 -->
+	<element name="Destroyer"/>
+	<element name="Cruiser"/>
+	<element name="Battleship"/>
+	<element name="Submarine"/>
+	<element name="Submarine-Adv"/>
+<!--
+	<element name="HQ-Fleet"/>		Not self
+	<element name="HQ-Submarine"/>	Not self
+	<element name="Convoy"/>		Only has Def
+	<element name="Carrier"/>		Only has Def
+	<element name="Carrier-Fleet"/>	Only has Def
+-->
+</variable>
+
+<variable name="All-Submarine">			<!-- 10 -->
+	<element name="HQ-Submarine"/>
+	<element name="Submarine"/>
+	<element name="Submarine-Adv"/>
+</variable>
+
+<variable name="All-Sea">				<!-- 10 -->
+	<element name="$All-Submarine$"/>	<!-- 3 -->
+	<element name="$All-Surface$"/>		<!-- 7 -->
+</variable>
+
+
+
+<!-- ======================================= Players ======================================= -->
+<variable name="All-Axis">		<!-- 3 -->
+	<element name="Germany"/>
+	<element name="Italy"/>
+	<element name="Japan"/>
+</variable>
+
+<variable name="All-Allies">	<!-- 5 -->
+	<element name="Britain"/>
+	<element name="China"/>
+	<element name="Pacific-Allies"/>
+	<element name="USA"/>
+	<element name="USSR"/>
+</variable>
+
+<variable name="All-Neutrals">	<!-- 2 -->
+	<element name="Spain"/>
+	<element name="Turkey"/>
+</variable>
+
+<variable name="All-Players">	<!-- 8 -->
+	<element name="$All-Axis$"/>
+	<element name="$All-Allies$"/>
+</variable>
+
+<variable name="All-Players-Neutrals">	<!-- 10 -->
+	<element name="$All-Axis$"/>
+	<element name="$All-Allies$"/>
+	<element name="$All-Neutrals$"/>
+</variable>
+
+<variable name="All-OpenBorderInvaders">	<!-- 4 -->
+	<element name="$All-Axis$"/>
+	<element name="USSR"/>
 </variable>
 
 </variableList>
@@ -3538,6 +3519,7 @@ TIMELINE			1942-1Q = Turn 2	1943-1Q = Turn 6	1944-1Q = Turn 10	1945-1Q = Turn 14
 	<unit name="Oil-Field"/>
 	<unit name="Flag"/>
 	<unit name="Lend-Lease-Depot"/>
+	<unit name="4ai"/>
 <!-- Go Winter -->
 	<unit name="WinterLand"/>
 	<unit name="WinterSea"/>
@@ -5381,7 +5363,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 <!-- ======================================= GO UNIT STATS =======================================  -->
 <!-- ======================================= HQ STATS =======================================  -->
 
-<!-- HQ-Air (as Fighter) -->
+<!-- Go HQ-Air (as Fighter) -->
 	<attachment name="unitAttachment" attachTo="HQ-Air" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="1"/>
 		<option name="attack" value="1"/>
@@ -5411,7 +5393,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="tuv" value="25"/>
 	</attachment>
 
-<!-- HQ-Army (as Armor-Hvy) -->
+<!-- Go HQ-Army (as Armor-Hvy) -->
 	<attachment name="unitAttachment" attachTo="HQ-Army" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="5"/>
 		<option name="attack" value="4"/>
@@ -5424,9 +5406,9 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="canBlitz" value="true"/>
 			<option name="isLandTransport" value="true"/>		<!-- carry 1:1 isLandTransportable -->
 <!-- AA  -->
-		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
-			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
-			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
+		<option name="isAAforCombatOnly" value="true"/>
+			<option name="offensiveAttackAA" value="1"/>
+			<option name="attackAA" value="1"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5439,7 +5421,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="tuv" value="20"/>
 	</attachment>
 
-<!-- HQ-Fleet (as Cruiser) -->
+<!-- Go HQ-Fleet (as Cruiser) -->
 	<attachment name="unitAttachment" attachTo="HQ-Fleet" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="3"/>
 		<option name="attack" value="3"/>
@@ -5464,7 +5446,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- HQ-Submarine (as Submarine) -->
+<!-- Go HQ-Submarine (as Submarine) -->
 	<attachment name="unitAttachment" attachTo="HQ-Submarine" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="5"/>
 		<option name="attack" value="3"/>
@@ -5488,7 +5470,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 <!-- ======================================= isLAND =======================================  -->
 
-<!-- Inf-Conscript -->
+<!-- Go Inf-Conscript -->
 	<attachment name="unitAttachment" attachTo="Inf-Conscript" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -5503,7 +5485,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Base-Camp"/>
 	</attachment>
 
-<!-- Inf-Trained -->
+<!-- Go Inf-Trained -->
 	<attachment name="unitAttachment" attachTo="Inf-Trained" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="2"/>
@@ -5528,7 +5510,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Base-Camp"/>
 	</attachment>
 
-<!-- Inf-Elite -->
+<!-- Go Inf-Elite -->
 	<attachment name="unitAttachment" attachTo="Inf-Elite" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 			<option name="isMarine" value="1"/>					<!-- +1 Amphibious attack -->
@@ -5539,9 +5521,9 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="isAirTransportable" value="true"/>
 			<option name="isLandTransportable" value="true"/>
 <!-- AA  -->
-		<option name="isAAforCombatOnly" value="true"/>			<!-- use AA for normal combat only -->
-			<option name="offensiveAttackAA" value="1"/>		<!-- sets the value the AA will attack at -->
-			<option name="attackAA" value="1"/>					<!-- misnomer, this applies to defense -->
+		<option name="isAAforCombatOnly" value="true"/>
+			<option name="offensiveAttackAA" value="1"/>
+			<option name="attackAA" value="1"/>
 			<option name="maxAAattacks" value="1"/>
 			<option name="maxRoundsAA" value="2"/>
 				<option name="mayOverStackAA" value="true"/>
@@ -5554,7 +5536,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Base-Camp"/>
 	</attachment>
 
-<!-- Inf-Motorized -->
+<!-- Go Inf-Motorized -->
 	<attachment name="unitAttachment" attachTo="Inf-Motorized" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="2"/>
@@ -5582,7 +5564,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	</attachment>
 
 
-<!-- Armor-Inf like Chruchill & KV-1 -->
+<!-- Go Armor-Inf like Chruchill & KV-1 -->
 	<attachment name="unitAttachment" attachTo="Armor-Inf" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
 			<option name="isMarine" value="-1"/>
@@ -5604,7 +5586,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Armor-Lgt -->
+<!-- Go Armor-Lgt -->
 	<attachment name="unitAttachment" attachTo="Armor-Lgt" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="2"/>
 			<option name="isMarine" value="-1"/>
@@ -5629,7 +5611,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Lgt"/>
 	</attachment>
 
-<!-- Armor-Med -->
+<!-- Go Armor-Med -->
 	<attachment name="unitAttachment" attachTo="Armor-Med" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
 			<option name="isMarine" value="-1"/>
@@ -5638,7 +5620,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="movement" value="2"/>
 			<option name="TransportCost" value="4"/>
 			<option name="canBlitz" value="true"/>
-		<option name="isLandTransport" value="true"/>	<!-- carry 1:1 isLandTransportable -->
+		<option name="isLandTransport" value="true"/>
 <!-- AA  -->
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
@@ -5653,7 +5635,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Armor-Hvy -->
+<!-- Go Armor-Hvy -->
 	<attachment name="unitAttachment" attachTo="Armor-Hvy" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="4"/>
 			<option name="isMarine" value="-1"/>
@@ -5663,7 +5645,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="movement" value="2"/>
 			<option name="TransportCost" value="4"/>
 			<option name="canBlitz" value="true"/>
-		<option name="isLandTransport" value="true"/>		<!-- carry 1:1 isLandTransportable -->
+		<option name="isLandTransport" value="true"/>
 <!-- AA  -->
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
@@ -5677,7 +5659,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Artillery -->
+<!-- Go Artillery -->
 	<attachment name="unitAttachment" attachTo="Artillery" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="2"/>
 			<option name="isFirstStrike" value="true"/>			<!-- Long range attack -->
@@ -5702,15 +5684,15 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Lgt"/>
 	</attachment>
 
-<!-- Anti-Tank -->
+<!-- Go Anti-Tank -->
 	<attachment name="unitAttachment" attachTo="Anti-Tank" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
-			<option name="isFirstStrike" value="true"/>			<!-- simulate ambush attack -->
+			<option name="isFirstStrike" value="true"/>
 		<option name="defense" value="2"/>
 			<option name="canNotTarget" value="$All-Air$"/>
 		<option name="movement" value="1"/>
 			<option name="TransportCost" value="4"/>
-			<option name="isLandTransportable" value="true"/>	<!-- allows the unit to be transported by 'isLandTransport' IF you have mechanizedInfantry technology -->
+			<option name="isLandTransportable" value="true"/>
 <!-- AA  -->
 		<option name="isAAforCombatOnly" value="true"/>
 			<option name="offensiveAttackAA" value="1"/>
@@ -5723,9 +5705,10 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="createsResourcesList" value="-1:PUs"/>
 			<option name="requiresUnits" value="Industry-Hvy"/>
 			<option name="requiresUnits" value="Industry-Med"/>
+<!--		<option name="tuv" value="5"/> pu=5 -->
 	</attachment>
 
-<!-- Bunker -->
+<!-- Go Bunker -->
 	<attachment name="unitAttachment" attachTo="Bunker" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="2"/>
@@ -5749,7 +5732,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 <!-- ======================================= isSEA =======================================  -->
 
-<!-- Convoy -->
+<!-- Go Convoy -->
 	<attachment name="unitAttachment" attachTo="Convoy" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="1"/>
@@ -5774,7 +5757,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Destroyer -->
+<!-- Go Destroyer -->
 	<attachment name="unitAttachment" attachTo="Destroyer" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -5798,7 +5781,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Cruiser -->
+<!-- Go Cruiser -->
 	<attachment name="unitAttachment" attachTo="Cruiser" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="2"/>
 		<option name="defense" value="2"/>
@@ -5824,7 +5807,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Battleship -->
+<!-- Go Battleship -->
 	<attachment name="unitAttachment" attachTo="Battleship" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="4"/>
 		<option name="defense" value="4"/>
@@ -5852,7 +5835,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Carrier -->
+<!-- Go Carrier -->
 	<attachment name="unitAttachment" attachTo="Carrier" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="1"/>
@@ -5875,7 +5858,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Carrier-Fleet -->
+<!-- Go Carrier-Fleet -->
 	<attachment name="unitAttachment" attachTo="Carrier-Fleet" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="1"/>
@@ -5898,7 +5881,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Submarine -->
+<!-- Go Submarine -->
 	<attachment name="unitAttachment" attachTo="Submarine" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="2"/>
 		<option name="defense" value="2"/>
@@ -5917,7 +5900,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Submarine-Adv -->
+<!-- Go Submarine-Adv -->
 	<attachment name="unitAttachment" attachTo="Submarine-Adv" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
 		<option name="defense" value="2"/>
@@ -5962,7 +5945,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 -->
 <!-- ======================================= isAIR =======================================  -->
 
-<!-- Fighter-Early -->
+<!-- Go Fighter-Early -->
 	<attachment name="unitAttachment" attachTo="Fighter-Early" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -5991,7 +5974,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Fighter -->
+<!-- Go Fighter -->
 	<attachment name="unitAttachment" attachTo="Fighter" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -6020,7 +6003,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Fighter-LongR -->
+<!-- Go Fighter-LongR -->
 	<attachment name="unitAttachment" attachTo="Fighter-LongR" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -6048,7 +6031,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Fighter-Jet -->
+<!-- Go Fighter-Jet -->
 	<attachment name="unitAttachment" attachTo="Fighter-Jet" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -6076,7 +6059,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Kamikaze-Plane -->
+<!-- Go Kamikaze-Plane -->
 	<attachment name="unitAttachment" attachTo="Kamikaze-Plane" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="3"/>
 		<option name="defense" value="3"/>
@@ -6093,7 +6076,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Bomber-Tac -->
+<!-- Go Bomber-Tac -->
 	<attachment name="unitAttachment" attachTo="Bomber-Tac" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="2"/>
 		<option name="defense" value="1"/>
@@ -6122,7 +6105,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Med"/>
 	</attachment>
 
-<!-- Bomber -->
+<!-- Go Bomber -->
 	<attachment name="unitAttachment" attachTo="Bomber" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="1"/>
@@ -6150,7 +6133,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	</attachment>
 
 
-<!-- Nuclear-Bomber -->
+<!-- Go Nuclear-Bomber -->
 	<attachment name="unitAttachment" attachTo="Nuclear-Bomber" javaClass="UnitAttachment" type="unitType">
 			<option name="maxBuiltPerPlayer" value="2"/>
 		<option name="attack" value="6"/>
@@ -6182,7 +6165,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="tuv" value="25"/>
 	</attachment>
 
-<!-- V1-Rocket -->
+<!-- Go V1-Rocket -->
 	<attachment name="unitAttachment" attachTo="V1-Rocket" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="0"/>
@@ -6200,7 +6183,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- V2-Rocket -->
+<!-- Go V2-Rocket -->
 	<attachment name="unitAttachment" attachTo="V2-Rocket" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="1"/>
 		<option name="defense" value="0"/>
@@ -6218,7 +6201,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 			<option name="requiresUnits" value="Industry-Hvy"/>
 	</attachment>
 
-<!-- Air-Transport -->
+<!-- Go Air-Transport -->
 	<attachment name="unitAttachment" attachTo="Air-Transport" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="0"/>
@@ -6234,7 +6217,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 	</attachment>
 
 
-<!-- Industry-Hvy -->
+<!-- Go Industry-Hvy -->
 	<attachment name="unitAttachment" attachTo="Industry-Hvy" javaClass="UnitAttachment" type="unitType">
 		<option name="isFactory" value="true"/>
 		<option name="canBeDamaged" value="true"/>
@@ -6265,7 +6248,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
 
-<!-- Industry-Med -->
+<!-- Go Industry-Med -->
 	<attachment name="unitAttachment" attachTo="Industry-Med" javaClass="UnitAttachment" type="unitType">
 		<option name="isFactory" value="true"/>
 		<option name="canBeDamaged" value="true"/>
@@ -6296,7 +6279,7 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
 
-<!-- Industry-Lgt -->
+<!-- Go Industry-Lgt -->
 	<attachment name="unitAttachment" attachTo="Industry-Lgt" javaClass="UnitAttachment" type="unitType">
 		<option name="isFactory" value="true"/>
 		<option name="canBeDamaged" value="true"/>
@@ -6322,12 +6305,12 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 				<option name="mayOverStackAA" value="false"/>	<!-- As isFactory so cannot stack, was true -->
 
 		<option name="isAirBase" value="true"/>
-		<option name="createsResourcesList" value="5:PUs"/>		<!-- linked to GO 1EndTurn RESET PU TO 0 -->
+		<option name="createsResourcesList" value="7:PUs"/>		<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="givesMovement" value="1:$All-Move2Land$"/>
 		<option name="givesMovement" value="2:$All-Move1Land$"/>
 	</attachment>
 
-<!-- Base-Camp destroyable production unit -->
+<!-- Go Base-Camp destroyable production unit -->
 	<attachment name="unitAttachment" attachTo="Base-Camp" javaClass="UnitAttachment" type="unitType">
 		<option name="attack" value="0"/>
 		<option name="defense" value="1"/> <!-- can only participate if isInfrastructure set to false, but it appears to works as is -->
@@ -6364,20 +6347,27 @@ Simulate slower move on a River, costs 1+1=2 to enter, see below			<option name=
 
 
 <!-- =============================================  cost 1pu cant be bought, tuv for AI attraction  ============================================= -->
-<!-- Flag National owner flag -->
+<!-- Go Flag National owner flag -->
 	<attachment name="unitAttachment" attachTo="Flag" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
 		<option name="tuv" value="10"/>		<!-- Flag is on Capital of a nation -->
 	</attachment>
 
-<!-- Oil-Field Reserves -->
+<!-- Go Oil-Field Reserves -->
 	<attachment name="unitAttachment" attachTo="Oil-Field" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
 		<option name="createsResourcesList" value="1:PUs"/>	<!-- linked to GO 1EndTurn RESET PU TO 0 -->
 		<option name="tuv" value="5"/>
 	</attachment>
 
-<!-- Lend-Lease-Depot -->
+<!-- Go 4ai attraction on Paris -->
+	<attachment name="unitAttachment" attachTo="4ai" javaClass="UnitAttachment" type="unitType">
+		<option name="isInfrastructure" value="true"/>
+		<option name="tuv" value="100"/>
+	</attachment>
+
+
+<!-- Go Lend-Lease-Depot -->
 	<attachment name="unitAttachment" attachTo="Lend-Lease-Depot" javaClass="UnitAttachment" type="unitType">
 		<option name="isInfrastructure" value="true"/>
 		<option name="destroyedWhenCapturedBy" value="BY:$All-Players$"/>
@@ -8334,7 +8324,6 @@ foreach does NOT appear to work with changeOwnership
 -reset- each TT to main territoryEffect OR main territoryEffect+Winter effect
 each -reset-XXX(TerritoryEffectAttachment) overwrites each TT listed in territories for its TerritoryEffectAttachment
 Uses a pseudo ALLIED player=winterp to add/remove a allied unit(Winter unit Snowflake) WinterLand & WInterSea to show Winter
-
 -->
 
 <!-- forest Clear Winter Snow -->
@@ -8780,8 +8769,13 @@ Less shuffling than above, but still not Player friendly
 
 
 <!-- ======================================= GO Trigger for rulesAttachment ======================================= -->
+<!--
+Must also set <option name="placementAnyTerritory" value="true"/> in Go RulesAttachment below
 
-<!-- pAT placementAnyTerritory ON/true before Place then OFF/false -->
+<option name="placementAnyTerritory" value="true"/>
+
+pAT placementAnyTerritory ON/true before Place then OFF/false
+-->
 	<attachment foreach="$All-Players$" name="triggerAttachment_@All-Players@_Reset_pAT" attachTo="@All-Players@" javaClass="TriggerAttachment" type="player">
 		<option name="conditions" value="conditionAttachment_Always_True"/>
 		<option name="playerAttachmentName" value="RulesAttachment" count="rulesAttachment"/>
@@ -8818,10 +8812,6 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 		<option name="movementRestrictionTerritories" value="129 Sea Zone:Adana:Ankara:Antalya:Diyarbakir:Erzurum:Istanbul:Konya:Smyrna:Trebizond"/>
 		<option name="movementRestrictionType" value="allowed"/>
 	</attachment>
-
-
-
-
 
 
 </attachmentList>
@@ -9996,6 +9986,8 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 	<unitPlacement territory="Paris-Cen.France"			unitType="Inf-Trained" 		quantity="2" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France"			unitType="Inf-Motorized" 	quantity="3" owner="Germany"/>
 	<unitPlacement territory="Paris-Cen.France"			unitType="Bomber" 			quantity="4" owner="Germany"/>
+	<unitPlacement territory="Paris-Cen.France"			unitType="4ai" 				quantity="1" owner="Germany"/>	<!-- 4ai attraction -->
+
 
 	<unitPlacement territory="Bordeaux-Gascony" 		unitType="Inf-Trained"		quantity="1" owner="Germany"/>
 	<unitPlacement territory="Poitou" 					unitType="Inf-Trained"		quantity="1" owner="Germany"/>
@@ -10730,7 +10722,9 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 
 	<unitPlacement territory="Baku-Azerbaijan" 			unitType="Lend-Lease-Depot" quantity="9" owner="USSR"/>
 
-	<unitPlacement territory="Siberia" 					unitType="Armor-Inf" 		quantity="9" owner="USSR"/>
+	<unitPlacement territory="Irkutsk" 					unitType="Armor-Inf"		quantity="5" owner="USSR"/>
+
+	<unitPlacement territory="Siberia" 					unitType="Armor-Inf" 		quantity="5" owner="USSR"/>
 	<unitPlacement territory="Siberia" 					unitType="Anti-Tank" 		quantity="9" owner="USSR"/>
 	<unitPlacement territory="Siberia" 					unitType="Artillery" 		quantity="9" owner="USSR"/>
 	<unitPlacement territory="Siberia" 					unitType="Inf-Elite" 		quantity="9" owner="USSR"/>
@@ -10740,8 +10734,10 @@ placementAnyTerritory makes the AI place Factories given by isAI/xml, also appea
 
 	<unitPlacement territory="Omsk" 					unitType="Fighter" 			quantity="3" owner="USSR"/>
 	<unitPlacement territory="Omsk" 					unitType="Bomber-Tac" 		quantity="3" owner="USSR"/>
+	<unitPlacement territory="Omsk" 					unitType="Armor-Inf" 		quantity="5" owner="USSR"/>
 
-	<unitPlacement territory="Tomsk" 					unitType="Armor-Inf" 		quantity="9" owner="USSR"/>
+	<unitPlacement territory="Novosibirsk" 				unitType="Armor-Inf" 		quantity="3" owner="USSR"/>
+
 	<unitPlacement territory="Tomsk" 					unitType="Armor-Med" 		quantity="9" owner="USSR"/>
 	<unitPlacement territory="Tomsk" 					unitType="Anti-Tank" 		quantity="9" owner="USSR"/>
 	<unitPlacement territory="Tomsk" 					unitType="Artillery" 		quantity="9" owner="USSR"/>
